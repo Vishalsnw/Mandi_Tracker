@@ -1,0 +1,61 @@
+# GitHub Actions Workflow for Automated APMC Price Scraping
+# Save this file as .github/workflows/scrape-prices.yml in your GitHub repository
+
+name: Scrape APMC Prices
+
+on:
+  schedule:
+    # Run every day at 6:00 AM IST (00:30 UTC)
+    - cron: '30 0 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 pandas requests lxml trafilatura
+      
+      - name: Run scraper
+        run: |
+          python scraper.py
+        env:
+          # Add any API keys or credentials as GitHub Secrets
+          # APMC_API_KEY: ${{ secrets.APMC_API_KEY }}
+      
+      - name: Commit and push if data changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update APMC prices - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Instructions for setup:
+# 1. Create a GitHub repository for your project
+# 2. Push your code including scraper.py
+# 3. Create this file at .github/workflows/scrape-prices.yml
+# 4. The workflow will run automatically based on the schedule
+# 5. You can also trigger it manually from the Actions tab
+
+# For production use:
+# - Update scraper.py to fetch real data from APMC portals
+# - Store scraped data in a database (PostgreSQL, MongoDB, etc.)
+# - Add error notifications (email, Slack, etc.)
+# - Implement data validation and quality checks
+# - Add retry logic for failed scrapes
