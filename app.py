@@ -7,11 +7,19 @@ from scraper import scrape_apmc_data, generate_price_trends, get_nearby_mandis
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
 
 st.set_page_config(
-    page_title="Mandli Bhav",
+    page_title="Mandi Bhav",
     page_icon="🌾",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+st.markdown("""
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4CAF50">
+""", unsafe_allow_html=True)
 
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
@@ -39,21 +47,50 @@ st.markdown("""
         font-family: 'Roboto', sans-serif;
     }
     
+    /* Hide Streamlit UI elements for native app look */
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {display: none;}
+    [data-testid="stToolbar"] {display: none;}
+    [data-testid="stDecoration"] {display: none;}
+    [data-testid="stStatusWidget"] {display: none;}
+    .stActionButton {display: none;}
+    
+    /* Mobile-first layout */
     .stApp {
         background-color: #F5F5F5;
-        max-width: 480px;
-        margin: 0 auto;
+        max-width: 100vw;
+        margin: 0;
+        padding: 0;
     }
     
     .main {
         background-color: #F5F5F5;
-        padding: 0;
-        padding-bottom: 80px;
+        padding: 0 !important;
+        padding-bottom: 70px !important;
+        max-width: 100vw;
+        margin: 0;
     }
     
     .block-container {
-        padding: 1rem;
-        max-width: 480px;
+        padding: 12px 16px !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+    }
+    
+    /* For larger screens, center with max-width */
+    @media (min-width: 768px) {
+        .stApp {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .main {
+            max-width: 480px;
+        }
+        .block-container {
+            max-width: 480px !important;
+        }
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -154,16 +191,23 @@ st.markdown("""
     .bottom-nav {
         position: fixed;
         bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 480px;
-        width: 100%;
+        left: 0;
+        right: 0;
+        width: 100vw;
         background: #FFFFFF;
         box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
         border-top: 1px solid #E0E0E0;
-        z-index: 999;
+        z-index: 9999;
         padding: 8px 0;
-        border-radius: 16px 16px 0 0;
+    }
+    
+    @media (min-width: 768px) {
+        .bottom-nav {
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 480px;
+            width: 480px;
+        }
     }
     
     .nav-button {
