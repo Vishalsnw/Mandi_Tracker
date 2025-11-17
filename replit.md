@@ -8,13 +8,26 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
-**November 17, 2025**: Initial setup and configuration for Replit environment
-- Installed Python 3.11 and all dependencies (Streamlit, Pandas, Plotly, BeautifulSoup4, etc.)
+**November 17, 2025 - Mobile Redesign & Real API Integration**:
+- **Complete UI Redesign**: Transformed from bright website-style to dark-themed Android mobile app
+  - Dark theme (#121212 background, #1E1E1E cards) for better readability
+  - Mobile-centered layout (480px max-width) for app-like experience
+  - Fixed bottom navigation bar with 4 tabs (Home, Trends, Markets, About)
+  - Material Design-inspired cards with shadows and rounded corners
+  - Category filter buttons with emoji icons
+- **Real Data Integration**: Replaced all mock data with live data.gov.in API
+  - Integrated official AGMARKNET API for real commodity prices
+  - Secure API key storage using Replit secrets (DATA_GOV_IN_API_KEY)
+  - Smart categorization system for vegetables, fruits, grains, and pulses
+  - Graceful fallback for API errors
+- **Enhanced UX**: Query parameter-based navigation, improved color contrast, mobile-first design
+
+**November 17, 2025 - Initial Setup**:
+- Installed Python 3.11 and all dependencies (Streamlit, Pandas, Plotly, etc.)
 - Created Streamlit configuration to allow all hosts (0.0.0.0) for Replit proxy compatibility
 - Configured workflow to run Streamlit app on port 5000
 - Set up deployment configuration for production (autoscale)
 - Added Python .gitignore file
-- Verified application runs successfully with all features working
 
 ## User Preferences
 
