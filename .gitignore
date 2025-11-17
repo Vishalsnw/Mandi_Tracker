@@ -52,3 +52,7 @@ htmlcov/
 
 # UV
 uv.lock
+
+# Project specific
+MandiTracker.zip
+MandiTracker/

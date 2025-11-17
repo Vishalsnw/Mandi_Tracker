@@ -8,26 +8,15 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
-**November 17, 2025 - Mobile Redesign & Real API Integration**:
-- **Complete UI Redesign**: Transformed from bright website-style to dark-themed Android mobile app
-  - Dark theme (#121212 background, #1E1E1E cards) for better readability
-  - Mobile-centered layout (480px max-width) for app-like experience
-  - Fixed bottom navigation bar with 4 tabs (Home, Trends, Markets, About)
-  - Material Design-inspired cards with shadows and rounded corners
-  - Category filter buttons with emoji icons
-- **Real Data Integration**: Replaced all mock data with live data.gov.in API
-  - Integrated official AGMARKNET API for real commodity prices
-  - Secure API key storage using Replit secrets (DATA_GOV_IN_API_KEY)
-  - Smart categorization system for vegetables, fruits, grains, and pulses
-  - Graceful fallback for API errors
-- **Enhanced UX**: Query parameter-based navigation, improved color contrast, mobile-first design
-
-**November 17, 2025 - Initial Setup**:
-- Installed Python 3.11 and all dependencies (Streamlit, Pandas, Plotly, etc.)
-- Created Streamlit configuration to allow all hosts (0.0.0.0) for Replit proxy compatibility
+**November 17, 2025 - Project Import to Replit**:
+- Imported MandiTracker project from zip archive
+- Moved application files to root directory (app.py, scraper.py, data_config.py)
+- Copied attached_assets with stock images to root
+- Created Streamlit configuration at .streamlit/config.toml (server on 0.0.0.0:5000)
+- Updated .gitignore to exclude MandiTracker folder and zip file
 - Configured workflow to run Streamlit app on port 5000
 - Set up deployment configuration for production (autoscale)
-- Added Python .gitignore file
+- Ready for testing and verification
 
 ## User Preferences
 
@@ -37,18 +26,18 @@ Preferred communication style: Simple, everyday language.
 
 **Development Workflow**:
 - Workflow name: `streamlit-app`
-- Command: `cd MandiTracker && streamlit run app.py --server.port=5000 --server.address=0.0.0.0`
+- Command: `streamlit run app.py --server.port 5000`
 - Port: 5000 (required for Replit webview)
 - Output type: webview
 
-**Streamlit Configuration** (MandiTracker/.streamlit/config.toml):
+**Streamlit Configuration** (.streamlit/config.toml):
 - Server binds to 0.0.0.0:5000 (allows Replit proxy access)
-- CORS disabled for development environment
-- Headless mode enabled for production deployment
+- Headless mode enabled
+- Usage stats disabled
 
 **Deployment**:
 - Target: autoscale (stateless web application)
-- Run command: `streamlit run MandiTracker/app.py --server.port=5000 --server.address=0.0.0.0`
+- Run command: `streamlit run app.py --server.port 5000`
 
 ## System Architecture
 

@@ -22,20 +22,20 @@ args = "streamlit-app"
 name = "streamlit-app"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "cd MandiTracker && streamlit run app.py --server.port=5000 --server.address=0.0.0.0"
-waitForPort = 5000
-
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "streamlit run app.py --server.port 5000"
+waitForPort = 5000
 
 [[ports]]
 localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 41685
+localPort = 39173
 externalPort = 3001
 
 [[ports]]
@@ -44,4 +44,4 @@ externalPort = 3000
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["streamlit", "run", "MandiTracker/app.py", "--server.port=5000", "--server.address=0.0.0.0"]
+run = ["streamlit", "run", "app.py", "--server.port", "5000"]
