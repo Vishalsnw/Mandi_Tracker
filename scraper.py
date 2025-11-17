@@ -57,50 +57,78 @@ def scrape_apmc_data(state, district, commodity=None):
             'api-key': api_key,
             'format': 'json',
             'offset': 0,
-            'limit': 100,
-            'filters[state]': state
+            'limit': 100
         }
         
-        if district:
-            params['filters[district]'] = district
-        
-        if commodity:
-            params['filters[commodity]'] = commodity
-        
-        print(f"Fetching data for {state} - {district}...")
-        response = requests.get(base_url, params=params, timeout=10)
+        print(f"Fetching latest mandi prices from API...")
+        response = requests.get(base_url, params=params, timeout=15)
         
         if response.status_code == 200:
             data = response.json()
             records = data.get('records', [])
             
             if not records:
-                print(f"No records found for {state} - {district}")
+                print(f"No records found in API")
                 return pd.DataFrame()
             
             processed_data = []
             for record in records:
+                rec_state = record.get('state', '')
+                rec_district = record.get('district', '')
                 commodity_name = record.get('commodity', 'Unknown')
+                
+                if state and state.lower() not in rec_state.lower():
+                    continue
+                    
+                if district and district.lower() not in rec_district.lower():
+                    continue
+                
+                if commodity and commodity.lower() not in commodity_name.lower():
+                    continue
+                
                 category = categorize_commodity(commodity_name)
+                
+                try:
+                    min_p = float(record.get('min_price', 0))
+                except:
+                    min_p = 0
+                    
+                try:
+                    max_p = float(record.get('max_price', 0))
+                except:
+                    max_p = 0
+                    
+                try:
+                    modal_p = float(record.get('modal_price', 0))
+                except:
+                    modal_p = 0
                 
                 processed_data.append({
                     'commodity_en': commodity_name,
                     'commodity_hi': commodity_name,
                     'category': category,
-                    'min_price': float(record.get('min_price', 0)) if record.get('min_price') else 0,
-                    'max_price': float(record.get('max_price', 0)) if record.get('max_price') else 0,
-                    'modal_price': float(record.get('modal_price', 0)) if record.get('modal_price') else 0,
+                    'min_price': min_p,
+                    'max_price': max_p,
+                    'modal_price': modal_p,
                     'unit': 'Quintal',
-                    'state': record.get('state', state),
-                    'district': record.get('district', district),
-                    'arrival_date': record.get('arrival_date', datetime.now().strftime('%Y-%m-%d')),
-                    'market': record.get('market', f"{district} Mandi"),
+                    'state': rec_state,
+                    'district': rec_district,
+                    'arrival_date': record.get('arrival_date', datetime.now().strftime('%d/%m/%Y')),
+                    'market': record.get('market', f"{rec_district} Mandi"),
                     'variety': record.get('variety', ''),
                     'grade': record.get('grade', '')
                 })
             
             df = pd.DataFrame(processed_data)
-            print(f"Successfully fetched {len(df)} records from API")
+            
+            if len(df) == 0:
+                print(f"No records found for {state} - {district} after filtering")
+                print(f"API returned {len(records)} total records")
+                available_states = sorted(set(r.get('state', '') for r in records))
+                print(f"Available states: {', '.join(available_states[:5])}")
+            else:
+                print(f"Successfully fetched {len(df)} records matching {state} - {district}")
+            
             return df
         else:
             print(f"API request failed with status {response.status_code}")
@@ -108,4 +136,6 @@ def scrape_apmc_data(state, district, commodity=None):
             
     except Exception as e:
         print(f"Error fetching API data: {e}")
+        import traceback
+        traceback.print_exc()
         return pd.DataFrame()

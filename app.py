@@ -409,7 +409,7 @@ def render_home():
         st.session_state.selected_district = selected_district
     
     if st.button("🔍 Search Prices"):
-        with st.spinner("Fetching prices..."):
+        with st.spinner("Fetching prices from data.gov.in API..."):
             st.session_state.price_data = scrape_apmc_data(selected_state, selected_district)
         st.rerun()
     
@@ -502,21 +502,29 @@ def render_home():
                         st.rerun()
         else:
             st.warning("No commodities found for this category.")
+    elif st.session_state.price_data is not None and st.session_state.price_data.empty:
+        st.warning(f"⚠️ No price data found for {selected_state} - {selected_district}")
+        st.info("💡 **Tip:** The API updates daily with data from various mandis. Try selecting different states like 'Andhra Pradesh' or 'Haryana' which have recent data, or search without selecting to see all available prices.")
+        
+        if st.button("📋 Show All Available Prices"):
+            with st.spinner("Fetching all available prices..."):
+                st.session_state.price_data = scrape_apmc_data(None, None)
+            st.rerun()
     else:
-        st.info("👆 Select a location and search to view prices")
+        st.info("👆 Select a location and click 'Search Prices' to view real mandi data from data.gov.in")
         
         st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", use_container_width=True)
         
         st.markdown("""
-        ### About Mandli Bhav
+        ### About Mandi Bhav
         
-        Get real-time commodity prices from APMC mandis across India.
+        Get real agricultural commodity prices from APMC mandis via data.gov.in API.
         
         **Features:**
-        - 🇮🇳 All Indian states & districts
-        - 🌾 Vegetables, fruits, grains & pulses
-        - 📊 Price trends & analysis
-        - 🏪 Nearby mandi information
+        - 📡 Real data from government data portal
+        - 🌾 Latest commodity prices  
+        - 📊 Multiple states & districts
+        - 💯 100% authentic market data
         """)
 
 def render_trends():
