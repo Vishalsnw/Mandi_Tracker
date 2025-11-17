@@ -200,39 +200,38 @@ if st.session_state.price_data is not None and not st.session_state.price_data.e
     if category_filter != 'all':
         df = df[df['category'] == category_filter]
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('total_commodities')}</h4>
-            <h2>{len(df)}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        avg_price = df['modal_price'].mean()
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('avg_price')}</h4>
-            <h2>₹{avg_price:.2f}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        price_range = f"₹{df['min_price'].min():.0f} - ₹{df['max_price'].max():.0f}"
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('price_range')}</h4>
-            <h2>{price_range}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("### 📊 " + get_text('commodity') + " " + get_text('modal_price'))
-    
     if len(df) == 0:
-        st.warning("No commodities found in this category.")
+        st.warning("No commodities found in this category. Please select a different category or search for a different location.")
     else:
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <h4>{get_text('total_commodities')}</h4>
+                <h2>{len(df)}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            avg_price = df['modal_price'].mean()
+            st.markdown(f"""
+            <div class="metric-card">
+                <h4>{get_text('avg_price')}</h4>
+                <h2>₹{avg_price:.2f}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col3:
+            price_range = f"₹{df['min_price'].min():.0f} - ₹{df['max_price'].max():.0f}"
+            st.markdown(f"""
+            <div class="metric-card">
+                <h4>{get_text('price_range')}</h4>
+                <h2>{price_range}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("### 📊 " + get_text('commodity') + " " + get_text('modal_price'))
         top_commodities = df.nlargest(min(10, len(df)), 'modal_price')
         
         if st.session_state.language == 'hi':
@@ -264,120 +263,120 @@ if st.session_state.price_data is not None and not st.session_state.price_data.e
         )
         
         st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("### 📋 " + get_text('detailed_price_table'))
-    
-    display_df = df.copy()
-    
-    if st.session_state.language == 'hi':
-        display_df = display_df[[
-            'commodity_hi', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
-        ]]
-        display_df.columns = [
-            get_text('commodity'),
-            get_text('min_price'),
-            get_text('max_price'),
-            get_text('modal_price'),
-            get_text('unit'),
-            get_text('market'),
-            get_text('date')
-        ]
-    else:
-        display_df = display_df[[
-            'commodity_en', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
-        ]]
-        display_df.columns = [
-            get_text('commodity'),
-            get_text('min_price'),
-            get_text('max_price'),
-            get_text('modal_price'),
-            get_text('unit'),
-            get_text('market'),
-            get_text('date')
-        ]
-    
-    st.dataframe(
-        display_df.style.format({
-            get_text('min_price'): '₹{:.2f}',
-            get_text('max_price'): '₹{:.2f}',
-            get_text('modal_price'): '₹{:.2f}'
-        }).background_gradient(subset=[get_text('modal_price')], cmap='Greens'),
-        use_container_width=True,
-        height=400
-    )
-    
-    st.markdown("---")
-    
-    col_trend1, col_trend2 = st.columns([1, 2])
-    
-    with col_trend1:
-        st.markdown("### 📈 " + get_text('price_trends'))
-        st.markdown(get_text('select_commodity'))
+        
+        st.markdown("### 📋 " + get_text('detailed_price_table'))
+        
+        display_df = df.copy()
         
         if st.session_state.language == 'hi':
-            commodity_options = df[['commodity_en', 'commodity_hi']].drop_duplicates().values.tolist()
-            commodity_display = [f"{row[1]} ({row[0]})" for row in commodity_options]
-            selected_commodity_display = st.selectbox(
+            display_df = display_df[[
+                'commodity_hi', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
+            ]]
+            display_df.columns = [
                 get_text('commodity'),
-                options=commodity_display,
-                label_visibility='collapsed'
-            )
-            selected_commodity_index = commodity_display.index(selected_commodity_display)
-            selected_commodity = commodity_options[selected_commodity_index][0]
-            selected_commodity_name = commodity_options[selected_commodity_index][1]
+                get_text('min_price'),
+                get_text('max_price'),
+                get_text('modal_price'),
+                get_text('unit'),
+                get_text('market'),
+                get_text('date')
+            ]
         else:
-            commodity_options = df['commodity_en'].unique().tolist()
-            selected_commodity = st.selectbox(
+            display_df = display_df[[
+                'commodity_en', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
+            ]]
+            display_df.columns = [
                 get_text('commodity'),
-                options=commodity_options,
-                label_visibility='collapsed'
-            )
-            selected_commodity_name = selected_commodity
-    
-    with col_trend2:
-        if selected_commodity:
-            trend_data = generate_price_trends(selected_commodity, days=7)
+                get_text('min_price'),
+                get_text('max_price'),
+                get_text('modal_price'),
+                get_text('unit'),
+                get_text('market'),
+                get_text('date')
+            ]
+        
+        st.dataframe(
+            display_df.style.format({
+                get_text('min_price'): '₹{:.2f}',
+                get_text('max_price'): '₹{:.2f}',
+                get_text('modal_price'): '₹{:.2f}'
+            }).background_gradient(subset=[get_text('modal_price')], cmap='Greens'),
+            use_container_width=True,
+            height=400
+        )
+        
+        st.markdown("---")
+        
+        col_trend1, col_trend2 = st.columns([1, 2])
+        
+        with col_trend1:
+            st.markdown("### 📈 " + get_text('price_trends'))
+            st.markdown(get_text('select_commodity'))
+        
+            if st.session_state.language == 'hi':
+                commodity_options = df[['commodity_en', 'commodity_hi']].drop_duplicates().values.tolist()
+                commodity_display = [f"{row[1]} ({row[0]})" for row in commodity_options]
+                selected_commodity_display = st.selectbox(
+                    get_text('commodity'),
+                    options=commodity_display,
+                    label_visibility='collapsed'
+                )
+                selected_commodity_index = commodity_display.index(selected_commodity_display)
+                selected_commodity = commodity_options[selected_commodity_index][0]
+                selected_commodity_name = commodity_options[selected_commodity_index][1]
+            else:
+                commodity_options = df['commodity_en'].unique().tolist()
+                selected_commodity = st.selectbox(
+                    get_text('commodity'),
+                    options=commodity_options,
+                    label_visibility='collapsed'
+                )
+                selected_commodity_name = selected_commodity
+        
+        with col_trend2:
+            if selected_commodity:
+                trend_data = generate_price_trends(selected_commodity, days=7)
             
-            fig_trend = px.line(
-                trend_data,
-                x='date',
-                y='price',
-                title=f"{get_text('last_7_days')} - {selected_commodity_name}",
-                markers=True
-            )
+                fig_trend = px.line(
+                    trend_data,
+                    x='date',
+                    y='price',
+                    title=f"{get_text('last_7_days')} - {selected_commodity_name}",
+                    markers=True
+                )
             
-            fig_trend.update_traces(
-                line_color='#4caf50',
-                line_width=3,
-                marker=dict(size=8, color='#ff9800')
-            )
+                fig_trend.update_traces(
+                    line_color='#4caf50',
+                    line_width=3,
+                    marker=dict(size=8, color='#ff9800')
+                )
             
-            fig_trend.update_layout(
-                xaxis_title=get_text('date'),
-                yaxis_title=get_text('modal_price') + " (₹)",
-                hovermode='x unified'
-            )
+                fig_trend.update_layout(
+                    xaxis_title=get_text('date'),
+                    yaxis_title=get_text('modal_price') + " (₹)",
+                    hovermode='x unified'
+                )
             
-            st.plotly_chart(fig_trend, use_container_width=True)
+                st.plotly_chart(fig_trend, use_container_width=True)
             
-            commodity_image = COMMODITY_IMAGES.get(selected_commodity)
-            if commodity_image:
-                st.image(commodity_image, caption=selected_commodity_name, use_container_width=True)
-    
-    st.markdown("---")
-    
-    st.markdown("### 🏪 " + get_text('nearby_mandis'))
-    
-    nearby_mandis = get_nearby_mandis(selected_state, st.session_state.selected_district)
-    
-    nearby_df = nearby_mandis.copy()
-    nearby_df.columns = [
-        get_text('mandi_name'),
-        get_text('distance'),
-        get_text('facilities')
-    ]
-    
-    st.dataframe(nearby_df, use_container_width=True)
+                commodity_image = COMMODITY_IMAGES.get(selected_commodity)
+                if commodity_image:
+                    st.image(commodity_image, caption=selected_commodity_name, use_container_width=True)
+        
+        st.markdown("---")
+        
+        st.markdown("### 🏪 " + get_text('nearby_mandis'))
+        
+        nearby_mandis = get_nearby_mandis(selected_state, st.session_state.selected_district)
+        
+        nearby_df = nearby_mandis.copy()
+        nearby_df.columns = [
+            get_text('mandi_name'),
+            get_text('distance'),
+            get_text('facilities')
+        ]
+        
+        st.dataframe(nearby_df, use_container_width=True)
 
 else:
     st.info("👈 " + ("कृपया प्रारंभ करने के लिए एक राज्य और जिला चुनें" if st.session_state.language == 'hi' else "Please select a state and district from the sidebar to get started"))
@@ -447,23 +446,32 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-    <div class="bottom-nav">
-        <div class="nav-item active">
-            <span class="nav-icon">🏠</span>
-            <span class="nav-label">Home</span>
-        </div>
-        <div class="nav-item">
-            <span class="nav-icon">📈</span>
-            <span class="nav-label">Trends</span>
-        </div>
-        <div class="nav-item">
-            <span class="nav-icon">🏪</span>
-            <span class="nav-label">Markets</span>
-        </div>
-        <div class="nav-item">
-            <span class="nav-icon">ℹ️</span>
-            <span class="nav-label">About</span>
-        </div>
+st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+
+nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
+
+with nav_col1:
+    if st.button("🏠\n\nHome", key="nav_home", use_container_width=True):
+        st.session_state.current_tab = 'home'
+        st.rerun()
+
+with nav_col2:
+    if st.button("📈\n\nTrends", key="nav_trends", use_container_width=True):
+        st.session_state.current_tab = 'trends'
+        st.rerun()
+
+with nav_col3:
+    if st.button("🏪\n\nMarkets", key="nav_markets", use_container_width=True):
+        st.session_state.current_tab = 'markets'
+        st.rerun()
+
+with nav_col4:
+    if st.button("ℹ️\n\nAbout", key="nav_about", use_container_width=True):
+        st.session_state.current_tab = 'about'
+        st.rerun()
+
+st.markdown(f"""
+    <div class="bottom-nav" style="text-align: center; padding: 10px; background: white; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
+        <small style="color: #666;">Current tab: {st.session_state.current_tab.title()}</small>
     </div>
 """, unsafe_allow_html=True)
