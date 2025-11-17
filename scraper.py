@@ -49,14 +49,29 @@ def scrape_apmc_data(state, district, commodity=None):
         resource_id = "9ef84268-d588-465a-a308-a864a43d0070"
         base_url = f"https://api.data.gov.in/resource/{resource_id}"
         
+        # Build filters for API (server-side filtering is more efficient)
+        filters = {}
+        if state:
+            filters['state'] = state
+        if district:
+            filters['district'] = district
+        if commodity:
+            filters['commodity'] = commodity
+        
         params = {
             'api-key': api_key,
             'format': 'json',
             'offset': 0,
-            'limit': 100
+            'limit': 500  # Increased limit to get more records
         }
         
+        # Add filters if any
+        if filters:
+            params['filters'] = str(filters)
+        
         print(f"Fetching latest mandi prices from API...")
+        if filters:
+            print(f"Filters: {filters}")
         response = requests.get(base_url, params=params, timeout=15)
         
         if response.status_code == 200:
@@ -67,35 +82,19 @@ def scrape_apmc_data(state, district, commodity=None):
                 print(f"No records found in API")
                 return pd.DataFrame()
             
+            # When using API filters, we still do flexible client-side filtering as backup
             processed_data = []
+            unique_districts = set()
+            
             for record in records:
                 rec_state = record.get('state', '').strip()
                 rec_district = record.get('district', '').strip()
                 commodity_name = record.get('commodity', 'Unknown')
                 
-                # More flexible state matching
-                if state:
-                    state_match = False
-                    state_clean = state.lower().strip()
-                    rec_state_clean = rec_state.lower().strip()
-                    # Match if either contains the other
-                    if state_clean in rec_state_clean or rec_state_clean in state_clean:
-                        state_match = True
-                    if not state_match:
-                        continue
-                    
-                # More flexible district matching
-                if district:
-                    district_match = False
-                    district_clean = district.lower().strip()
-                    rec_district_clean = rec_district.lower().strip()
-                    # Match if either contains the other
-                    if district_clean in rec_district_clean or rec_district_clean in district_clean:
-                        district_match = True
-                    if not district_match:
-                        continue
+                unique_districts.add(f"{rec_state} - {rec_district}")
                 
-                if commodity and commodity.lower() not in commodity_name.lower():
+                # Skip empty records
+                if not rec_state or not rec_district:
                     continue
                 
                 category = categorize_commodity(commodity_name)
@@ -134,10 +133,15 @@ def scrape_apmc_data(state, district, commodity=None):
             df = pd.DataFrame(processed_data)
             
             if len(df) == 0:
-                print(f"No records found for {state} - {district} after filtering")
+                print(f"\n⚠️ No records found for {state} - {district}")
                 print(f"API returned {len(records)} total records")
-                available_states = sorted(set(r.get('state', '') for r in records))
-                print(f"Available states: {', '.join(available_states[:5])}")
+                if unique_districts:
+                    available = sorted(list(unique_districts))[:10]
+                    print(f"\n✓ Available districts in API data:")
+                    for dist in available:
+                        print(f"  - {dist}")
+                    if len(unique_districts) > 10:
+                        print(f"  ... and {len(unique_districts) - 10} more")
             else:
                 print(f"Successfully fetched {len(df)} records matching {state} - {district}")
             

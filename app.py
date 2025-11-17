@@ -72,12 +72,20 @@ st.markdown("""
         max-width: 100vw;
         margin: 0;
         min-height: 100vh;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
     
     .block-container {
         padding: 12px 16px !important;
         max-width: 100vw !important;
         margin: 0 !important;
+        overflow-y: visible !important;
+    }
+    
+    /* Enable scrolling for content */
+    .stApp > div {
+        overflow-y: auto !important;
     }
     
     /* For larger screens, center with max-width */
