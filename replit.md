@@ -8,12 +8,21 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 17, 2025 - Removed All Mock Data & API-Only Implementation**:
+- Completely removed all mock/sample data from the application
+- Deleted generate_sample_data(), generate_price_trends(), and get_nearby_mandis() functions
+- Updated scrape_apmc_data() to return empty DataFrame when no real data available (no fallback)
+- Removed hardcoded commodity lists, news items, and sample prices from UI
+- Removed example favorites and mock search results
+- Simplified render_commodity_selector() and render_markets() to guide users to real data
+- Application now displays ONLY real data from data.gov.in API or shows empty states
+- Bottom navigation bar already implemented and working (4 tabs: Home, Search, Dashboard, About)
+
 **November 17, 2025 - Real Data.gov.in API Integration**:
 - Integrated data.gov.in APMC API (Resource ID: 9ef84268-d588-465a-a308-a864a43d0070)
 - Securely stored API key in Replit Secrets (DATA_GOV_API_KEY environment variable)
 - Updated scraper.py to fetch real agricultural market prices from government data portal
 - Added automatic commodity categorization (vegetables, fruits, grains, pulses)
-- Implemented graceful fallback to sample data if API fails or no records found
 - Added proper error handling and timeout management (10 seconds)
 - Supports filtering by state, district, and commodity
 - Fetches up to 100 records per query with pagination support
