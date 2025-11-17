@@ -68,9 +68,10 @@ st.markdown("""
     .main {
         background-color: #F5F5F5;
         padding: 0 !important;
-        padding-bottom: 70px !important;
+        padding-bottom: 80px !important;
         max-width: 100vw;
         margin: 0;
+        min-height: 100vh;
     }
     
     .block-container {
@@ -513,7 +514,7 @@ def render_home():
                     fav_key = f"{commodity_en}_{idx}"
                     is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
                     
-                    if st.button("⭐" if is_favorite else "☆", key=fav_key, use_container_width=True):
+                    if st.button("⭐" if is_favorite else "☆", key=fav_key, width="stretch"):
                         if is_favorite:
                             st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
                             st.toast(f"Removed {commodity_en} from favorites")
@@ -540,7 +541,7 @@ def render_home():
     else:
         st.info("👆 Select a location and click 'Search Prices' to view real mandi data from data.gov.in")
         
-        st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", use_container_width=True)
+        st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", width="stretch")
         
         st.markdown("""
         ### About Mandi Bhav
@@ -660,29 +661,37 @@ tabs = {
 
 tabs[st.session_state.current_tab]['render']()
 
-st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+st.markdown('<div style="height: 80px;"></div>', unsafe_allow_html=True)
 
-st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
+st.markdown("""
+<div class="bottom-nav">
+<style>
+.bottom-nav {
+    display: block !important;
+    visibility: visible !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    if st.button(f"{tabs['home']['icon']}\n{tabs['home']['label']}", key="nav_home", use_container_width=True, type="primary" if st.session_state.current_tab == 'home' else "secondary"):
+    if st.button(f"{tabs['home']['icon']}\n{tabs['home']['label']}", key="nav_home", width="stretch", type="primary" if st.session_state.current_tab == 'home' else "secondary"):
         st.session_state.current_tab = 'home'
         st.rerun()
 
 with col2:
-    if st.button(f"{tabs['commodities']['icon']}\n{tabs['commodities']['label']}", key="nav_commodities", use_container_width=True, type="primary" if st.session_state.current_tab == 'commodities' else "secondary"):
+    if st.button(f"{tabs['commodities']['icon']}\n{tabs['commodities']['label']}", key="nav_commodities", width="stretch", type="primary" if st.session_state.current_tab == 'commodities' else "secondary"):
         st.session_state.current_tab = 'commodities'
         st.rerun()
 
 with col3:
-    if st.button(f"{tabs['dashboard']['icon']}\n{tabs['dashboard']['label']}", key="nav_dashboard", use_container_width=True, type="primary" if st.session_state.current_tab == 'dashboard' else "secondary"):
+    if st.button(f"{tabs['dashboard']['icon']}\n{tabs['dashboard']['label']}", key="nav_dashboard", width="stretch", type="primary" if st.session_state.current_tab == 'dashboard' else "secondary"):
         st.session_state.current_tab = 'dashboard'
         st.rerun()
 
 with col4:
-    if st.button(f"{tabs['about']['icon']}\n{tabs['about']['label']}", key="nav_about", use_container_width=True, type="primary" if st.session_state.current_tab == 'about' else "secondary"):
+    if st.button(f"{tabs['about']['icon']}\n{tabs['about']['label']}", key="nav_about", width="stretch", type="primary" if st.session_state.current_tab == 'about' else "secondary"):
         st.session_state.current_tab = 'about'
         st.rerun()
 

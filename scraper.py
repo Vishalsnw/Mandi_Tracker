@@ -69,15 +69,31 @@ def scrape_apmc_data(state, district, commodity=None):
             
             processed_data = []
             for record in records:
-                rec_state = record.get('state', '')
-                rec_district = record.get('district', '')
+                rec_state = record.get('state', '').strip()
+                rec_district = record.get('district', '').strip()
                 commodity_name = record.get('commodity', 'Unknown')
                 
-                if state and state.lower() not in rec_state.lower():
-                    continue
+                # More flexible state matching
+                if state:
+                    state_match = False
+                    state_clean = state.lower().strip()
+                    rec_state_clean = rec_state.lower().strip()
+                    # Match if either contains the other
+                    if state_clean in rec_state_clean or rec_state_clean in state_clean:
+                        state_match = True
+                    if not state_match:
+                        continue
                     
-                if district and district.lower() not in rec_district.lower():
-                    continue
+                # More flexible district matching
+                if district:
+                    district_match = False
+                    district_clean = district.lower().strip()
+                    rec_district_clean = rec_district.lower().strip()
+                    # Match if either contains the other
+                    if district_clean in rec_district_clean or rec_district_clean in district_clean:
+                        district_match = True
+                    if not district_match:
+                        continue
                 
                 if commodity and commodity.lower() not in commodity_name.lower():
                     continue
