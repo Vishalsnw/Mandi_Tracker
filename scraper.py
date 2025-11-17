@@ -4,37 +4,118 @@ import pandas as pd
 from datetime import datetime, timedelta
 import random
 import trafilatura
+import os
 
 def get_website_text_content(url: str) -> str:
     downloaded = trafilatura.fetch_url(url)
     text = trafilatura.extract(downloaded)
     return text if text is not None else ""
 
+def categorize_commodity(commodity_name):
+    """
+    Categorize commodity into vegetables, fruits, grains, or pulses.
+    """
+    commodity_lower = commodity_name.lower()
+    
+    vegetables = ['tomato', 'onion', 'potato', 'cabbage', 'cauliflower', 'carrot', 'brinjal', 
+                  'chilli', 'pepper', 'capsicum', 'cucumber', 'pumpkin', 'gourd', 'radish',
+                  'beetroot', 'spinach', 'coriander', 'ginger', 'garlic', 'ladyfinger', 'okra']
+    
+    fruits = ['apple', 'mango', 'banana', 'orange', 'grapes', 'pomegranate', 'papaya', 
+              'watermelon', 'muskmelon', 'guava', 'pineapple', 'lemon', 'lime', 'coconut']
+    
+    grains = ['wheat', 'rice', 'maize', 'bajra', 'jowar', 'ragi', 'barley', 'paddy']
+    
+    pulses = ['tur', 'moong', 'urad', 'chana', 'masoor', 'dal', 'peas', 'gram', 'lentil', 'arhar']
+    
+    for veg in vegetables:
+        if veg in commodity_lower:
+            return 'vegetables'
+    
+    for fruit in fruits:
+        if fruit in commodity_lower:
+            return 'fruits'
+    
+    for grain in grains:
+        if grain in commodity_lower:
+            return 'grains'
+    
+    for pulse in pulses:
+        if pulse in commodity_lower:
+            return 'pulses'
+    
+    return 'vegetables'
+
 def scrape_apmc_data(state, district, commodity=None):
     """
-    Scrape APMC mandi price data.
-    
-    NOTE: As of November 2025, there is NO public API available for real-time APMC data.
-    - data.gov.in: API does not exist (only CSV downloads available)
-    - agmarknet.gov.in: Has anti-scraping protection (403 Forbidden)
-    
-    This function uses realistic sample data based on actual APMC price patterns.
-    
-    To integrate real data when available:
-    1. Register at data.gov.in for API key when API becomes available
-    2. Use data.gov.in API endpoints (currently unavailable)
-    3. Or use CSV downloads from data.gov.in (not real-time)
-    
-    For production with real data:
-    - Schedule CSV downloads via GitHub Actions
-    - Parse and store in database
-    - Serve from database instead of sample data
+    Fetch real APMC mandi price data from data.gov.in API.
+    Falls back to sample data if API fails.
     """
-    try:
+    api_key = os.environ.get('DATA_GOV_API_KEY')
+    
+    if not api_key:
+        print("API key not found, using sample data")
         return generate_sample_data(state, district, commodity)
+    
+    try:
+        resource_id = "9ef84268-d588-465a-a308-a864a43d0070"
+        base_url = f"https://api.data.gov.in/resource/{resource_id}"
+        
+        params = {
+            'api-key': api_key,
+            'format': 'json',
+            'offset': 0,
+            'limit': 100,
+            'filters[state]': state
+        }
+        
+        if district:
+            params['filters[district]'] = district
+        
+        if commodity:
+            params['filters[commodity]'] = commodity
+        
+        print(f"Fetching data for {state} - {district}...")
+        response = requests.get(base_url, params=params, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            records = data.get('records', [])
+            
+            if not records:
+                print(f"No records found for {state} - {district}, using sample data")
+                return generate_sample_data(state, district, commodity)
+            
+            processed_data = []
+            for record in records:
+                commodity_name = record.get('commodity', 'Unknown')
+                category = categorize_commodity(commodity_name)
+                
+                processed_data.append({
+                    'commodity_en': commodity_name,
+                    'commodity_hi': commodity_name,
+                    'category': category,
+                    'min_price': float(record.get('min_price', 0)) if record.get('min_price') else 0,
+                    'max_price': float(record.get('max_price', 0)) if record.get('max_price') else 0,
+                    'modal_price': float(record.get('modal_price', 0)) if record.get('modal_price') else 0,
+                    'unit': 'Quintal',
+                    'state': record.get('state', state),
+                    'district': record.get('district', district),
+                    'arrival_date': record.get('arrival_date', datetime.now().strftime('%Y-%m-%d')),
+                    'market': record.get('market', f"{district} Mandi"),
+                    'variety': record.get('variety', ''),
+                    'grade': record.get('grade', '')
+                })
+            
+            df = pd.DataFrame(processed_data)
+            print(f"Successfully fetched {len(df)} records from API")
+            return df
+        else:
+            print(f"API request failed with status {response.status_code}, using sample data")
+            return generate_sample_data(state, district, commodity)
             
     except Exception as e:
-        print(f"Error generating data: {e}")
+        print(f"Error fetching API data: {e}, using sample data")
         return generate_sample_data(state, district, commodity)
 
 def generate_sample_data(state, district, commodity=None):

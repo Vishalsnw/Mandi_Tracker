@@ -8,6 +8,17 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 17, 2025 - Real Data.gov.in API Integration**:
+- Integrated data.gov.in APMC API (Resource ID: 9ef84268-d588-465a-a308-a864a43d0070)
+- Securely stored API key in Replit Secrets (DATA_GOV_API_KEY environment variable)
+- Updated scraper.py to fetch real agricultural market prices from government data portal
+- Added automatic commodity categorization (vegetables, fruits, grains, pulses)
+- Implemented graceful fallback to sample data if API fails or no records found
+- Added proper error handling and timeout management (10 seconds)
+- Supports filtering by state, district, and commodity
+- Fetches up to 100 records per query with pagination support
+- Application now displays real APMC mandi prices when available
+
 **November 17, 2025 - Enhanced Android Material Design & Production Improvements**:
 - Enhanced CSS with Material Design elements (elevation shadows, smooth transitions, gradients)
 - Improved card styling with hover effects and proper elevation levels
