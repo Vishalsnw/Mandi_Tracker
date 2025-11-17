@@ -43,11 +43,7 @@ def scrape_apmc_data(state, district, commodity=None):
     Fetch real APMC mandi price data from data.gov.in API.
     Returns empty DataFrame if API fails or no data found.
     """
-    api_key = os.environ.get('DATA_GOV_API_KEY')
-    
-    if not api_key:
-        print("ERROR: API key not found. Please set DATA_GOV_API_KEY environment variable.")
-        return pd.DataFrame()
+    api_key = "579b464db66ec23bdd0000011a8be7e716d24aad697fad89aa08940a"
     
     try:
         resource_id = "9ef84268-d588-465a-a308-a864a43d0070"

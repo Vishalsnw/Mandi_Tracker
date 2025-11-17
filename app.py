@@ -210,10 +210,11 @@ st.markdown("""
         right: 0;
         width: 100vw;
         background: #FFFFFF;
-        box-shadow: 0 -4px 12px rgba(0,0,0,0.12), 0 -2px 4px rgba(0,0,0,0.08);
-        border-top: none;
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+        border-top: 1px solid #E0E0E0;
         z-index: 9999;
-        padding: 4px 0 8px 0;
+        padding: 8px 0 safe-area-inset-bottom;
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
     }
     
     @media (min-width: 768px) {
@@ -225,22 +226,48 @@ st.markdown("""
         }
     }
     
-    .nav-button {
+    /* Bottom navigation buttons - Android Material Design style */
+    .bottom-nav .stButton > button {
         background: transparent !important;
         color: #757575 !important;
         border: none !important;
-        padding: 8px !important;
-        font-size: 11px !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
         text-align: center !important;
         width: 100% !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        transition: all 0.2s ease !important;
+        min-height: 56px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        letter-spacing: 0.4px !important;
     }
     
-    .nav-button:hover {
-        background: #F5F5F5 !important;
-    }
-    
-    .nav-button-active {
+    .bottom-nav .stButton > button:hover {
+        background: rgba(76, 175, 80, 0.08) !important;
         color: #4CAF50 !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+    
+    .bottom-nav .stButton > button:active {
+        background: rgba(76, 175, 80, 0.15) !important;
+        transform: none !important;
+    }
+    
+    /* Active tab styling */
+    .bottom-nav .stButton > button[kind="primary"] {
+        color: #4CAF50 !important;
+        background: transparent !important;
+    }
+    
+    .bottom-nav .stButton > button[kind="primary"]:hover {
+        background: rgba(76, 175, 80, 0.08) !important;
     }
     
     .nav-icon {
