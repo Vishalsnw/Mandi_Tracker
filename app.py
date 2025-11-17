@@ -35,6 +35,10 @@ if 'favorites' not in st.session_state:
     st.session_state.favorites = []
 if 'show_commodity_selector' not in st.session_state:
     st.session_state.show_commodity_selector = False
+if 'search_commodity' not in st.session_state:
+    st.session_state.search_commodity = None
+if 'all_commodities_data' not in st.session_state:
+    st.session_state.all_commodities_data = None
 
 def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
@@ -57,35 +61,38 @@ st.markdown("""
     [data-testid="stStatusWidget"] {display: none;}
     .stActionButton {display: none;}
     
-    /* Mobile-first layout */
+    /* Mobile-first layout - Android App Style */
+    html, body {
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+    }
+    
     .stApp {
         background-color: #F5F5F5;
         max-width: 100vw;
+        height: 100vh;
         margin: 0;
         padding: 0;
+        overflow: hidden;
     }
     
     .main {
         background-color: #F5F5F5;
         padding: 0 !important;
-        padding-bottom: 80px !important;
+        padding-bottom: 70px !important;
         max-width: 100vw;
         margin: 0;
-        min-height: 100vh;
+        height: calc(100vh - 70px);
         overflow-y: auto !important;
         overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
     }
     
     .block-container {
-        padding: 12px 16px !important;
+        padding: 0px !important;
         max-width: 100vw !important;
         margin: 0 !important;
-        overflow-y: visible !important;
-    }
-    
-    /* Enable scrolling for content */
-    .stApp > div {
-        overflow-y: auto !important;
     }
     
     /* For larger screens, center with max-width */
@@ -156,10 +163,15 @@ st.markdown("""
         background: linear-gradient(135deg, #4CAF50 0%, #388E3C 50%, #2E7D32 100%);
         color: white;
         padding: 20px 16px;
-        border-radius: 16px;
-        margin-bottom: 16px;
+        border-radius: 0px;
+        margin-bottom: 0px;
+        margin: 0 0 16px 0;
         text-align: center;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3), 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    
+    .content-section {
+        padding: 16px;
     }
     
     .green-header h1 {
@@ -213,17 +225,27 @@ st.markdown("""
     }
     
     .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        background: #FFFFFF;
-        box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
-        border-top: 1px solid #E0E0E0;
-        z-index: 9999;
-        padding: 8px 0 safe-area-inset-bottom;
-        padding-bottom: max(8px, env(safe-area-inset-bottom));
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        background: #FFFFFF !important;
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.15) !important;
+        border-top: 1px solid #E0E0E0 !important;
+        z-index: 10000 !important;
+        padding: 4px 0 8px 0 !important;
+        height: 70px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .element-container:has(.bottom-nav) {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 10000 !important;
     }
     
     @media (min-width: 768px) {
@@ -418,12 +440,14 @@ def render_home():
     </div>
     """, unsafe_allow_html=True)
     
+    st.markdown('<div class="content-section">', unsafe_allow_html=True)
+    
     col1, col2 = st.columns(2)
     
     with col1:
         state_options = list(INDIAN_STATES_DISTRICTS.keys())
         selected_state = st.selectbox(
-            "State",
+            "📍 State",
             options=state_options,
             index=state_options.index(st.session_state.selected_state) if st.session_state.selected_state in state_options else 0
         )
@@ -434,19 +458,32 @@ def render_home():
         if isinstance(district_options[0], dict):
             district_keys = [d['en'] for d in district_options]
             selected_district = st.selectbox(
-                "District",
+                "🏘️ District",
                 options=district_keys
             )
         else:
             selected_district = st.selectbox(
-                "District",
+                "🏘️ District",
                 options=district_options
             )
         st.session_state.selected_district = selected_district
     
-    if st.button("🔍 Search Prices"):
+    # Commodity search
+    commodity_search = st.text_input(
+        "🔍 Search Commodity (Optional)",
+        placeholder="e.g., Tomato, Onion, Rice...",
+        value=st.session_state.search_commodity or ""
+    )
+    if commodity_search:
+        st.session_state.search_commodity = commodity_search
+    
+    if st.button("🔍 Search Prices", type="primary"):
         with st.spinner("Fetching prices from data.gov.in API..."):
-            st.session_state.price_data = scrape_apmc_data(selected_state, selected_district)
+            st.session_state.price_data = scrape_apmc_data(
+                selected_state, 
+                selected_district, 
+                commodity_search if commodity_search else None
+            )
         st.rerun()
     
     if st.session_state.price_data is not None and not st.session_state.price_data.empty:
@@ -562,16 +599,97 @@ def render_home():
         - 📊 Multiple states & districts
         - 💯 100% authentic market data
         """)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+def render_charts():
+    st.markdown("""
+    <div class="green-header">
+        <h1>📊 Price Analytics</h1>
+        <p style="color: white !important; margin: 0; font-size: 14px;">View Trends & Insights</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div class="content-section">', unsafe_allow_html=True)
+    
+    if st.session_state.price_data is not None and not st.session_state.price_data.empty:
+        df = st.session_state.price_data
+        
+        # Top 10 Commodities by Price
+        st.markdown("### 📈 Top 10 Highest Priced Commodities")
+        top_10 = df.nlargest(10, 'modal_price')[['commodity_en', 'modal_price', 'min_price', 'max_price']]
+        
+        fig = px.bar(
+            top_10, 
+            x='commodity_en', 
+            y='modal_price',
+            title='Top 10 Commodities by Modal Price',
+            labels={'commodity_en': 'Commodity', 'modal_price': 'Price (₹)'},
+            color='modal_price',
+            color_continuous_scale='Greens'
+        )
+        fig.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(family='Roboto'),
+            showlegend=False,
+            height=400
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Category Distribution
+        st.markdown("### 🥬 Category Distribution")
+        category_counts = df['category'].value_counts()
+        
+        fig2 = px.pie(
+            values=category_counts.values,
+            names=category_counts.index,
+            title='Distribution by Category',
+            color_discrete_sequence=px.colors.sequential.Greens_r
+        )
+        fig2.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(family='Roboto'),
+            height=400
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+        
+        # Price Range Analysis
+        st.markdown("### 💰 Price Range Analysis")
+        fig3 = px.box(
+            df, 
+            x='category', 
+            y='modal_price',
+            title='Price Range by Category',
+            labels={'category': 'Category', 'modal_price': 'Price (₹)'},
+            color='category',
+            color_discrete_sequence=px.colors.qualitative.Set2
+        )
+        fig3.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(family='Roboto'),
+            showlegend=False,
+            height=400
+        )
+        st.plotly_chart(fig3, use_container_width=True)
+    else:
+        st.info("📊 Search for prices from the Home tab to see analytics and charts.")
+        st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", width="stretch")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 def render_trends():
     st.markdown("""
     <div class="green-header">
-        <h1>📊 Dashboard</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">All Favorite Mandi at One Place</p>
+        <h1>⭐ Favorites</h1>
+        <p style="color: white !important; margin: 0; font-size: 14px;">Your Saved Commodities</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### ⭐ Your Favorites")
+    st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
     if len(st.session_state.favorites) == 0:
         st.info("No favorites yet! Add commodities from the home tab by clicking the star button.")
@@ -589,22 +707,21 @@ def render_trends():
             </div>
             """, unsafe_allow_html=True)
     
+    st.markdown('</div>', unsafe_allow_html=True)
+    
 
-def render_markets():
+def render_about():
     st.markdown("""
     <div class="green-header">
-        <h1>🔍 Search Mandi</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">मंडी खोजने</p>
+        <h1>ℹ️ About</h1>
+        <p style="color: white !important; margin: 0; font-size: 14px;">About This App</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("Search for mandi prices by selecting state and district from the Home tab.")
-
-def render_about():
-    st.markdown("# ℹ️ About")
+    st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
     st.markdown("""
-    ## Mandli Bhav
+    ## Mandi Bhav
     
     **Your trusted agricultural market price tracker**
     
@@ -616,22 +733,22 @@ def render_about():
     🌾 **Wide Range**  
     Vegetables, fruits, grains, and pulses
     
-    📊 **Price Trends**  
-    7-day historical price analysis
+    📊 **Price Analytics**  
+    View charts and insights on commodity prices
     
-    🏪 **Mandi Finder**  
-    Locate nearby agricultural markets
+    🔍 **Smart Search**  
+    Search for specific commodities by location
     
-    🌐 **Bilingual**  
-    Available in English and Hindi
+    ⭐ **Favorites**  
+    Save your frequently checked commodities
     
     ---
     
     ### Data Source
     
-    Price data is sourced from official APMC portals across India.
+    Price data is sourced from official data.gov.in APMC API.
     
-    ### For Farmers
+    ### For Farmers & Traders
     
     Make informed decisions about when and where to sell your produce for the best prices.
     
@@ -640,30 +757,12 @@ def render_about():
     **Made for Indian Farmers | 2024**
     """)
     
-    lang_col1, lang_col2 = st.columns(2)
-    with lang_col1:
-        if st.button("🇬🇧 English"):
-            st.session_state.language = 'en'
-            st.rerun()
-    with lang_col2:
-        if st.button("🇮🇳 हिंदी"):
-            st.session_state.language = 'hi'
-            st.rerun()
-
-def render_commodity_selector():
-    st.markdown("""
-    <div class="green-header">
-        <h1>🔍 Search Prices</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">मंडी के भाव खोजें</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.info("Use the Home tab to select your state and district, then search for real market prices from the data.gov.in API.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 tabs = {
     'home': {'icon': '🏠', 'label': 'Home', 'render': render_home},
-    'commodities': {'icon': '🔍', 'label': 'Search', 'render': render_commodity_selector},
-    'dashboard': {'icon': '📊', 'label': 'Dashboard', 'render': render_trends},
+    'charts': {'icon': '📊', 'label': 'Charts', 'render': render_charts},
+    'favorites': {'icon': '⭐', 'label': 'Favorites', 'render': render_trends},
     'about': {'icon': 'ℹ️', 'label': 'About', 'render': render_about}
 }
 
@@ -689,13 +788,13 @@ with col1:
         st.rerun()
 
 with col2:
-    if st.button(f"{tabs['commodities']['icon']}\n{tabs['commodities']['label']}", key="nav_commodities", width="stretch", type="primary" if st.session_state.current_tab == 'commodities' else "secondary"):
-        st.session_state.current_tab = 'commodities'
+    if st.button(f"{tabs['charts']['icon']}\n{tabs['charts']['label']}", key="nav_charts", width="stretch", type="primary" if st.session_state.current_tab == 'charts' else "secondary"):
+        st.session_state.current_tab = 'charts'
         st.rerun()
 
 with col3:
-    if st.button(f"{tabs['dashboard']['icon']}\n{tabs['dashboard']['label']}", key="nav_dashboard", width="stretch", type="primary" if st.session_state.current_tab == 'dashboard' else "secondary"):
-        st.session_state.current_tab = 'dashboard'
+    if st.button(f"{tabs['favorites']['icon']}\n{tabs['favorites']['label']}", key="nav_favorites", width="stretch", type="primary" if st.session_state.current_tab == 'favorites' else "secondary"):
+        st.session_state.current_tab = 'favorites'
         st.rerun()
 
 with col4:
