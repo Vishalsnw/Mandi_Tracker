@@ -7,398 +7,535 @@ from scraper import scrape_apmc_data, generate_price_trends, get_nearby_mandis
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
 
 st.set_page_config(
-    page_title="Mandli Bhav - Agricultural Market Price Tracker",
+    page_title="Mandi Bhav",
     page_icon="🌾",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
 if 'language' not in st.session_state:
     st.session_state.language = 'en'
 if 'selected_state' not in st.session_state:
-    st.session_state.selected_state = None
+    st.session_state.selected_state = 'Punjab'
 if 'selected_district' not in st.session_state:
-    st.session_state.selected_district = None
+    st.session_state.selected_district = 'Ludhiana'
 if 'price_data' not in st.session_state:
     st.session_state.price_data = None
+if 'current_page' not in st.session_state:
+    st.session_state.current_page = 'home'
+if 'category_filter' not in st.session_state:
+    st.session_state.category_filter = 'all'
 
 def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
 st.markdown("""
     <style>
-    .main {
-        background-color: #f5f7f3;
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+    
+    * {
+        font-family: 'Roboto', sans-serif;
     }
+    
     .stApp {
-        background: linear-gradient(to bottom, #f5f7f3, #e8f5e9);
+        background: #121212;
+        color: #E0E0E0;
+        max-width: 480px;
+        margin: 0 auto;
     }
-    h1 {
-        color: #2e7d32;
-        font-weight: 700;
+    
+    .main {
+        background: #121212;
+        padding: 0;
+        padding-bottom: 80px;
     }
-    h2, h3 {
-        color: #388e3c;
+    
+    [data-testid="stHeader"] {
+        background: #1E1E1E;
+        border-bottom: 1px solid #2C2C2C;
     }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: #FFFFFF;
+        font-weight: 500;
+    }
+    
+    .app-header {
+        background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+        padding: 16px;
+        border-radius: 0 0 16px 16px;
+        margin: -16px -16px 16px -16px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    
+    .app-title {
+        color: #FFFFFF;
+        font-size: 22px;
+        font-weight: 500;
+        margin: 0;
+        text-align: center;
+    }
+    
+    .app-subtitle {
+        color: #B2DFDB;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 4px;
+    }
+    
     .metric-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border-left: 4px solid #ff9800;
+        background: #1E1E1E;
+        padding: 16px;
+        border-radius: 12px;
+        margin: 8px 0;
+        border-left: 4px solid #4CAF50;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
+    
+    .metric-label {
+        color: #B0B0B0;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+    
+    .metric-value {
+        color: #FFFFFF;
+        font-size: 24px;
+        font-weight: 500;
+    }
+    
     .commodity-card {
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: #1E1E1E;
+        padding: 14px;
+        border-radius: 12px;
         margin: 10px 0;
-        border-left: 3px solid #4caf50;
+        border-left: 3px solid #4CAF50;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .price-high {
-        color: #f44336;
-        font-weight: bold;
+    
+    .commodity-name {
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 8px;
     }
-    .price-low {
-        color: #4caf50;
-        font-weight: bold;
+    
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
     }
+    
+    .price-label {
+        color: #B0B0B0;
+        font-size: 12px;
+    }
+    
+    .price-value {
+        color: #4CAF50;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        background: #1E1E1E;
+        border-top: 1px solid #2C2C2C;
+        display: flex;
+        justify-content: space-around;
+        padding: 8px 0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+    
+    .nav-item {
+        flex: 1;
+        text-align: center;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+    
+    .nav-item.active {
+        background: rgba(76, 175, 80, 0.1);
+    }
+    
+    .nav-icon {
+        font-size: 24px;
+        display: block;
+        margin-bottom: 2px;
+    }
+    
+    .nav-label {
+        font-size: 11px;
+        color: #B0B0B0;
+    }
+    
+    .nav-item.active .nav-label {
+        color: #4CAF50;
+    }
+    
     .stButton>button {
-        background-color: #4caf50;
+        background: #4CAF50;
         color: white;
-        font-weight: bold;
-        border-radius: 5px;
+        font-weight: 500;
+        border-radius: 8px;
         border: none;
-        padding: 10px 25px;
+        padding: 12px 24px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
     }
+    
     .stButton>button:hover {
-        background-color: #45a049;
+        background: #45A049;
+        box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
     }
+    
+    .stSelectbox>div>div {
+        background: #1E1E1E;
+        color: #E0E0E0;
+        border: 1px solid #2C2C2C;
+        border-radius: 8px;
+    }
+    
+    .stRadio>div {
+        background: transparent;
+    }
+    
+    .stRadio label {
+        color: #E0E0E0;
+    }
+    
+    div[data-baseweb="select"] > div {
+        background-color: #1E1E1E;
+        border-color: #2C2C2C;
+    }
+    
+    input {
+        background-color: #1E1E1E;
+        color: #E0E0E0;
+        border: 1px solid #2C2C2C;
+    }
+    
+    .search-section {
+        background: #1E1E1E;
+        padding: 16px;
+        border-radius: 12px;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .section-title {
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+    
+    .chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0;
+    }
+    
+    .chip {
+        background: #2C2C2C;
+        color: #E0E0E0;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        cursor: pointer;
+        border: 1px solid #3C3C3C;
+    }
+    
+    .chip.active {
+        background: #4CAF50;
+        color: white;
+        border-color: #4CAF50;
+    }
+    
+    [data-testid="stDataFrame"] {
+        background: #1E1E1E;
+    }
+    
+    .stPlotlyChart {
+        background: #1E1E1E;
+        border-radius: 12px;
+        padding: 8px;
+    }
+    
     </style>
 """, unsafe_allow_html=True)
 
-st.title(get_text('app_title'))
-st.markdown(f"### {get_text('tagline')}")
-st.markdown("---")
+st.markdown(f"""
+    <div class="app-header">
+        <div class="app-title">🌾 Mandi Bhav</div>
+        <div class="app-subtitle">{get_text('tagline')}</div>
+    </div>
+""", unsafe_allow_html=True)
 
-col_lang, col_empty = st.columns([1, 3])
-with col_lang:
-    language = st.selectbox(
-        get_text('select_language'),
-        options=['en', 'hi'],
-        format_func=lambda x: 'English' if x == 'en' else 'हिंदी',
-        index=0 if st.session_state.language == 'en' else 1
-    )
-    if language != st.session_state.language:
-        st.session_state.language = language
-        st.rerun()
-
-with st.sidebar:
-    st.header("🔍 " + get_text('search_prices'))
+def show_home_page():
+    col1, col2 = st.columns(2)
+    with col1:
+        language = st.selectbox(
+            "🌐 Lang",
+            options=['en', 'hi'],
+            format_func=lambda x: 'English' if x == 'en' else 'हिंदी',
+            index=0 if st.session_state.language == 'en' else 1,
+            key='lang_select'
+        )
+        if language != st.session_state.language:
+            st.session_state.language = language
+            st.rerun()
+    
+    st.markdown('<div class="search-section">', unsafe_allow_html=True)
+    st.markdown(f'<div class="section-title">📍 {get_text("select_state")} & {get_text("select_district")}</div>', unsafe_allow_html=True)
     
     state_options = list(INDIAN_STATES_DISTRICTS.keys())
-    if st.session_state.language == 'hi':
-        state_display = [f"{state} ({INDIAN_STATES_DISTRICTS[state]['name_hi']})" for state in state_options]
-    else:
-        state_display = state_options
-    
-    selected_state_display = st.selectbox(
+    selected_state = st.selectbox(
         get_text('select_state'),
-        options=state_display,
-        index=state_display.index(st.session_state.selected_state) if st.session_state.selected_state in state_display else 0
+        options=state_options,
+        index=state_options.index(st.session_state.selected_state) if st.session_state.selected_state in state_options else 0,
+        label_visibility='collapsed'
     )
-    
-    selected_state = state_options[state_display.index(selected_state_display)]
     
     district_options = INDIAN_STATES_DISTRICTS[selected_state]['districts']
-    
     if isinstance(district_options[0], dict):
-        if st.session_state.language == 'hi':
-            district_display = [d['hi'] for d in district_options]
-            district_keys = [d['en'] for d in district_options]
-        else:
-            district_display = [d['en'] for d in district_options]
-            district_keys = [d['en'] for d in district_options]
-        
-        selected_district_display = st.selectbox(
+        district_keys = [d['en'] for d in district_options]
+        selected_district = st.selectbox(
             get_text('select_district'),
-            options=district_display
+            options=district_keys,
+            label_visibility='collapsed'
         )
-        selected_district = district_keys[district_display.index(selected_district_display)]
     else:
-        if st.session_state.language == 'hi':
-            district_display = [f"{district} (जिला)" for district in district_options]
-            selected_district_display = st.selectbox(
-                get_text('select_district'),
-                options=district_display
-            )
-            selected_district = district_options[district_display.index(selected_district_display)]
-        else:
-            selected_district = st.selectbox(
-                get_text('select_district'),
-                options=district_options
-            )
+        selected_district = st.selectbox(
+            get_text('select_district'),
+            options=district_options,
+            label_visibility='collapsed'
+        )
     
-    if st.button("🔍 " + get_text('search_prices'), use_container_width=True):
-        st.session_state.selected_state = selected_state_display
-        st.session_state.selected_district = selected_district
+    st.session_state.selected_state = selected_state
+    st.session_state.selected_district = selected_district
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown(f'<div class="section-title">🏷️ {get_text("filter_category")}</div>', unsafe_allow_html=True)
+    
+    categories = ['all', 'vegetables', 'fruits', 'grains', 'pulses']
+    category_icons = {'all': '🌟', 'vegetables': '🥬', 'fruits': '🍎', 'grains': '🌾', 'pulses': '🫘'}
+    
+    cols = st.columns(5)
+    for idx, cat in enumerate(categories):
+        with cols[idx]:
+            label = get_text('all_categories') if cat == 'all' else get_text(cat)
+            if st.button(f"{category_icons[cat]}\n{label[:3]}", key=f"cat_{cat}", use_container_width=True):
+                st.session_state.category_filter = cat
+    
+    if st.button(f"🔍 {get_text('search_prices')}", use_container_width=True, type="primary"):
         with st.spinner(get_text('fetching_prices')):
             st.session_state.price_data = scrape_apmc_data(selected_state, selected_district)
+        st.rerun()
     
-    st.markdown("---")
-    
-    category_filter = st.radio(
-        get_text('filter_category'),
-        options=['all', 'vegetables', 'fruits', 'grains', 'pulses'],
-        format_func=lambda x: get_text('all_categories') if x == 'all' else get_text(x)
-    )
-
-if st.session_state.price_data is not None and not st.session_state.price_data.empty:
-    df = st.session_state.price_data
-    
-    if category_filter != 'all':
-        df = df[df['category'] == category_filter]
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('total_commodities')}</h4>
-            <h2>{len(df)}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        avg_price = df['modal_price'].mean()
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('avg_price')}</h4>
-            <h2>₹{avg_price:.2f}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        price_range = f"₹{df['min_price'].min():.0f} - ₹{df['max_price'].max():.0f}"
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>{get_text('price_range')}</h4>
-            <h2>{price_range}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("### 📊 " + get_text('commodity') + " " + get_text('modal_price'))
-    
-    top_commodities = df.nlargest(10, 'modal_price')
-    
-    if st.session_state.language == 'hi':
-        commodity_names = top_commodities['commodity_hi'].tolist()
-    else:
-        commodity_names = top_commodities['commodity_en'].tolist()
-    
-    fig = go.Figure(data=[
-        go.Bar(
-            y=commodity_names,
-            x=top_commodities['modal_price'],
-            orientation='h',
-            marker=dict(
-                color=top_commodities['modal_price'],
-                colorscale='Greens',
-                showscale=True
-            ),
-            text=top_commodities['modal_price'].apply(lambda x: f'₹{x:.2f}'),
-            textposition='auto',
-        )
-    ])
-    
-    fig.update_layout(
-        title=f"{get_text('top_10_commodities')} {get_text('commodity')} {get_text('by')} {get_text('modal_price')}",
-        xaxis_title=get_text('modal_price') + " (₹)",
-        yaxis_title=get_text('commodity'),
-        height=400,
-        showlegend=False
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("### 📋 " + get_text('detailed_price_table'))
-    
-    display_df = df.copy()
-    
-    if st.session_state.language == 'hi':
-        display_df = display_df[[
-            'commodity_hi', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
-        ]]
-        display_df.columns = [
-            get_text('commodity'),
-            get_text('min_price'),
-            get_text('max_price'),
-            get_text('modal_price'),
-            get_text('unit'),
-            get_text('market'),
-            get_text('date')
-        ]
-    else:
-        display_df = display_df[[
-            'commodity_en', 'min_price', 'max_price', 'modal_price', 'unit', 'market', 'arrival_date'
-        ]]
-        display_df.columns = [
-            get_text('commodity'),
-            get_text('min_price'),
-            get_text('max_price'),
-            get_text('modal_price'),
-            get_text('unit'),
-            get_text('market'),
-            get_text('date')
-        ]
-    
-    st.dataframe(
-        display_df.style.format({
-            get_text('min_price'): '₹{:.2f}',
-            get_text('max_price'): '₹{:.2f}',
-            get_text('modal_price'): '₹{:.2f}'
-        }).background_gradient(subset=[get_text('modal_price')], cmap='Greens'),
-        use_container_width=True,
-        height=400
-    )
-    
-    st.markdown("---")
-    
-    col_trend1, col_trend2 = st.columns([1, 2])
-    
-    with col_trend1:
-        st.markdown("### 📈 " + get_text('price_trends'))
-        st.markdown(get_text('select_commodity'))
+    if st.session_state.price_data is not None and not st.session_state.price_data.empty:
+        df = st.session_state.price_data
         
-        if st.session_state.language == 'hi':
-            commodity_options = df[['commodity_en', 'commodity_hi']].drop_duplicates().values.tolist()
-            commodity_display = [f"{row[1]} ({row[0]})" for row in commodity_options]
-            selected_commodity_display = st.selectbox(
-                get_text('commodity'),
-                options=commodity_display,
-                label_visibility='collapsed'
-            )
-            selected_commodity_index = commodity_display.index(selected_commodity_display)
-            selected_commodity = commodity_options[selected_commodity_index][0]
-            selected_commodity_name = commodity_options[selected_commodity_index][1]
-        else:
-            commodity_options = df['commodity_en'].unique().tolist()
-            selected_commodity = st.selectbox(
-                get_text('commodity'),
-                options=commodity_options,
-                label_visibility='collapsed'
-            )
-            selected_commodity_name = selected_commodity
+        if st.session_state.category_filter != 'all':
+            df = df[df['category'] == st.session_state.category_filter]
+        
+        st.markdown("---")
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">{get_text('total_commodities')}</div>
+                <div class="metric-value">{len(df)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            avg_price = df['modal_price'].mean()
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">Avg Price</div>
+                <div class="metric-value">₹{avg_price:.0f}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col3:
+            price_range = f"₹{df['min_price'].min():.0f}-{df['max_price'].max():.0f}"
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">Range</div>
+                <div class="metric-value" style="font-size: 16px;">{price_range}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown(f'<div class="section-title">📊 {get_text("commodity")} Prices</div>', unsafe_allow_html=True)
+        
+        for _, row in df.head(20).iterrows():
+            commodity_name = row['commodity_hi'] if st.session_state.language == 'hi' else row['commodity_en']
+            st.markdown(f"""
+            <div class="commodity-card">
+                <div class="commodity-name">{commodity_name}</div>
+                <div class="price-row">
+                    <span class="price-label">Min</span>
+                    <span class="price-value">₹{row['min_price']:.2f}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Max</span>
+                    <span class="price-value">₹{row['max_price']:.2f}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Modal</span>
+                    <span class="price-value" style="font-size: 16px;">₹{row['modal_price']:.2f}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Market</span>
+                    <span class="price-label">{row['market']}</span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.info(f"👆 {get_text('select_state')} and {get_text('select_district')} to see prices")
+
+def show_trends_page():
+    st.markdown(f'<div class="section-title">📈 {get_text("price_trends")}</div>', unsafe_allow_html=True)
     
-    with col_trend2:
+    if st.session_state.price_data is not None and not st.session_state.price_data.empty:
+        df = st.session_state.price_data
+        
+        commodity_options = df['commodity_en'].unique().tolist()
+        selected_commodity = st.selectbox(
+            get_text('commodity'),
+            options=commodity_options
+        )
+        
         if selected_commodity:
             trend_data = generate_price_trends(selected_commodity, days=7)
             
-            fig_trend = px.line(
-                trend_data,
-                x='date',
-                y='price',
-                title=f"{get_text('last_7_days')} - {selected_commodity_name}",
-                markers=True
-            )
-            
-            fig_trend.update_traces(
-                line_color='#4caf50',
-                line_width=3,
-                marker=dict(size=8, color='#ff9800')
-            )
-            
-            fig_trend.update_layout(
-                xaxis_title=get_text('date'),
-                yaxis_title=get_text('modal_price') + " (₹)",
-                hovermode='x unified'
-            )
-            
-            st.plotly_chart(fig_trend, use_container_width=True)
-            
-            commodity_image = COMMODITY_IMAGES.get(selected_commodity)
-            if commodity_image:
-                st.image(commodity_image, caption=selected_commodity_name, use_container_width=True)
-    
-    st.markdown("---")
-    
-    st.markdown("### 🏪 " + get_text('nearby_mandis'))
-    
-    nearby_mandis = get_nearby_mandis(selected_state, st.session_state.selected_district)
-    
-    nearby_df = nearby_mandis.copy()
-    nearby_df.columns = [
-        get_text('mandi_name'),
-        get_text('distance'),
-        get_text('facilities')
-    ]
-    
-    st.dataframe(nearby_df, use_container_width=True)
+            if not trend_data.empty and trend_data['price'].sum() > 0:
+                fig = px.area(
+                    trend_data,
+                    x='date',
+                    y='price',
+                    title=f"{get_text('last_7_days')} - {selected_commodity}",
+                )
+                
+                fig.update_traces(
+                    fillcolor='rgba(76, 175, 80, 0.2)',
+                    line_color='#4CAF50',
+                    line_width=3
+                )
+                
+                fig.update_layout(
+                    plot_bgcolor='#121212',
+                    paper_bgcolor='#1E1E1E',
+                    font=dict(color='#E0E0E0'),
+                    xaxis=dict(gridcolor='#2C2C2C', title=''),
+                    yaxis=dict(gridcolor='#2C2C2C', title='Price (₹)'),
+                    margin=dict(l=20, r=20, t=40, b=20)
+                )
+                
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.info("No trend data available for this commodity")
+    else:
+        st.info("Please search for prices first from the Home page")
 
-else:
-    st.info("👈 " + ("कृपया प्रारंभ करने के लिए एक राज्य और जिला चुनें" if st.session_state.language == 'hi' else "Please select a state and district from the sidebar to get started"))
+def show_markets_page():
+    st.markdown(f'<div class="section-title">🏪 {get_text("nearby_mandis")}</div>', unsafe_allow_html=True)
     
-    st.markdown("---")
-    st.markdown("### 🌾 " + get_text('about_mandli_bhav'))
-    
-    col_about1, col_about2 = st.columns(2)
-    
-    with col_about1:
-        st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", use_container_width=True)
+    if st.session_state.selected_state and st.session_state.selected_district:
+        nearby_mandis = get_nearby_mandis(st.session_state.selected_state, st.session_state.selected_district)
         
-        if st.session_state.language == 'hi':
-            st.markdown("""
-            **मंडली भाव** एक व्यापक कृषि बाजार मूल्य ट्रैकर है जो किसानों को सूचित निर्णय लेने में मदद करता है।
-            
-            **विशेषताएं:**
-            - 🇮🇳 सभी भारतीय राज्यों और जिलों को कवर करता है
-            - 🌾 सब्जियां, फल, अनाज और दालों की कीमतें
-            - 📊 मूल्य रुझान विश्लेषण
-            - 🏪 आस-पास की मंडी जानकारी
-            - 🌐 द्विभाषी समर्थन (हिंदी/अंग्रेजी)
-            """)
+        if not nearby_mandis.empty:
+            for _, row in nearby_mandis.iterrows():
+                st.markdown(f"""
+                <div class="commodity-card">
+                    <div class="commodity-name">📍 {row['name']}</div>
+                    <div class="price-row">
+                        <span class="price-label">Distance</span>
+                        <span class="price-value">{row['distance_km']} km</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="price-label">Facilities</span>
+                        <span class="price-label">{row['facilities']}</span>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
         else:
-            st.markdown("""
-            **Mandli Bhav** is a comprehensive agricultural market price tracker designed to help farmers make informed decisions.
-            
-            **Features:**
-            - 🇮🇳 Covers all Indian states and districts
-            - 🌾 Prices for vegetables, fruits, grains, and pulses
-            - 📊 Price trend analysis
-            - 🏪 Nearby mandi information
-            - 🌐 Bilingual support (Hindi/English)
-            """)
+            st.info("No market data available")
+    else:
+        st.info("Please select a state and district from the Home page")
+
+def show_about_page():
+    st.markdown(f'<div class="section-title">ℹ️ About Mandi Bhav</div>', unsafe_allow_html=True)
     
-    with col_about2:
-        st.image("attached_assets/stock_images/agricultural_market__0dc6c3a3.jpg", use_container_width=True)
-        
-        if st.session_state.language == 'hi':
-            st.markdown("""
-            **उत्पादन तैनाती के लिए:**
-            
-            1. GitHub Actions का उपयोग करके scraper.py को शेड्यूल करें
-            2. वास्तविक APMC पोर्टल डेटा प्राप्त करें
-            3. PostgreSQL डेटाबेस में मूल्य संग्रहीत करें
-            4. ऐतिहासिक रुझान विश्लेषण जोड़ें
-            5. मूल्य अलर्ट सेटअप करें
-            """)
-        else:
-            st.markdown("""
-            **For Production Deployment:**
-            
-            1. Schedule scraper.py using GitHub Actions
-            2. Fetch real APMC portal data
-            3. Store prices in PostgreSQL database
-            4. Add historical trend analysis
-            5. Setup price alerts
-            """)
-
-st.markdown("---")
-st.info(get_text('disclaimer'))
-st.success(get_text('github_info'))
-
-st.markdown(f"""
-    <div style='text-align: center; color: #666; padding: 20px;'>
-        <p>🌾 {get_text('made_for_farmers')}</p>
+    st.markdown("""
+    <div class="commodity-card">
+        <div class="commodity-name">Real-time Market Prices</div>
+        <p style="color: #B0B0B0; font-size: 14px; line-height: 1.6;">
+        Get live agricultural commodity prices from APMC mandis across India. 
+        Data is fetched directly from the official data.gov.in API.
+        </p>
     </div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="commodity-card">
+        <div class="commodity-name">Features</div>
+        <p style="color: #B0B0B0; font-size: 14px; line-height: 1.6;">
+        ✅ Live prices from government sources<br>
+        ✅ State & district-wise data<br>
+        ✅ Category filtering<br>
+        ✅ Price trends<br>
+        ✅ Nearby market information<br>
+        ✅ Bilingual support (English/Hindi)
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="commodity-card">
+        <div class="commodity-name">Data Source</div>
+        <p style="color: #B0B0B0; font-size: 14px; line-height: 1.6;">
+        All price data is sourced from the official data.gov.in agricultural market API, 
+        managed by the Ministry of Agriculture and Farmers Welfare, Government of India.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+pages = {
+    'home': ('🏠', 'Home', show_home_page),
+    'trends': ('📈', 'Trends', show_trends_page),
+    'markets': ('🏪', 'Markets', show_markets_page),
+    'about': ('ℹ️', 'About', show_about_page)
+}
+
+query_params = st.query_params
+if 'page' in query_params:
+    new_page = query_params['page']
+    if new_page in pages and new_page != st.session_state.current_page:
+        st.session_state.current_page = new_page
+        st.query_params.clear()
+        st.rerun()
+
+current = st.session_state.current_page
+pages[current][2]()
+
+nav_items = []
+for page_key, (icon, label, _) in pages.items():
+    active_class = 'active' if page_key == current else ''
+    nav_items.append(f'<div class="nav-item {active_class}" onclick="window.location.href=\'?page={page_key}\'"><span class="nav-icon">{icon}</span><span class="nav-label">{label}</span></div>')
+
+nav_html = f'<div class="bottom-nav">{"".join(nav_items)}</div>'
+
+st.markdown(nav_html, unsafe_allow_html=True)
