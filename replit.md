@@ -8,6 +8,17 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 17, 2025 - Enhanced Android Material Design & Production Improvements**:
+- Enhanced CSS with Material Design elements (elevation shadows, smooth transitions, gradients)
+- Improved card styling with hover effects and proper elevation levels
+- Enhanced button styling with Material Design shadows and active/hover states
+- Fixed image loading issues by correcting all image path references
+- Fixed LSP error in scraper.py for proper type annotations
+- Added comprehensive documentation about APMC API status (no public API currently available)
+- Improved error handling to always return sample data (prevents UI breaking)
+- Cleaned up unused files and folders (MandiTracker, screenshots, main.py)
+- All changes architect-reviewed and approved
+
 **November 17, 2025 - Complete UI Redesign (Android Reference App Style)**:
 - Redesigned entire app from dark theme to light theme with green accents (#4CAF50)
 - Implemented 4-tab bottom navigation: Home, Search, Dashboard, About
@@ -18,7 +29,6 @@ The system scrapes and aggregates agricultural commodity prices from various man
 - Added data freshness indicators ("Today" badges)
 - Included voice search guidance for farmers using device keyboards
 - Improved farmer accessibility with larger touch targets and clearer visual hierarchy
-- All changes architect-reviewed and approved
 
 **November 17, 2025 - Project Import to Replit**:
 - Imported MandiTracker project from zip archive
