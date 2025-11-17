@@ -21,6 +21,8 @@ if 'selected_district' not in st.session_state:
     st.session_state.selected_district = None
 if 'price_data' not in st.session_state:
     st.session_state.price_data = None
+if 'current_tab' not in st.session_state:
+    st.session_state.current_tab = 'home'
 
 def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
@@ -29,6 +31,7 @@ st.markdown("""
     <style>
     .main {
         background-color: #f5f7f3;
+        padding-bottom: 80px;
     }
     .stApp {
         background: linear-gradient(to bottom, #f5f7f3, #e8f5e9);
@@ -73,6 +76,44 @@ st.markdown("""
     }
     .stButton>button:hover {
         background-color: #45a049;
+    }
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        z-index: 999;
+        border-top: 2px solid #4caf50;
+    }
+    .nav-item {
+        flex: 1;
+        text-align: center;
+        padding: 8px;
+        cursor: pointer;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .nav-item:hover {
+        background-color: #f0f0f0;
+        color: #4caf50;
+    }
+    .nav-item.active {
+        color: #4caf50;
+        font-weight: bold;
+    }
+    .nav-icon {
+        font-size: 24px;
+        display: block;
+    }
+    .nav-label {
+        font-size: 12px;
+        margin-top: 4px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -189,37 +230,40 @@ if st.session_state.price_data is not None and not st.session_state.price_data.e
     
     st.markdown("### 📊 " + get_text('commodity') + " " + get_text('modal_price'))
     
-    top_commodities = df.nlargest(10, 'modal_price')
-    
-    if st.session_state.language == 'hi':
-        commodity_names = top_commodities['commodity_hi'].tolist()
+    if len(df) == 0:
+        st.warning("No commodities found in this category.")
     else:
-        commodity_names = top_commodities['commodity_en'].tolist()
-    
-    fig = go.Figure(data=[
-        go.Bar(
-            y=commodity_names,
-            x=top_commodities['modal_price'],
-            orientation='h',
-            marker=dict(
-                color=top_commodities['modal_price'],
-                colorscale='Greens',
-                showscale=True
-            ),
-            text=top_commodities['modal_price'].apply(lambda x: f'₹{x:.2f}'),
-            textposition='auto',
+        top_commodities = df.nlargest(min(10, len(df)), 'modal_price')
+        
+        if st.session_state.language == 'hi':
+            commodity_names = top_commodities['commodity_hi'].tolist()
+        else:
+            commodity_names = top_commodities['commodity_en'].tolist()
+        
+        fig = go.Figure(data=[
+            go.Bar(
+                y=commodity_names,
+                x=top_commodities['modal_price'],
+                orientation='h',
+                marker=dict(
+                    color=top_commodities['modal_price'],
+                    colorscale='Greens',
+                    showscale=True
+                ),
+                text=top_commodities['modal_price'].apply(lambda x: f'₹{x:.2f}'),
+                textposition='auto',
+            )
+        ])
+        
+        fig.update_layout(
+            title=f"{get_text('top_10_commodities')} {get_text('commodity')} {get_text('by')} {get_text('modal_price')}",
+            xaxis_title=get_text('modal_price') + " (₹)",
+            yaxis_title=get_text('commodity'),
+            height=400,
+            showlegend=False
         )
-    ])
-    
-    fig.update_layout(
-        title=f"{get_text('top_10_commodities')} {get_text('commodity')} {get_text('by')} {get_text('modal_price')}",
-        xaxis_title=get_text('modal_price') + " (₹)",
-        yaxis_title=get_text('commodity'),
-        height=400,
-        showlegend=False
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
+        
+        st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("### 📋 " + get_text('detailed_price_table'))
     
@@ -400,5 +444,26 @@ st.success(get_text('github_info'))
 st.markdown(f"""
     <div style='text-align: center; color: #666; padding: 20px;'>
         <p>🌾 {get_text('made_for_farmers')}</p>
+    </div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span class="nav-label">Trends</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">🏪</span>
+            <span class="nav-label">Markets</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">ℹ️</span>
+            <span class="nav-label">About</span>
+        </div>
     </div>
 """, unsafe_allow_html=True)
