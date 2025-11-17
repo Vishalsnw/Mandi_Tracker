@@ -8,6 +8,18 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 17, 2025 - Complete UI Redesign (Android Reference App Style)**:
+- Redesigned entire app from dark theme to light theme with green accents (#4CAF50)
+- Implemented 4-tab bottom navigation: Home, Search, Dashboard, About
+- Created visual commodity selector with image grid (80px circular images, bilingual labels)
+- Added working favorites system with star toggle buttons (⭐/☆)
+- Built Dashboard page with Favorites, News, and Videos sections
+- Enhanced all price cards with commodity images and bilingual names
+- Added data freshness indicators ("Today" badges)
+- Included voice search guidance for farmers using device keyboards
+- Improved farmer accessibility with larger touch targets and clearer visual hierarchy
+- All changes architect-reviewed and approved
+
 **November 17, 2025 - Project Import to Replit**:
 - Imported MandiTracker project from zip archive
 - Moved application files to root directory (app.py, scraper.py, data_config.py)
@@ -16,7 +28,6 @@ The system scrapes and aggregates agricultural commodity prices from various man
 - Updated .gitignore to exclude MandiTracker folder and zip file
 - Configured workflow to run Streamlit app on port 5000
 - Set up deployment configuration for production (autoscale)
-- Ready for testing and verification
 
 ## User Preferences
 
