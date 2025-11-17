@@ -8,26 +8,33 @@ import trafilatura
 def get_website_text_content(url: str) -> str:
     downloaded = trafilatura.fetch_url(url)
     text = trafilatura.extract(downloaded)
-    return text
+    return text if text is not None else ""
 
 def scrape_apmc_data(state, district, commodity=None):
     """
     Scrape APMC mandi price data.
-    Note: This is a template function. In production, you would connect to actual APMC portals.
-    For GitHub Actions, you would schedule this to run periodically.
+    
+    NOTE: As of November 2025, there is NO public API available for real-time APMC data.
+    - data.gov.in: API does not exist (only CSV downloads available)
+    - agmarknet.gov.in: Has anti-scraping protection (403 Forbidden)
+    
+    This function uses realistic sample data based on actual APMC price patterns.
+    
+    To integrate real data when available:
+    1. Register at data.gov.in for API key when API becomes available
+    2. Use data.gov.in API endpoints (currently unavailable)
+    3. Or use CSV downloads from data.gov.in (not real-time)
+    
+    For production with real data:
+    - Schedule CSV downloads via GitHub Actions
+    - Parse and store in database
+    - Serve from database instead of sample data
     """
     try:
-        agmarknet_url = f"https://agmarknet.gov.in/SearchCmmMkt.aspx"
-        
-        response = requests.get(agmarknet_url, timeout=10)
-        
-        if response.status_code == 200:
-            return generate_sample_data(state, district, commodity)
-        else:
-            return generate_sample_data(state, district, commodity)
+        return generate_sample_data(state, district, commodity)
             
     except Exception as e:
-        print(f"Error scraping data: {e}")
+        print(f"Error generating data: {e}")
         return generate_sample_data(state, district, commodity)
 
 def generate_sample_data(state, district, commodity=None):

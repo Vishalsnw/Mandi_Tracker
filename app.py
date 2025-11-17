@@ -119,9 +119,14 @@ st.markdown("""
         background: #FFFFFF;
         padding: 16px;
         border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
         margin: 8px 0;
-        border: 1px solid #E0E0E0;
+        border: none;
+        transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .metric-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.12);
     }
     
     .metric-card h4 {
@@ -139,12 +144,13 @@ st.markdown("""
     }
     
     .green-header {
-        background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 50%, #2E7D32 100%);
         color: white;
-        padding: 16px;
-        border-radius: 12px;
+        padding: 20px 16px;
+        border-radius: 16px;
         margin-bottom: 16px;
         text-align: center;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3), 0 2px 4px rgba(0,0,0,0.1);
     }
     
     .green-header h1 {
@@ -156,17 +162,26 @@ st.markdown("""
         background-color: #4CAF50 !important;
         color: white !important;
         font-weight: 500;
-        border-radius: 24px;
+        border-radius: 28px;
         border: none;
         padding: 14px 32px;
         width: 100%;
         font-size: 16px;
-        box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        letter-spacing: 0.5px;
+        text-transform: none;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.25), 0 1px 3px rgba(0,0,0,0.12);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .stButton>button:hover {
-        background-color: #45a049 !important;
-        box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        background-color: #43A047 !important;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.35), 0 2px 6px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
+    }
+    
+    .stButton>button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
     }
     
     [data-testid="stSelectbox"] {
@@ -195,10 +210,10 @@ st.markdown("""
         right: 0;
         width: 100vw;
         background: #FFFFFF;
-        box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-        border-top: 1px solid #E0E0E0;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.12), 0 -2px 4px rgba(0,0,0,0.08);
+        border-top: none;
         z-index: 9999;
-        padding: 8px 0;
+        padding: 4px 0 8px 0;
     }
     
     @media (min-width: 768px) {
@@ -269,17 +284,18 @@ st.markdown("""
     
     .commodity-item {
         background: #FFFFFF;
-        border-radius: 12px;
-        padding: 12px;
+        border-radius: 16px;
+        padding: 14px 12px;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
         cursor: pointer;
         border: 2px solid transparent;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .commodity-item:hover {
         border-color: #4CAF50;
-        box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+        box-shadow: 0 6px 14px rgba(76, 175, 80, 0.25), 0 2px 6px rgba(0,0,0,0.1);
     }
     
     .commodity-item img {
@@ -297,23 +313,34 @@ st.markdown("""
     }
     
     .freshness-badge {
-        background: #4CAF50;
+        background: linear-gradient(135deg, #4CAF50, #66BB6A);
         color: white;
-        padding: 4px 12px;
-        border-radius: 12px;
+        padding: 5px 14px;
+        border-radius: 16px;
         font-size: 11px;
+        font-weight: 500;
         display: inline-block;
         margin-left: 8px;
+        box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        letter-spacing: 0.3px;
     }
     
     .price-card {
-        background: #F5F5F5;
-        border-radius: 12px;
-        padding: 12px 16px;
-        margin: 8px 0;
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin: 10px 0;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #F5F5F5;
+    }
+    
+    .price-card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+        border-color: #E8F5E9;
     }
     
     .price-card img {
@@ -442,7 +469,7 @@ def render_home():
                 with col_a:
                     st.markdown(f"""
                     <div class="price-card">
-                        <img src="app/{commodity_img}" alt="{commodity_en}">
+                        <img src="{commodity_img}" alt="{commodity_en}">
                         <div class="price-info">
                             <h3>{commodity_en}</h3>
                             <p>{commodity_hi}</p>
@@ -507,7 +534,7 @@ def render_trends():
         
         st.markdown(f"""
         <div class="price-card">
-            <img src="app/attached_assets/stock_images/indian_fruits_apples_d5558a79.jpg" alt="Mustard">
+            <img src="attached_assets/stock_images/indian_fruits_apples_d5558a79.jpg" alt="Mustard">
             <div class="price-info">
                 <h3>Mustard</h3>
                 <p>सरसों</p>
@@ -517,7 +544,7 @@ def render_trends():
         </div>
         
         <div class="price-card">
-            <img src="app/attached_assets/stock_images/fresh_indian_vegetab_fc6a58ec.jpg" alt="Dhaincha">
+            <img src="attached_assets/stock_images/fresh_indian_vegetab_fc6a58ec.jpg" alt="Dhaincha">
             <div class="price-info">
                 <h3>Dhaincha</h3>
                 <p>ढैंचा</p>
@@ -530,7 +557,7 @@ def render_trends():
         for fav in st.session_state.favorites:
             st.markdown(f"""
             <div class="price-card">
-                <img src="app/{fav.get('image', 'attached_assets/stock_images/agricultural_market__f7641e9d.jpg')}" alt="{fav['name']}">
+                <img src="{fav.get('image', 'attached_assets/stock_images/agricultural_market__f7641e9d.jpg')}" alt="{fav['name']}">
                 <div class="price-info">
                     <h3>{fav['name']}</h3>
                     <p>{fav.get('name_hi', '')}</p>
@@ -568,7 +595,7 @@ def render_trends():
     with col1:
         st.markdown(f"""
         <div class="metric-card" style="cursor: pointer;">
-            <img src="app/{news_items[0]['image']}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;">
+            <img src="{news_items[0]['image']}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;">
             <h4 style="color: #2E7D32 !important; font-size: 14px !important; font-weight: 500 !important;">{news_items[0]['title']}</h4>
             <p style="font-size: 12px; margin: 0;">{news_items[0]['subtitle']}</p>
         </div>
@@ -577,7 +604,7 @@ def render_trends():
     with col2:
         st.markdown(f"""
         <div class="metric-card" style="cursor: pointer;">
-            <img src="app/{news_items[1]['image']}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;">
+            <img src="{news_items[1]['image']}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;">
             <h4 style="color: #2E7D32 !important; font-size: 14px !important; font-weight: 500 !important;">{news_items[1]['title']}</h4>
             <p style="font-size: 12px; margin: 0;">{news_items[1]['subtitle']}</p>
         </div>
@@ -611,7 +638,7 @@ def render_markets():
     for item in sample_prices:
         st.markdown(f"""
         <div class="price-card">
-            <img src="app/attached_assets/stock_images/{item['img']}" alt="{item['name']}">
+            <img src="attached_assets/stock_images/{item['img']}" alt="{item['name']}">
             <div class="price-info">
                 <h3>{item['name']}</h3>
                 <p>{item['name_hi']}</p>
@@ -739,7 +766,7 @@ def render_commodity_selector():
         with cols[idx % 3]:
             st.markdown(f"""
             <div class="commodity-item" style="margin-bottom: 12px;">
-                <img src="app/attached_assets/stock_images/{grain['img']}" alt="{grain['name']}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px;">
+                <img src="attached_assets/stock_images/{grain['img']}" alt="{grain['name']}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px;">
                 <div class="commodity-name" style="font-size: 13px; font-weight: 500; color: #2E7D32 !important;">{grain['name']}</div>
                 <div class="commodity-name" style="font-size: 11px; color: #757575 !important;">{grain['name_hi']}</div>
             </div>
@@ -765,7 +792,7 @@ def render_commodity_selector():
         with cols[idx % 3]:
             st.markdown(f"""
             <div class="commodity-item" style="margin-bottom: 12px;">
-                <img src="app/attached_assets/stock_images/{veg['img']}" alt="{veg['name']}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px;">
+                <img src="attached_assets/stock_images/{veg['img']}" alt="{veg['name']}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px;">
                 <div class="commodity-name" style="font-size: 13px; font-weight: 500; color: #2E7D32 !important;">{veg['name']}</div>
                 <div class="commodity-name" style="font-size: 11px; color: #757575 !important;">{veg['name_hi']}</div>
             </div>
