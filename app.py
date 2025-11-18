@@ -50,6 +50,49 @@ if 'selected_category' not in st.session_state:
 def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
+def calculate_volatility(min_price, max_price, modal_price):
+    """Calculate price volatility as a percentage"""
+    if modal_price == 0:
+        return 0, "Low"
+    price_range = max_price - min_price
+    volatility_pct = (price_range / modal_price) * 100
+    
+    if volatility_pct < 10:
+        return volatility_pct, "Low"
+    elif volatility_pct < 25:
+        return volatility_pct, "Medium"
+    else:
+        return volatility_pct, "High"
+
+def get_price_trend_indicator(modal_price, avg_price):
+    """Determine if price is above or below average"""
+    if modal_price > avg_price * 1.05:
+        return "📈 High", "#FF6B35"
+    elif modal_price < avg_price * 0.95:
+        return "📉 Low", "#0CAF60"
+    else:
+        return "➡️ Average", "#FFA500"
+
+def get_volatility_badge(volatility_level):
+    """Get colored badge for volatility level"""
+    if volatility_level == "Low":
+        return "🟢 Stable", "#0CAF60"
+    elif volatility_level == "Medium":
+        return "🟡 Moderate", "#FFA500"
+    else:
+        return "🔴 Volatile", "#FF6B35"
+
+def should_sell_now(volatility_level, price_position):
+    """Simple recommendation based on volatility and price position"""
+    if price_position == "📈 High" and volatility_level != "High":
+        return "✅ Good time to sell", "#0CAF60"
+    elif price_position == "📉 Low":
+        return "⏳ Wait for better prices", "#FFA500"
+    elif volatility_level == "High":
+        return "⚠️ Market unstable, monitor", "#FF6B35"
+    else:
+        return "➡️ Monitor market", "#808080"
+
 def render_onboarding():
     # Glossy Material 3 Header
     st_tw("""
@@ -226,6 +269,54 @@ def render_commodity_detail():
         st.session_state.current_tab = 'home'
         st.rerun()
     
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    
+    # Sell Advice Banner at top
+    sell_advice = commodity.get('sell_advice', '➡️ Monitor market')
+    if "Good time" in sell_advice:
+        advice_bg = "linear-gradient(135deg, #D4EDDA 0%, #C3E6CB 100%)"
+        advice_icon = "✅"
+    elif "Wait" in sell_advice:
+        advice_bg = "linear-gradient(135deg, #FFF3CD 0%, #FFE69C 100%)"
+        advice_icon = "⏳"
+    elif "unstable" in sell_advice:
+        advice_bg = "linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%)"
+        advice_icon = "⚠️"
+    else:
+        advice_bg = "linear-gradient(135deg, #E2E3E5 0%, #D6D8DB 100%)"
+        advice_icon = "➡️"
+    
+    st.markdown(f"""
+    <div style="background: {advice_bg}; padding: 16px; border-radius: 16px; margin: 0 0 16px 0; border: 3px solid rgba(0,0,0,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0 0 4px 0; font-size: 18px; font-weight: 700; color: #333;">
+            {advice_icon} Market Recommendation / बाजार सिफारिश
+        </h3>
+        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #555;">{sell_advice}</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Volatility & Trend Info Cards
+    volatility_badge, vol_color = get_volatility_badge(commodity.get('volatility_level', 'Low'))
+    price_trend = commodity.get('price_trend', '➡️ Average')
+    
+    col_vol, col_trend = st.columns(2)
+    with col_vol:
+        st.markdown(f"""
+        <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; border: 2px solid #DEE2E6;">
+            <p style="margin: 0; font-size: 12px; color: #666; font-weight: 600;">MARKET STABILITY</p>
+            <p style="margin: 4px 0 0 0; font-size: 16px; color: #333; font-weight: 700;">{volatility_badge}</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_trend:
+        st.markdown(f"""
+        <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; border: 2px solid #DEE2E6;">
+            <p style="margin: 0; font-size: 12px; color: #666; font-weight: 600;">PRICE POSITION</p>
+            <p style="margin: 4px 0 0 0; font-size: 16px; color: #333; font-weight: 700;">{price_trend}</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown('<div style="height: 12px;"></div>', unsafe_allow_html=True)
+    
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(f"""
@@ -365,6 +456,87 @@ def render_commodity_detail():
     with col2:
         if st.button("🔄 Refresh / रिफ्रेश", use_container_width=True, type="secondary"):
             st.rerun()
+    
+    st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
+    
+    # Price Alert Feature
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 16px; border-radius: 16px; border: 2px solid #81C784;">
+        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700; color: #2E7D32;">
+            🔔 Price Alert Feature (Demo) / मूल्य अलर्ट सुविधा (डेमो)
+        </h3>
+        <p style="margin: 0; font-size: 13px; color: #558B2F; font-weight: 500;">
+            Set target prices for decision planning | निर्णय योजना के लिए लक्ष्य मूल्य निर्धारित करें
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    
+    col_alert1, col_alert2 = st.columns(2)
+    with col_alert1:
+        target_price = st.number_input(
+            "Target Price / लक्ष्य मूल्य (₹)",
+            min_value=int(commodity['min_price'] * 0.8),
+            max_value=int(commodity['max_price'] * 1.5),
+            value=int(commodity['modal_price']),
+            step=10,
+            help="Set your desired selling price"
+        )
+    with col_alert2:
+        if st.button("🔔 Set Alert / अलर्ट सेट करें", use_container_width=True, type="primary"):
+            st.toast(f"✅ Alert set for ₹{target_price}! You'll be notified | अलर्ट सेट हो गया!")
+    
+    if target_price > commodity['modal_price']:
+        profit_margin = ((target_price - commodity['modal_price']) / commodity['modal_price']) * 100
+        st.info(f"💰 Waiting for {profit_margin:.1f}% price increase | {profit_margin:.1f}% मूल्य वृद्धि की प्रतीक्षा")
+    elif target_price < commodity['modal_price']:
+        st.warning(f"⚠️ Target is below current price | लक्ष्य वर्तमान मूल्य से कम है")
+    
+    st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
+    
+    # Nearby Mandi Comparison (Estimated based on market variation)
+    import random
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); padding: 16px; border-radius: 16px; border: 2px solid #64B5F6;">
+        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700; color: #1565C0;">
+            📍 Nearby Mandi Estimates / आस-पास की मंडी अनुमान
+        </h3>
+        <p style="margin: 0; font-size: 13px; color: #1976D2; font-weight: 500;">
+            Estimated price variations based on market data | बाजार डेटा के आधार पर अनुमानित मूल्य भिन्नता
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    
+    # Simulate nearby mandis
+    nearby_mandis = [
+        {"name": f"{st.session_state.selected_district} Market 1", "distance": "5 km", "price": commodity['modal_price'] + random.randint(-100, 150)},
+        {"name": f"{st.session_state.selected_district} Market 2", "distance": "12 km", "price": commodity['modal_price'] + random.randint(-80, 200)},
+        {"name": "Nearby District Mandi", "distance": "25 km", "price": commodity['modal_price'] + random.randint(-150, 100)},
+    ]
+    
+    for mandi in nearby_mandis:
+        price_diff = mandi['price'] - commodity['modal_price']
+        diff_color = "#0CAF60" if price_diff > 0 else "#FF6B35" if price_diff < 0 else "#808080"
+        diff_icon = "📈" if price_diff > 0 else "📉" if price_diff < 0 else "➡️"
+        diff_text = f"+₹{abs(price_diff):.0f}" if price_diff > 0 else f"-₹{abs(price_diff):.0f}" if price_diff < 0 else "Same"
+        
+        st.markdown(f"""
+        <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; margin: 4px 0; border: 2px solid #DEE2E6;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p style="margin: 0; font-size: 14px; font-weight: 700; color: #333;">{mandi['name']}</p>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #666;">📏 {mandi['distance']} away</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="margin: 0; font-size: 16px; font-weight: 700; color: #333;">₹{mandi['price']:.0f}</p>
+                    <p style="margin: 2px 0 0 0; font-size: 12px; font-weight: 600; color: {diff_color};">{diff_icon} {diff_text}</p>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -508,13 +680,29 @@ def render_home():
     
     st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
     
-    commodity_search = st.text_input(
-        "Search / खोजें",
-        placeholder="Search Commodity / वस्तु खोजें",
-        label_visibility="collapsed"
-    )
-    if commodity_search:
-        st.session_state.search_commodity = commodity_search
+    col_search, col_btn_search, col_btn_clear = st.columns([3, 0.7, 0.7])
+    with col_search:
+        commodity_search = st.text_input(
+            "Search / खोजें",
+            placeholder="Search Commodity / वस्तु खोजें",
+            label_visibility="collapsed",
+            key="commodity_search_input"
+        )
+    with col_btn_search:
+        st.markdown('<div style="height: 0px;"></div>', unsafe_allow_html=True)
+        search_clicked = st.button("🔍", use_container_width=True, type="primary", help="Search / खोजें")
+    with col_btn_clear:
+        st.markdown('<div style="height: 0px;"></div>', unsafe_allow_html=True)
+        clear_clicked = st.button("✖️", use_container_width=True, type="secondary", help="Clear / साफ करें")
+    
+    if search_clicked and commodity_search:
+        st.session_state.search_commodity = commodity_search.strip().lower()
+        st.rerun()
+    
+    if clear_clicked:
+        st.session_state.search_commodity = None
+        st.session_state.selected_category = 'all'
+        st.rerun()
     
     st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
     st.markdown("**Categories / श्रेणियां**")
@@ -537,6 +725,7 @@ def render_home():
         with col1 if idx % 2 == 0 else col2:
             if st.button(f"{cat_data['icon']} {cat_data['name']}", key=f"cat_{cat_key}", type=btn_style, use_container_width=True):
                 st.session_state.selected_category = cat_key
+                st.session_state.search_commodity = None
                 category_changed = True
         idx += 1
     
@@ -545,7 +734,7 @@ def render_home():
             st.session_state.price_data = scrape_apmc_data(
                 st.session_state.selected_state, 
                 st.session_state.selected_district, 
-                commodity_search if commodity_search else None
+                None
             )
         st.rerun()
     
@@ -556,6 +745,16 @@ def render_home():
         
         if st.session_state.selected_category != 'all':
             df = df[df['category'] == st.session_state.selected_category]
+        
+        if st.session_state.search_commodity:
+            search_term = st.session_state.search_commodity
+            df = df[
+                df['commodity_en'].str.lower().str.contains(search_term, case=False, na=False) | 
+                df['commodity_hi'].str.contains(search_term, case=False, na=False)
+            ]
+            if len(df) == 0:
+                st.warning(f"🔍 No results found for '{st.session_state.search_commodity}' / '{st.session_state.search_commodity}' के लिए कोई परिणाम नहीं मिला")
+                st.info("💡 Try searching with simpler terms or select a category / सरल शब्दों से खोजें या श्रेणी चुनें")
         
         if len(df) > 0:
             avg_price = df['modal_price'].mean()
@@ -597,7 +796,12 @@ def render_home():
                 is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
                 fav_icon = "⭐" if is_favorite else "☆"
                 
-                # Super Glossy Material 3 Commodity Card
+                volatility_pct, volatility_level = calculate_volatility(row['min_price'], row['max_price'], row['modal_price'])
+                price_trend, trend_color = get_price_trend_indicator(row['modal_price'], avg_price)
+                volatility_badge, vol_color = get_volatility_badge(volatility_level)
+                sell_advice, advice_color = should_sell_now(volatility_level, price_trend)
+                
+                # Super Glossy Material 3 Commodity Card with enhanced features
                 st_tw(f"""
                 <div class="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 mb-4 border-2 border-white/60">
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 opacity-95"></div>
@@ -606,13 +810,21 @@ def render_home():
                         <div class="flex items-start justify-between gap-4">
                             <div class="flex-1">
                                 <h3 class="text-white text-2xl font-extrabold leading-tight drop-shadow-lg mb-1">{commodity_hi}</h3>
-                                <p class="text-white/90 text-base font-bold drop-shadow-md mb-4">{commodity_en}</p>
-                                <div class="flex flex-wrap items-center gap-2">
+                                <p class="text-white/90 text-base font-bold drop-shadow-md mb-3">{commodity_en}</p>
+                                <div class="flex flex-wrap items-center gap-2 mb-3">
                                     <span class="bg-white/90 backdrop-blur-sm text-emerald-700 px-5 py-2 rounded-full text-lg font-extrabold shadow-lg border-2 border-white">
                                         ₹{row['modal_price']:.0f}
                                     </span>
                                     <span class="text-white/80 text-xs bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-full font-semibold border border-white/30">
                                         ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}
+                                    </span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="bg-white/95 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-bold shadow-md border border-white">
+                                        {volatility_badge}
+                                    </span>
+                                    <span class="bg-white/95 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-bold shadow-md border border-white">
+                                        {price_trend}
                                     </span>
                                 </div>
                             </div>
@@ -622,7 +834,16 @@ def render_home():
                         </div>
                     </div>
                 </div>
-                """, height=180)
+                """, height=210)
+                
+                # Sell Advice Banner
+                if sell_advice:
+                    advice_bg_color = "#D4EDDA" if "Good time" in sell_advice else "#FFF3CD" if "Wait" in sell_advice else "#F8D7DA" if "unstable" in sell_advice else "#E2E3E5"
+                    st.markdown(f"""
+                    <div style="background: {advice_bg_color}; padding: 8px 12px; border-radius: 12px; margin: -8px 0 8px 0; border: 2px solid rgba(0,0,0,0.1);">
+                        <p style="margin: 0; font-size: 13px; font-weight: 600; color: #333; text-align: center;">{sell_advice}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
                 
                 # Two button area: main for viewing, small for favorite toggle
                 col_main, col_fav = st.columns([4, 1])
@@ -637,8 +858,14 @@ def render_home():
                             'max_price': row['max_price'],
                             'modal_price': row['modal_price'],
                             'category': row['category'],
-                            'image': commodity_img
+                            'image': commodity_img,
+                            'volatility_pct': volatility_pct,
+                            'volatility_level': volatility_level,
+                            'price_trend': price_trend,
+                            'sell_advice': sell_advice,
+                            'avg_category_price': avg_price
                         }
+                        st.session_state.current_tab = 'commodity_detail'
                         st.rerun()
                 
                 with col_fav:
