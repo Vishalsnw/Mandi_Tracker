@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 from datetime import datetime
 from scraper import scrape_apmc_data
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
-from streamlit_tailwind import st_tw
 
 st.set_page_config(
     page_title="Mandi Bhav - मंडी भाव",
@@ -94,53 +93,43 @@ def should_sell_now(volatility_level, price_position):
         return "➡️ Monitor market", "#808080"
 
 def render_onboarding():
-    # Glossy Material 3 Header
-    st_tw("""
-    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
-        <div class="relative p-6 pb-8">
-            <div class="flex items-center gap-4">
-                <div class="text-6xl drop-shadow-2xl filter">🌾</div>
-                <div>
-                    <h1 class="text-white text-3xl font-extrabold tracking-tight drop-shadow-lg">Mandi Bhav</h1>
-                    <p class="text-green-50 text-sm font-medium mt-1">मंडी भाव - Live Market Prices</p>
-                </div>
-            </div>
-        </div>
-        <div class="h-4 bg-gradient-to-b from-transparent to-gray-50"></div>
+    # Clean Header
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 24px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 60px; margin-bottom: 12px;">🌾</div>
+        <h1 style="color: white; font-size: 36px; font-weight: 800; margin: 0 0 8px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Mandi Bhav</h1>
+        <p style="color: rgba(255,255,255,0.95); font-size: 18px; font-weight: 600; margin: 0;">मंडी भाव - Live Market Prices</p>
     </div>
-    """, height=180)
+    """, unsafe_allow_html=True)
     
-    # Glossy Welcome Card
-    st_tw("""
-    <div class="mx-4 mt-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 opacity-10 rounded-3xl"></div>
-        <div class="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center border-2 border-white/50">
-            <div class="text-6xl mb-4 animate-bounce">🌾</div>
-            <p class="text-emerald-700 text-xl font-bold mb-2 tracking-tight">मंडी भाव में आपका स्वागत है</p>
-            <h2 class="text-gray-800 text-2xl font-extrabold tracking-tight">Welcome to Mandi Bhav</h2>
-            <p class="text-gray-600 text-sm mt-3 max-w-sm mx-auto">Get real-time market prices for crops across India</p>
-        </div>
+    st.markdown('<div style="height: 24px;"></div>', unsafe_allow_html=True)
+    
+    # Welcome Card
+    st.markdown("""
+    <div style="background: white; padding: 32px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 0 16px;">
+        <div style="font-size: 64px; margin-bottom: 16px;">🌾</div>
+        <h2 style="color: #059669; font-size: 24px; font-weight: 700; margin: 0 0 8px 0;">मंडी भाव में आपका स्वागत है</h2>
+        <h3 style="color: #1f2937; font-size: 28px; font-weight: 800; margin: 0 0 12px 0;">Welcome to Mandi Bhav</h3>
+        <p style="color: #6b7280; font-size: 16px; margin: 0;">Get real-time market prices for crops across India</p>
     </div>
-    """, height=280)
+    """, unsafe_allow_html=True)
     
-    # Glossy Location Card
-    st_tw("""
-    <div class="mx-4 mt-6 mb-4">
-        <div class="relative overflow-hidden bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl border-2 border-green-100/50 p-6">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400 to-emerald-500 opacity-10 rounded-full -mr-16 -mt-16"></div>
-            <div class="relative flex items-center gap-4 pb-4 mb-4 border-b-2 border-green-100">
-                <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-2xl shadow-lg">
-                    <span class="text-3xl filter drop-shadow">📍</span>
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-gray-900 text-xl font-bold tracking-tight">Select Location</h3>
-                    <p class="text-emerald-600 text-sm font-semibold">अपना स्थान चुनें</p>
-                </div>
+    st.markdown('<div style="height: 24px;"></div>', unsafe_allow_html=True)
+    
+    # Location Card
+    st.markdown("""
+    <div style="background: white; padding: 24px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 0 16px;">
+        <div style="display: flex; align-items: center; gap: 16px; padding-bottom: 16px; border-bottom: 2px solid #e5e7eb;">
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 12px; border-radius: 16px; font-size: 32px;">📍</div>
+            <div>
+                <h3 style="color: #1f2937; font-size: 22px; font-weight: 700; margin: 0 0 4px 0;">Select Location</h3>
+                <p style="color: #059669; font-size: 16px; font-weight: 600; margin: 0;">अपना स्थान चुनें</p>
             </div>
         </div>
     </div>
-    """, height=200)
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
     
     st.markdown('<div style="padding: 0 16px;">', unsafe_allow_html=True)
     
@@ -182,45 +171,38 @@ def render_onboarding():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def render_category_selector():
-    # Glossy Header
-    st_tw("""
-    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
-        <div class="relative p-6">
-            <h1 class="text-white text-2xl font-extrabold text-center tracking-tight drop-shadow-lg">Select Category</h1>
-            <p class="text-green-50 text-center text-sm font-medium mt-1">श्रेणी चुनें</p>
-        </div>
-        <div class="h-3 bg-gradient-to-b from-transparent to-gray-50"></div>
+    # Clean Header
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 24px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h1 style="color: white; font-size: 28px; font-weight: 800; margin: 0 0 4px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Select Category</h1>
+        <p style="color: rgba(255,255,255,0.95); font-size: 16px; font-weight: 600; margin: 0;">श्रेणी चुनें</p>
     </div>
-    """, height=140)
+    """, unsafe_allow_html=True)
     
     st.markdown('<div style="padding: 16px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
-    # Glossy Category Cards
+    # Clean Category Cards
     categories = [
-        {'key': 'all', 'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी', 'gradient': 'from-emerald-400 to-green-500'},
-        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ', 'gradient': 'from-green-400 to-lime-500'},
-        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल', 'gradient': 'from-rose-400 to-pink-500'},
-        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज', 'gradient': 'from-amber-400 to-yellow-500'},
-        {'key': 'pulses', 'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें', 'gradient': 'from-orange-400 to-red-500'},
+        {'key': 'all', 'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी', 'color': '#059669'},
+        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ', 'color': '#10b981'},
+        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल', 'color': '#f43f5e'},
+        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज', 'color': '#f59e0b'},
+        {'key': 'pulses', 'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें', 'color': '#ef4444'},
     ]
     
     for cat in categories:
-        st_tw(f"""
-        <div class="mb-4 relative overflow-hidden rounded-2xl shadow-xl border-2 border-white/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="absolute inset-0 bg-gradient-to-br {cat['gradient']} opacity-90"></div>
-            <div class="relative bg-white/30 backdrop-blur-md p-5">
-                <div class="flex items-center gap-4">
-                    <div class="text-5xl filter drop-shadow-lg">{cat['icon']}</div>
-                    <div class="flex-1">
-                        <h3 class="text-white text-xl font-extrabold tracking-tight drop-shadow-md">{cat['name_en']}</h3>
-                        <p class="text-white/90 text-sm font-semibold">{cat['name_hi']}</p>
-                    </div>
-                    <div class="text-white/70 text-3xl">→</div>
+        st.markdown(f"""
+        <div style="background: {cat['color']}; padding: 20px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="font-size: 48px;">{cat['icon']}</div>
+                <div style="flex: 1;">
+                    <h3 style="color: white; font-size: 24px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">{cat['name_en']}</h3>
+                    <p style="color: rgba(255,255,255,0.95); font-size: 16px; font-weight: 600; margin: 0;">{cat['name_hi']}</p>
                 </div>
+                <div style="color: rgba(255,255,255,0.7); font-size: 32px;">→</div>
             </div>
         </div>
-        """, height=100)
+        """, unsafe_allow_html=True)
         
         if st.button(f"Select {cat['name_en']}", key=f"select_{cat['key']}", use_container_width=True):
             st.session_state.selected_category = cat['key']
@@ -234,16 +216,13 @@ def render_category_selector():
                 )
             st.rerun()
     
-    st_tw("""
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200/50 p-5 mt-6">
-        <div class="absolute top-0 right-0 text-8xl opacity-10">ℹ️</div>
-        <div class="relative">
-            <h4 class="text-indigo-900 font-bold text-lg mb-2">Quick Tip</h4>
-            <p class="text-gray-700 text-sm mb-1">Choose any category to view market prices</p>
-            <p class="text-emerald-700 text-sm font-semibold">श्रेणी चुनें और बाजार मूल्य देखें</p>
-        </div>
+    st.markdown("""
+    <div style="background: #eff6ff; padding: 20px; border-radius: 16px; margin-top: 24px; border: 2px solid #bfdbfe;">
+        <h4 style="color: #1e40af; font-size: 20px; font-weight: 700; margin: 0 0 8px 0;">💡 Quick Tip</h4>
+        <p style="color: #374151; font-size: 16px; margin: 0 0 4px 0;">Choose any category to view market prices</p>
+        <p style="color: #059669; font-size: 16px; font-weight: 600; margin: 0;">श्रेणी चुनें और बाजार मूल्य देखें</p>
     </div>
-    """, height=140)
+    """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -340,87 +319,9 @@ def render_commodity_detail():
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("**📈 Price Trend / मूल्य रुझान**")
-    st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
-    
-    import numpy as np
-    from datetime import datetime, timedelta
-    
-    current_date = datetime.now()
-    dates = [(current_date - timedelta(days=i)).strftime('%d %b') for i in range(6, -1, -1)]
-    
-    base_price = commodity['modal_price']
-    variation = (commodity['max_price'] - commodity['min_price']) / 4
-    
-    historical_prices = [
-        base_price + np.random.uniform(-variation, variation) for _ in range(5)
-    ]
-    historical_prices.append(commodity['min_price'])
-    historical_prices.append(base_price)
-    
-    future_dates = [(current_date + timedelta(days=i)).strftime('%d %b') for i in range(1, 4)]
-    future_prices = [
-        base_price + np.random.uniform(-variation*0.5, variation*0.8) for _ in range(3)
-    ]
-    
-    all_dates = dates + future_dates
-    all_prices = historical_prices + future_prices
-    
-    fig = go.Figure()
-    
-    fig.add_trace(go.Scatter(
-        x=dates,
-        y=historical_prices,
-        mode='lines+markers',
-        name='Historical',
-        line=dict(color='#0CAF60', width=3),
-        marker=dict(size=8, color='#0CAF60'),
-        hovertemplate='<b>%{x}</b><br>₹%{y:.0f}<extra></extra>'
-    ))
-    
-    fig.add_trace(go.Scatter(
-        x=future_dates,
-        y=future_prices,
-        mode='lines+markers',
-        name='Predicted',
-        line=dict(color='#FF6B35', width=3, dash='dash'),
-        marker=dict(size=8, color='#FF6B35', symbol='diamond'),
-        hovertemplate='<b>%{x}</b><br>₹%{y:.0f} (Predicted)<extra></extra>'
-    ))
-    
-    fig.update_layout(
-        plot_bgcolor='white',
-        paper_bgcolor='white',
-        font=dict(family='Inter', size=12),
-        showlegend=True,
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="center",
-            x=0.5
-        ),
-        height=300,
-        margin=dict(l=10, r=10, t=40, b=40),
-        xaxis=dict(
-            showgrid=False,
-            showline=True,
-            linewidth=1,
-            linecolor='#E5E5EA',
-            tickfont=dict(size=11)
-        ),
-        yaxis=dict(
-            showgrid=True,
-            gridwidth=1,
-            gridcolor='#F0F0F0',
-            showline=False,
-            tickprefix='₹',
-            tickfont=dict(size=11)
-        ),
-        hovermode='x unified'
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
+    # Current Price Analysis
+    st.markdown("**📊 Market Analysis / बाजार विश्लेषण**")
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
     
     price_diff = commodity['max_price'] - commodity['min_price']
     avg_price = (commodity['min_price'] + commodity['max_price']) / 2
@@ -459,84 +360,22 @@ def render_commodity_detail():
     
     st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
     
-    # Price Alert Feature
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 16px; border-radius: 16px; border: 2px solid #81C784;">
-        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700; color: #2E7D32;">
-            🔔 Price Alert Feature (Demo) / मूल्य अलर्ट सुविधा (डेमो)
-        </h3>
-        <p style="margin: 0; font-size: 13px; color: #558B2F; font-weight: 500;">
-            Set target prices for decision planning | निर्णय योजना के लिए लक्ष्य मूल्य निर्धारित करें
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    # Explain future features
+    st.info("""
+    **💡 Future Features Coming Soon / आने वाली सुविधाएं**
     
-    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    - **Price Alerts**: Get notified when prices reach your target  
+      **मूल्य अलर्ट**: जब मूल्य आपके लक्ष्य तक पहुंचे तो सूचित हों
     
-    col_alert1, col_alert2 = st.columns(2)
-    with col_alert1:
-        target_price = st.number_input(
-            "Target Price / लक्ष्य मूल्य (₹)",
-            min_value=int(commodity['min_price'] * 0.8),
-            max_value=int(commodity['max_price'] * 1.5),
-            value=int(commodity['modal_price']),
-            step=10,
-            help="Set your desired selling price"
-        )
-    with col_alert2:
-        if st.button("🔔 Set Alert / अलर्ट सेट करें", use_container_width=True, type="primary"):
-            st.toast(f"✅ Alert set for ₹{target_price}! You'll be notified | अलर्ट सेट हो गया!")
+    - **Historical Trends**: View past price data and patterns  
+      **ऐतिहासिक रुझान**: पिछले मूल्य डेटा और पैटर्न देखें
     
-    if target_price > commodity['modal_price']:
-        profit_margin = ((target_price - commodity['modal_price']) / commodity['modal_price']) * 100
-        st.info(f"💰 Waiting for {profit_margin:.1f}% price increase | {profit_margin:.1f}% मूल्य वृद्धि की प्रतीक्षा")
-    elif target_price < commodity['modal_price']:
-        st.warning(f"⚠️ Target is below current price | लक्ष्य वर्तमान मूल्य से कम है")
+    - **Nearby Mandis**: Compare prices across different markets  
+      **आस-पास की मंडियां**: विभिन्न बाजारों में मूल्यों की तुलना करें
     
-    st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
-    
-    # Nearby Mandi Comparison (Estimated based on market variation)
-    import random
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); padding: 16px; border-radius: 16px; border: 2px solid #64B5F6;">
-        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700; color: #1565C0;">
-            📍 Nearby Mandi Estimates / आस-पास की मंडी अनुमान
-        </h3>
-        <p style="margin: 0; font-size: 13px; color: #1976D2; font-weight: 500;">
-            Estimated price variations based on market data | बाजार डेटा के आधार पर अनुमानित मूल्य भिन्नता
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
-    
-    # Simulate nearby mandis
-    nearby_mandis = [
-        {"name": f"{st.session_state.selected_district} Market 1", "distance": "5 km", "price": commodity['modal_price'] + random.randint(-100, 150)},
-        {"name": f"{st.session_state.selected_district} Market 2", "distance": "12 km", "price": commodity['modal_price'] + random.randint(-80, 200)},
-        {"name": "Nearby District Mandi", "distance": "25 km", "price": commodity['modal_price'] + random.randint(-150, 100)},
-    ]
-    
-    for mandi in nearby_mandis:
-        price_diff = mandi['price'] - commodity['modal_price']
-        diff_color = "#0CAF60" if price_diff > 0 else "#FF6B35" if price_diff < 0 else "#808080"
-        diff_icon = "📈" if price_diff > 0 else "📉" if price_diff < 0 else "➡️"
-        diff_text = f"+₹{abs(price_diff):.0f}" if price_diff > 0 else f"-₹{abs(price_diff):.0f}" if price_diff < 0 else "Same"
-        
-        st.markdown(f"""
-        <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; margin: 4px 0; border: 2px solid #DEE2E6;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <p style="margin: 0; font-size: 14px; font-weight: 700; color: #333;">{mandi['name']}</p>
-                    <p style="margin: 2px 0 0 0; font-size: 12px; color: #666;">📏 {mandi['distance']} away</p>
-                </div>
-                <div style="text-align: right;">
-                    <p style="margin: 0; font-size: 16px; font-weight: 700; color: #333;">₹{mandi['price']:.0f}</p>
-                    <p style="margin: 2px 0 0 0; font-size: 12px; font-weight: 600; color: {diff_color};">{diff_icon} {diff_text}</p>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    These features require database storage and will be added in an update.  
+    इन सुविधाओं के लिए डेटाबेस स्टोरेज की आवश्यकता है और अपडेट में जोड़ा जाएगा।
+    """)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -654,23 +493,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def render_home():
-    # Glossy Header
-    st_tw(f"""
-    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
-        <div class="relative p-5">
-            <div class="flex items-center gap-3 mb-2">
-                <div class="text-4xl drop-shadow-lg">🌾</div>
-                <h1 class="text-white text-2xl font-extrabold tracking-tight drop-shadow-lg">Mandi Bhav</h1>
-            </div>
-            <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 w-fit">
-                <span class="text-xl">📍</span>
-                <p class="text-white text-sm font-semibold">{st.session_state.selected_district}, {st.session_state.selected_state}</p>
-            </div>
+    # Clean Header
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 20px; border-radius: 0 0 20px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <div style="font-size: 40px;">🌾</div>
+            <h1 style="color: white; font-size: 28px; font-weight: 800; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Mandi Bhav</h1>
         </div>
-        <div class="h-3 bg-gradient-to-b from-transparent to-gray-50"></div>
+        <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; display: inline-flex; align-items: center; gap: 8px;">
+            <span style="font-size: 20px;">📍</span>
+            <p style="color: white; font-size: 16px; font-weight: 600; margin: 0;">{st.session_state.selected_district}, {st.session_state.selected_state}</p>
+        </div>
     </div>
-    """, height=160)
+    """, unsafe_allow_html=True)
     
     st.markdown('<div style="padding: 16px;">', unsafe_allow_html=True)
     
@@ -801,47 +636,34 @@ def render_home():
                 volatility_badge, vol_color = get_volatility_badge(volatility_level)
                 sell_advice, advice_color = should_sell_now(volatility_level, price_trend)
                 
-                # Super Glossy Material 3 Commodity Card with enhanced features
-                st_tw(f"""
-                <div class="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 mb-4 border-2 border-white/60">
-                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 opacity-95"></div>
-                    <div class="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent"></div>
-                    <div class="relative bg-white/25 backdrop-blur-md p-5">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="flex-1">
-                                <h3 class="text-white text-2xl font-extrabold leading-tight drop-shadow-lg mb-1">{commodity_hi}</h3>
-                                <p class="text-white/90 text-base font-bold drop-shadow-md mb-3">{commodity_en}</p>
-                                <div class="flex flex-wrap items-center gap-2 mb-3">
-                                    <span class="bg-white/90 backdrop-blur-sm text-emerald-700 px-5 py-2 rounded-full text-lg font-extrabold shadow-lg border-2 border-white">
-                                        ₹{row['modal_price']:.0f}
-                                    </span>
-                                    <span class="text-white/80 text-xs bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-full font-semibold border border-white/30">
-                                        ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}
-                                    </span>
+                # Clean, readable commodity card with high contrast
+                with st.container():
+                    st.markdown(f"""
+                    <div style="background: linear-gradient(135deg, #0CAF60 0%, #059669 100%); padding: 20px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <h2 style="color: white; font-size: 28px; font-weight: 700; margin: 0 0 4px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">{commodity_hi}</h2>
+                                <p style="color: rgba(255,255,255,0.95); font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">{commodity_en}</p>
+                                <div style="background: white; padding: 12px 20px; border-radius: 12px; display: inline-block; margin-bottom: 12px;">
+                                    <span style="color: #059669; font-size: 32px; font-weight: 800;">₹{row['modal_price']:.0f}</span>
                                 </div>
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="bg-white/95 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-bold shadow-md border border-white">
-                                        {volatility_badge}
-                                    </span>
-                                    <span class="bg-white/95 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-bold shadow-md border border-white">
-                                        {price_trend}
-                                    </span>
+                                <p style="color: rgba(255,255,255,0.9); font-size: 16px; margin: 0 0 12px 0;">Range: ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}</p>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <span style="background: white; color: #333; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600;">{volatility_badge}</span>
+                                    <span style="background: white; color: #333; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600;">{price_trend}</span>
                                 </div>
                             </div>
-                            <div class="flex flex-col items-center gap-1">
-                                <div class="text-5xl filter drop-shadow-2xl">{fav_icon}</div>
-                            </div>
+                            <div style="font-size: 48px;">{fav_icon}</div>
                         </div>
                     </div>
-                </div>
-                """, height=210)
+                    """, unsafe_allow_html=True)
                 
                 # Sell Advice Banner
                 if sell_advice:
                     advice_bg_color = "#D4EDDA" if "Good time" in sell_advice else "#FFF3CD" if "Wait" in sell_advice else "#F8D7DA" if "unstable" in sell_advice else "#E2E3E5"
                     st.markdown(f"""
-                    <div style="background: {advice_bg_color}; padding: 8px 12px; border-radius: 12px; margin: -8px 0 8px 0; border: 2px solid rgba(0,0,0,0.1);">
-                        <p style="margin: 0; font-size: 13px; font-weight: 600; color: #333; text-align: center;">{sell_advice}</p>
+                    <div style="background: {advice_bg_color}; padding: 12px 16px; border-radius: 12px; margin: 0 0 12px 0; border: 2px solid rgba(0,0,0,0.1);">
+                        <p style="margin: 0; font-size: 16px; font-weight: 700; color: #000; text-align: center;">{sell_advice}</p>
                     </div>
                     """, unsafe_allow_html=True)
                 
