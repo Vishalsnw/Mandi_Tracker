@@ -53,37 +53,37 @@ def get_text(key):
 def render_onboarding():
     # Modern Android App Bar with Tailwind
     st_tw("""
-    <div class="bg-gradient-to-br from-green-700 to-green-900 p-5 shadow-lg">
+    <div class="bg-gradient-to-br from-green-700 to-green-900 p-4 shadow-lg">
         <div class="flex items-center gap-3">
             <div class="text-4xl">🌾</div>
             <h1 class="text-white text-2xl font-bold tracking-wide">Mandi Bhav</h1>
         </div>
     </div>
-    """, height=400)
+    """, height=80)
     
     # Modern Welcome Card with Tailwind
     st_tw("""
-    <div class="mx-4 mt-4 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-8 text-center border border-green-100">
-        <div class="text-6xl mb-4 drop-shadow-lg">🌾</div>
-        <p class="text-green-700 text-xl font-semibold mb-2">मंडी भाव में आपका स्वागत है</p>
-        <h2 class="text-green-800 text-2xl font-bold">Welcome to Mandi Bhav</h2>
+    <div class="mx-4 mt-4 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-6 text-center border border-green-100">
+        <div class="text-5xl mb-3 drop-shadow-lg">🌾</div>
+        <p class="text-green-700 text-lg font-semibold mb-1">मंडी भाव में आपका स्वागत है</p>
+        <h2 class="text-green-800 text-xl font-bold">Welcome to Mandi Bhav</h2>
     </div>
-    """, height=960)
+    """, height=220)
     
     # Modern Location Selection Card with Tailwind
     st_tw("""
-    <div class="mx-4 mt-4 bg-white rounded-3xl shadow-lg p-6 border border-gray-200">
-        <div class="flex items-center gap-3 pb-4 mb-4 border-b-2 border-gray-100">
+    <div class="mx-4 mt-4 bg-white rounded-3xl shadow-lg p-5 border border-gray-200">
+        <div class="flex items-center gap-3 pb-3 mb-3 border-b-2 border-gray-100">
             <div class="bg-green-100 p-2 rounded-xl">
                 <span class="text-2xl">📍</span>
             </div>
             <div class="flex-1">
-                <h3 class="text-gray-900 text-xl font-semibold">Select Your Location</h3>
+                <h3 class="text-gray-900 text-lg font-semibold">Select Your Location</h3>
                 <p class="text-gray-500 text-sm">स्थान चुनें</p>
             </div>
         </div>
     </div>
-    """, height=560)
+    """, height=140)
     
     st.markdown('<div style="padding: 0 16px;">', unsafe_allow_html=True)
     
@@ -127,10 +127,10 @@ def render_onboarding():
 def render_category_selector():
     # Modern Tailwind Categories Header
     st_tw("""
-    <div class="bg-gradient-to-br from-green-700 to-green-900 p-5 shadow-lg">
-        <h1 class="text-white text-2xl font-bold text-center tracking-wide">Select Category / श्रेणी चुनें</h1>
+    <div class="bg-gradient-to-br from-green-700 to-green-900 p-4 shadow-lg">
+        <h1 class="text-white text-xl font-bold text-center tracking-wide">Select Category / श्रेणी चुनें</h1>
     </div>
-    """, height=400)
+    """, height=80)
     
     st.markdown('<div style="padding: 12px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
