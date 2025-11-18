@@ -482,14 +482,25 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def render_home():
-    st.markdown(f"""
-    <div class="app-header">
-        <h1>🌾 Mandi Bhav | मंडी भाव</h1>
-        <p>📍 {st.session_state.selected_district}, {st.session_state.selected_state}</p>
+    # Glossy Header
+    st_tw(f"""
+    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
+        <div class="relative p-5">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-4xl drop-shadow-lg">🌾</div>
+                <h1 class="text-white text-2xl font-extrabold tracking-tight drop-shadow-lg">Mandi Bhav</h1>
+            </div>
+            <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 w-fit">
+                <span class="text-xl">📍</span>
+                <p class="text-white text-sm font-semibold">{st.session_state.selected_district}, {st.session_state.selected_state}</p>
+            </div>
+        </div>
+        <div class="h-3 bg-gradient-to-b from-transparent to-gray-50"></div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=160)
     
-    st.markdown('<div class="content-section">', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 16px;">', unsafe_allow_html=True)
     
     if st.button("⚙️ Change Location / स्थान बदलें", use_container_width=True, type="secondary"):
         st.session_state.onboarding_complete = False
@@ -586,31 +597,32 @@ def render_home():
                 is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
                 fav_icon = "⭐" if is_favorite else "☆"
                 
-                # Attractive Tailwind commodity card
+                # Super Glossy Material 3 Commodity Card
                 st_tw(f"""
-                <div class="bg-gradient-to-br from-white to-green-50 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 mb-3 border-2 border-green-100 hover:border-green-300">
-                    <div class="flex items-start justify-between gap-4">
-                        <div class="flex-1">
-                            <div class="flex items-start gap-2 mb-2">
-                                <h3 class="text-gray-900 text-xl font-bold leading-tight">{commodity_hi}</h3>
+                <div class="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 mb-4 border-2 border-white/60">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 opacity-95"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent"></div>
+                    <div class="relative bg-white/25 backdrop-blur-md p-5">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <h3 class="text-white text-2xl font-extrabold leading-tight drop-shadow-lg mb-1">{commodity_hi}</h3>
+                                <p class="text-white/90 text-base font-bold drop-shadow-md mb-4">{commodity_en}</p>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="bg-white/90 backdrop-blur-sm text-emerald-700 px-5 py-2 rounded-full text-lg font-extrabold shadow-lg border-2 border-white">
+                                        ₹{row['modal_price']:.0f}
+                                    </span>
+                                    <span class="text-white/80 text-xs bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-full font-semibold border border-white/30">
+                                        ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}
+                                    </span>
+                                </div>
                             </div>
-                            <p class="text-green-700 text-base font-semibold mb-3">{commodity_en}</p>
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
-                                    ₹{row['modal_price']:.0f}
-                                </span>
-                                <span class="text-gray-600 text-xs bg-gray-100 px-3 py-1 rounded-full">
-                                    ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}
-                                </span>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="text-5xl filter drop-shadow-2xl">{fav_icon}</div>
                             </div>
-                        </div>
-                        <div class="flex flex-col items-center gap-2">
-                            <div class="text-4xl filter drop-shadow-lg">{fav_icon}</div>
-                            <span class="text-xs text-gray-500 font-medium">Tap ⭐</span>
                         </div>
                     </div>
                 </div>
-                """, height=160)
+                """, height=180)
                 
                 # Two button area: main for viewing, small for favorite toggle
                 col_main, col_fav = st.columns([4, 1])
