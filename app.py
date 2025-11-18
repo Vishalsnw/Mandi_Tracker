@@ -50,80 +50,220 @@ def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
 def render_onboarding():
+    # App Bar
     st.markdown("""
     <style>
-    .onboarding-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 20px;
-        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 50%, #2E7D32 100%);
+    .android-app-bar {
+        background: var(--md-sys-color-primary);
+        padding: 16px;
+        padding-top: 24px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin: -16px -16px 0 -16px;
     }
-    .onboarding-card {
+    .app-bar-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .app-bar-logo {
+        font-size: 28px;
+    }
+    .app-bar-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: white !important;
+        margin: 0 !important;
+    }
+    .welcome-card {
         background: white;
-        border-radius: 24px;
-        padding: 32px 24px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        max-width: 400px;
-        width: 100%;
+        border-radius: 20px;
+        padding: 24px;
+        margin: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         text-align: center;
     }
-    .welcome-icon {
-        font-size: 64px;
+    .welcome-card-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+    .welcome-text-primary {
+        font-size: 22px;
+        font-weight: 600;
+        color: #2D6A4F !important;
+        margin: 8px 0 !important;
+        line-height: 1.3 !important;
+    }
+    .welcome-text-secondary {
+        font-size: 18px;
+        font-weight: 500;
+        color: #52796F !important;
+        margin: 4px 0 !important;
+        line-height: 1.4 !important;
+    }
+    .location-card {
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .location-card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         margin-bottom: 16px;
     }
-    .welcome-title {
-        font-size: 28px;
+    .location-card-title {
+        font-size: 18px;
         font-weight: 600;
-        color: #2E7D32 !important;
-        margin-bottom: 8px;
-    }
-    .welcome-subtitle {
-        font-size: 16px;
-        color: #757575 !important;
-        margin-bottom: 32px;
+        color: #1A1C1E !important;
+        margin: 0 !important;
     }
     </style>
-    <div class="onboarding-card">
-        <div class="welcome-icon">🌾</div>
-        <div class="welcome-title">Mandi Bhav में आपका स्वागत है</div>
-        <div class="welcome-title">Welcome to Mandi Bhav</div>
-        <div class="welcome-subtitle">Your agricultural market price tracker</div>
-    </div>
-    """, unsafe_allow_html=True)
     
-    st.markdown("### 📍 Select Your Location")
-    st.markdown("Choose your state and district to get personalized market prices")
+    <div class="android-app-bar">
+        <div class="app-bar-content">
+            <div class="app-bar-logo">🌾</div>
+            <div class="app-bar-title">Mandi Bhav</div>
+        </div>
+    </div>
+    
+    <div class="welcome-card">
+        <div class="welcome-card-icon">🌾</div>
+        <div class="welcome-text-secondary">मंडी भाव में आपका स्वागत है</div>
+        <div class="welcome-text-primary">Welcome to Mandi Bhav</div>
+    </div>
+    
+    <div class="location-card">
+        <div class="location-card-header">
+            <span style="font-size: 20px;">📍</span>
+            <div class="location-card-title">Select Your Location / स्थान चुनें</div>
+        </div>
+    """, unsafe_allow_html=True)
     
     state_options = list(INDIAN_STATES_DISTRICTS.keys())
     selected_state = st.selectbox(
-        "राज्य चुनें / Select State",
+        "Select State / राज्य चुनें",
         options=state_options,
-        index=state_options.index('Gujarat')
+        index=state_options.index('Gujarat'),
+        key="onboarding_state"
     )
     
     district_options = INDIAN_STATES_DISTRICTS[selected_state]['districts']
     if isinstance(district_options[0], dict):
         district_keys = [d['en'] for d in district_options]
         selected_district = st.selectbox(
-            "जिला चुनें / Select District",
+            "Select District / जिला चुनें",
             options=district_keys,
-            index=0
+            index=0,
+            key="onboarding_district"
         )
     else:
         selected_district = st.selectbox(
-            "जिला चुनें / Select District",
+            "Select District / जिला चुनें",
             options=district_options,
-            index=0
+            index=0,
+            key="onboarding_district"
         )
     
-    if st.button("✅ Continue / जारी रखें", type="primary"):
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    st.markdown('<div style="padding: 0 16px 24px 16px;">', unsafe_allow_html=True)
+    if st.button("Continue / जारी रखें", type="primary", use_container_width=True):
         st.session_state.selected_state = selected_state
         st.session_state.selected_district = selected_district
         st.session_state.onboarding_complete = True
+        st.session_state.show_commodity_selector = True
         st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+
+def render_category_selector():
+    # App Bar
+    st.markdown("""
+    <style>
+    .category-screen-header {
+        background: var(--md-sys-color-primary);
+        padding: 16px;
+        padding-top: 24px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin: -16px -16px 0 -16px;
+    }
+    .category-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: white !important;
+        margin: 0 !important;
+        text-align: center;
+    }
+    .search-container {
+        padding: 16px;
+    }
+    .category-button-large {
+        background: white !important;
+        border-radius: 20px !important;
+        padding: 16px 20px !important;
+        margin: 8px 16px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        min-height: 72px !important;
+        border: 1px solid #E0E0E0 !important;
+        transition: all 0.2s ease !important;
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        color: #1A1C1E !important;
+    }
+    .category-button-large:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+        transform: translateY(-2px) !important;
+    }
+    .category-button-large.selected {
+        background: #B7E4C7 !important;
+        border-color: #2D6A4F !important;
+        color: #2D6A4F !important;
+    }
+    .category-icon {
+        font-size: 32px;
+    }
+    </style>
+    
+    <div class="category-screen-header">
+        <div class="category-title">Categories / श्रेणियाँ</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div class="search-container">', unsafe_allow_html=True)
+    commodity_search = st.text_input(
+        "",
+        placeholder="Search Commodity / वस्तु खोजें",
+        label_visibility="collapsed",
+        key="category_search"
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('<div style="padding-bottom: 80px;">', unsafe_allow_html=True)
+    
+    categories = [
+        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
+        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
+        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
+    ]
+    
+    for cat in categories:
+        is_selected = st.session_state.selected_category == cat['key']
+        selected_class = "selected" if is_selected else ""
+        
+        if st.button(
+            f"{cat['icon']}  {cat['name_en']} / {cat['name_hi']}", 
+            key=f"cat_select_{cat['key']}", 
+            use_container_width=True
+        ):
+            st.session_state.selected_category = cat['key']
+            st.session_state.show_commodity_selector = False
+            st.rerun()
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
 def render_commodity_detail():
     commodity = st.session_state.selected_commodity
@@ -293,11 +433,11 @@ st.markdown("""
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: var(--md-sys-color-surface-variant);
+        background: #f5f5f5;
     }
     
     .main {
-        background: var(--md-sys-color-surface-variant);
+        background: #f5f5f5;
         padding: 0 !important;
         padding-bottom: env(safe-area-inset-bottom, 80px) !important;
         max-width: 100vw;
@@ -412,14 +552,19 @@ st.markdown("""
         font-weight: 600 !important;
         border-radius: 100px !important;
         border: none !important;
-        padding: var(--spacing-md) var(--spacing-lg) !important;
-        min-height: 48px !important;
+        padding: 0 var(--spacing-lg) !important;
+        height: 50px !important;
+        min-height: 50px !important;
+        max-height: 50px !important;
         width: 100% !important;
         font-size: var(--type-label-large) !important;
         letter-spacing: 0.1px !important;
         text-transform: none !important;
         box-shadow: var(--elevation-1) !important;
         transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     .stButton>button:hover {
@@ -444,33 +589,35 @@ st.markdown("""
         box-shadow: none !important;
     }
     
-    /* Form Inputs */
+    /* Form Inputs - Android Style */
     [data-testid="stSelectbox"], [data-testid="stTextInput"] {
-        margin-bottom: var(--spacing-md) !important;
+        margin-bottom: 12px !important;
     }
     
     [data-testid="stSelectbox"] label, [data-testid="stTextInput"] label {
         color: var(--md-sys-color-on-surface) !important;
-        font-size: var(--type-body-large) !important;
+        font-size: 14px !important;
         font-weight: 500 !important;
-        margin-bottom: var(--spacing-sm) !important;
+        margin-bottom: 8px !important;
     }
     
     input, select, textarea {
-        background-color: var(--md-sys-color-surface) !important;
+        background-color: white !important;
         color: var(--md-sys-color-on-surface) !important;
-        border: 1px solid var(--md-sys-color-outline) !important;
+        border: 1.5px solid #E0E0E0 !important;
         border-radius: 12px !important;
-        font-size: var(--type-body-large) !important;
-        padding: var(--spacing-md) !important;
-        min-height: 48px !important;
+        font-size: 16px !important;
+        padding: 14px 16px !important;
+        height: 52px !important;
+        min-height: 52px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
         transition: all 0.2s ease !important;
     }
     
     input:focus, select:focus, textarea:focus {
         border-color: var(--md-sys-color-primary) !important;
-        outline: 2px solid var(--md-sys-color-primary-container) !important;
-        outline-offset: 0px !important;
+        outline: none !important;
+        box-shadow: 0 2px 8px rgba(45, 106, 79, 0.15) !important;
     }
     
     /* Material 3 Bottom Navigation */
@@ -971,6 +1118,8 @@ def render_about():
 
 if not st.session_state.onboarding_complete:
     render_onboarding()
+elif st.session_state.show_commodity_selector:
+    render_category_selector()
 elif st.session_state.selected_commodity is not None:
     render_commodity_detail()
     
