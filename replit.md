@@ -8,6 +8,18 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 18, 2025 - Modern Grocery App Theme & Enhanced Mobile UX**:
+- **Theme Overhaul**: Redesigned color palette to vibrant grocery store style (Fresh Green #0CAF60, Orange #FF6B35)
+- **Mobile Optimization**: Changed layout from "wide" to "centered" for mobile-first experience
+- **Tighter Spacing**: Reduced gaps between all UI elements (headings, buttons, cards) for compact mobile layout
+- **Improved Charts**: Replaced bar graphs with modern line charts showing price trends
+- **Price Predictions**: Added future price forecasting (3 days ahead) with dashed lines and orange markers
+- **Category Layout**: Changed categories to 2-column grid layout for better thumb accessibility
+- **Modern Buttons**: Updated button styles with rounded corners (12px), better shadows, and gradients
+- **Compact Metrics**: Reorganized price metrics into 3-column layout for space efficiency
+- **Enhanced Header**: Added gradient background to app header for premium look
+- **Grocery App Feel**: Overall design now matches modern apps like BigBasket, Blinkit, Zepto
+
 **November 18, 2025 - Complete Android App Experience with Enhanced Features**:
 - Added onboarding screen for first-time users to select and save their location (state/district)
 - Implemented clickable commodities that show individual price charts and detailed analysis
