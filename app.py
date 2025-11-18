@@ -128,14 +128,15 @@ def render_category_selector():
     # Modern Tailwind Categories Header
     st_tw("""
     <div class="bg-gradient-to-br from-green-700 to-green-900 p-5 shadow-lg">
-        <h1 class="text-white text-2xl font-bold text-center tracking-wide">Categories / श्रेणियाँ</h1>
+        <h1 class="text-white text-2xl font-bold text-center tracking-wide">Select Category / श्रेणी चुनें</h1>
     </div>
     """, height=400)
     
-    st.markdown('<div style="padding: 16px; padding-bottom: 80px;">', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 12px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
     # Category Cards with actual buttons
     categories = [
+        {'key': 'all', 'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी'},
         {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
         {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
         {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
@@ -147,15 +148,21 @@ def render_category_selector():
             st.session_state.selected_category = cat['key']
             st.session_state.show_commodity_selector = False
             st.session_state.current_tab = 'home'
+            with st.spinner("Loading prices / मूल्य लोड हो रहे हैं..."):
+                st.session_state.price_data = scrape_apmc_data(
+                    st.session_state.selected_state, 
+                    st.session_state.selected_district,
+                    None
+                )
             st.rerun()
     
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    if st.button("🌾 All / सभी", key="select_all", use_container_width=True, type="secondary"):
-        st.session_state.selected_category = 'all'
-        st.session_state.show_commodity_selector = False
-        st.session_state.current_tab = 'home'
-        st.rerun()
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #E8F8F0 0%, #FFE8E1 100%); padding: 16px; border-radius: 12px; margin: 16px 0;">
+        <h4 style="margin: 0 0 6px 0;">ℹ️ Select a category to continue</h4>
+        <p style="margin: 0; font-size: 13px;">Choose any category to view market prices</p>
+        <p style="margin: 0; font-size: 13px;">श्रेणी चुनें और बाजार मूल्य देखें</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -204,7 +211,8 @@ def render_commodity_detail():
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("### 📈 Price Trend / मूल्य रुझान")
+    st.markdown("**📈 Price Trend / मूल्य रुझान**")
+    st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
     
     import numpy as np
     from datetime import datetime, timedelta
@@ -289,32 +297,36 @@ def render_commodity_detail():
     avg_price = (commodity['min_price'] + commodity['max_price']) / 2
     variation_pct = (price_diff / avg_price) * 100 if avg_price > 0 else 0
     
+    st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
     st.markdown(f"""
-    ### 💡 Price Insights / मूल्य जानकारी
+    **💡 Insights / जानकारी**
     
-    - **Price Range / मूल्य सीमा:** ₹{commodity['min_price']:.0f} - ₹{commodity['max_price']:.0f}
-    - **Price Variation / मूल्य भिन्नता:** ₹{price_diff:.0f} ({variation_pct:.1f}%)
-    - **Category / श्रेणी:** {commodity.get('category', 'N/A').title()}
-    - **Location / स्थान:** {st.session_state.selected_district}, {st.session_state.selected_state}
-    
+    • Range: ₹{commodity['min_price']:.0f} - ₹{commodity['max_price']:.0f} ({variation_pct:.1f}% variation)  
+    • Category: {commodity.get('category', 'N/A').title()} / श्रेणी: {commodity.get('category', 'N/A')}  
+    • Location: {st.session_state.selected_district}, {st.session_state.selected_state}
     """)
     
     is_favorite = any(f['name'] == commodity['name_en'] for f in st.session_state.favorites)
     
-    if st.button("⭐ Add to Favorites / पसंदीदा में जोड़ें" if not is_favorite else "✅ Remove from Favorites / पसंदीदा से हटाएं", type="primary"):
-        if is_favorite:
-            st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity['name_en']]
-            st.toast(f"Removed {commodity['name_en']} / {commodity['name_hi']} हटाया गया")
-        else:
-            st.session_state.favorites.append({
-                'name': commodity['name_en'],
-                'name_hi': commodity['name_hi'],
-                'price': commodity['modal_price'],
-                'location': st.session_state.selected_district,
-                'image': commodity.get('image', 'attached_assets/stock_images/agricultural_market__f7641e9d.jpg')
-            })
-            st.toast(f"Added {commodity['name_en']} / {commodity['name_hi']} जोड़ा गया")
-        st.rerun()
+    col1, col2 = st.columns([3, 2])
+    with col1:
+        if st.button("⭐ Favorite / पसंदीदा" if not is_favorite else "✅ Saved / सहेजा", type="primary" if not is_favorite else "secondary", use_container_width=True):
+            if is_favorite:
+                st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity['name_en']]
+                st.toast(f"Removed / हटाया")
+            else:
+                st.session_state.favorites.append({
+                    'name': commodity['name_en'],
+                    'name_hi': commodity['name_hi'],
+                    'price': commodity['modal_price'],
+                    'location': st.session_state.selected_district,
+                    'image': commodity.get('image', 'attached_assets/stock_images/agricultural_market__f7641e9d.jpg')
+                })
+                st.toast(f"Added / जोड़ा")
+            st.rerun()
+    with col2:
+        if st.button("🔄 Refresh / रिफ्रेश", use_container_width=True, type="secondary"):
+            st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -815,25 +827,26 @@ def render_home():
     
     col1, col2 = st.columns(2)
     idx = 0
+    category_changed = False
     for cat_key, cat_data in categories.items():
         is_selected = st.session_state.selected_category == cat_key
         btn_style = "primary" if is_selected else "secondary"
         with col1 if idx % 2 == 0 else col2:
             if st.button(f"{cat_data['icon']} {cat_data['name']}", key=f"cat_{cat_key}", type=btn_style, use_container_width=True):
                 st.session_state.selected_category = cat_key
-                st.rerun()
+                category_changed = True
         idx += 1
     
-    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
-    
-    if st.button("🔍 Search Prices / मूल्य खोजें", type="primary"):
-        with st.spinner("Fetching prices / मूल्य प्राप्त कर रहे हैं..."):
+    if category_changed or st.session_state.price_data is None:
+        with st.spinner("Loading prices / मूल्य लोड हो रहे हैं..."):
             st.session_state.price_data = scrape_apmc_data(
                 st.session_state.selected_state, 
                 st.session_state.selected_district, 
                 commodity_search if commodity_search else None
             )
         st.rerun()
+    
+    st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
     
     if st.session_state.price_data is not None and not st.session_state.price_data.empty:
         df = st.session_state.price_data
@@ -845,23 +858,32 @@ def render_home():
             avg_price = df['modal_price'].mean()
             price_range = f"₹{df['min_price'].min():.0f}-{df['max_price'].max():.0f}"
             
-            st.markdown(f"""
-            <div class="metric-card">
-                <h4>वस्तुएँ / Items</h4>
-                <h2>{len(df)}</h2>
-            </div>
-            <div class="metric-card">
-                <h4>औसत / Average Price</h4>
-                <h2>₹{avg_price:.0f}</h2>
-            </div>
-            <div class="metric-card">
-                <h4>सीमा / Price Range</h4>
-                <h2>{price_range}</h2>
-            </div>
-            """, unsafe_allow_html=True)
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <h4>Items</h4>
+                    <h2>{len(df)}</h2>
+                </div>
+                """, unsafe_allow_html=True)
+            with col2:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <h4>Avg Price</h4>
+                    <h2>₹{avg_price:.0f}</h2>
+                </div>
+                """, unsafe_allow_html=True)
+            with col3:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <h4>Range</h4>
+                    <h2 style="font-size: 16px !important;">₹{df['min_price'].min():.0f}-{df['max_price'].max():.0f}</h2>
+                </div>
+                """, unsafe_allow_html=True)
             
-            st.markdown("### 📊 वस्तुओं की सूची / Commodities List")
-            st.markdown('<div style="max-height: 60vh; overflow-y: auto; -webkit-overflow-scrolling: touch;">', unsafe_allow_html=True)
+            st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
+            st.markdown("**Prices / मूल्य सूची**")
+            st.markdown('<div style="height: 2px;"></div>', unsafe_allow_html=True)
             
             display_commodities = df.head(min(20, len(df)))
             
@@ -872,79 +894,55 @@ def render_home():
                 is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
                 fav_icon = "⭐" if is_favorite else "☆"
                 
-                commodity_key = f"view_{commodity_en}_{idx}"
-                if st.button(f"{commodity_hi} / {commodity_en}", key=commodity_key, use_container_width=True):
-                    st.session_state.selected_commodity = {
-                        'name_en': commodity_en,
-                        'name_hi': commodity_hi,
-                        'min_price': row['min_price'],
-                        'max_price': row['max_price'],
-                        'modal_price': row['modal_price'],
-                        'category': row['category'],
-                        'image': commodity_img
-                    }
-                    st.rerun()
+                col_btn, col_fav = st.columns([4, 1])
                 
-                st.markdown(f"""
-                <div class="price-card">
-                    <img src="{commodity_img}" alt="{commodity_en}">
-                    <div class="price-info">
-                        <h3>{commodity_hi} / {commodity_en}</h3>
-                        <p>₹{row['min_price']:.0f} - ₹{row['max_price']:.0f} / क्विंटल</p>
-                    </div>
-                    <div>
-                        <div class="price-value">₹{row['modal_price']:.0f}</div>
-                        <span class="freshness-badge">आज</span>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                fav_key = f"fav_{commodity_en}_{idx}"
-                if st.button(f"{fav_icon} Favorite / पसंदीदा", key=fav_key, use_container_width=True, type="secondary"):
-                    if is_favorite:
-                        st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
-                        st.toast(f"{commodity_hi} हटाया गया / Removed")
-                    else:
-                        st.session_state.favorites.append({
-                            'name': commodity_en,
+                with col_btn:
+                    commodity_key = f"view_{commodity_en}_{idx}"
+                    if st.button(f"{commodity_hi} / {commodity_en} - ₹{row['modal_price']:.0f}", key=commodity_key, use_container_width=True):
+                        st.session_state.selected_commodity = {
+                            'name_en': commodity_en,
                             'name_hi': commodity_hi,
-                            'price': row['modal_price'],
-                            'location': st.session_state.selected_district,
+                            'min_price': row['min_price'],
+                            'max_price': row['max_price'],
+                            'modal_price': row['modal_price'],
+                            'category': row['category'],
                             'image': commodity_img
-                        })
-                        st.toast(f"{commodity_hi} जोड़ा गया / Added")
-                    st.rerun()
+                        }
+                        st.rerun()
+                
+                with col_fav:
+                    fav_key = f"fav_{commodity_en}_{idx}"
+                    if st.button(fav_icon, key=fav_key, use_container_width=True, type="secondary"):
+                        if is_favorite:
+                            st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
+                            st.toast(f"Removed / हटाया")
+                        else:
+                            st.session_state.favorites.append({
+                                'name': commodity_en,
+                                'name_hi': commodity_hi,
+                                'price': row['modal_price'],
+                                'location': st.session_state.selected_district,
+                                'image': commodity_img
+                            })
+                            st.toast(f"Added / जोड़ा")
+                        st.rerun()
             
             st.markdown('</div>', unsafe_allow_html=True)
             
             if len(df) > 20:
                 st.info(f"📋 Showing 20 of {len(df)} commodities / {len(df)} में से 20 वस्तुएँ दिखाई जा रही हैं")
         else:
-            st.warning("इस श्रेणी में कोई वस्तु नहीं मिली / No commodities found for this category.")
-    elif st.session_state.price_data is not None and st.session_state.price_data.empty:
-        st.warning(f"⚠️ No price data found for {st.session_state.selected_state} - {st.session_state.selected_district}")
-        st.info("💡 **Tip:** The API updates daily with data from various mandis. Try selecting different states like 'Andhra Pradesh' or 'Haryana' which have recent data, or search without selecting to see all available prices.")
-        
-        if st.button("📋 Show All Available Prices"):
-            with st.spinner("Fetching all available prices..."):
-                st.session_state.price_data = scrape_apmc_data(None, None)
-            st.rerun()
+            st.info("📊 No data found for this category. Try 'All' category.")
     else:
-        st.info("👆 Select a location and click 'Search Prices' to view real mandi data from data.gov.in")
-        
-        st.image("attached_assets/stock_images/agricultural_market__f7641e9d.jpg", width="stretch")
-        
         st.markdown("""
-        ### About Mandi Bhav
-        
-        Get real agricultural commodity prices from APMC mandis via data.gov.in API.
-        
-        **Features:**
-        - 📡 Real data from government data portal
-        - 🌾 Latest commodity prices  
-        - 📊 Multiple states & districts
-        - 💯 100% authentic market data
-        """)
+        <div style="background: linear-gradient(135deg, #E8F8F0 0%, #FFE8E1 100%); padding: 20px; border-radius: 12px; margin: 12px 0;">
+            <h3 style="margin: 0 0 8px 0;">💡 Quick Tips / सुझाव</h3>
+            <p style="margin: 4px 0;">• Select a category above to view prices</p>
+            <p style="margin: 4px 0;">• Click on any commodity to see trends</p>
+            <p style="margin: 4px 0;">• Use ⭐ to save favorites</p>
+            <p style="margin: 4px 0;">• श्रेणी चुनें और मूल्य देखें</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
 

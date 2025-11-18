@@ -8,6 +8,15 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 18, 2025 - Seamless UX & Auto-Load Features**:
+- **Auto-Fetch Data**: Category selection now automatically loads prices (removed "Search Prices" button)
+- **Cleaner Commodity View**: Simplified commodity list with price in button, star favorite on right
+- **No Empty Screens**: Added helpful tips and gradient info cards when data not loaded
+- **Streamlined Detail Page**: Commodity charts show only Favorite + Refresh buttons, no extra navigation
+- **Better Category Selector**: Includes "All" category and helpful instruction card
+- **Filled Empty Spaces**: All empty screens now show useful tips and instructions
+- **Tighter Mobile Layout**: Removed all unnecessary gaps and spacing throughout app
+
 **November 18, 2025 - Modern Grocery App Theme & Enhanced Mobile UX**:
 - **Theme Overhaul**: Redesigned color palette to vibrant grocery store style (Fresh Green #0CAF60, Orange #FF6B35)
 - **Mobile Optimization**: Changed layout from "wide" to "centered" for mobile-first experience
