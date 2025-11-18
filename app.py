@@ -7,9 +7,9 @@ from scraper import scrape_apmc_data
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
 
 st.set_page_config(
-    page_title="Mandi Bhav",
+    page_title="Mandi Bhav - मंडी भाव",
     page_icon="🌾",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
@@ -134,44 +134,33 @@ def render_commodity_detail():
         return
     
     st.markdown(f"""
-    <div class="green-header">
-        <h1>📊 {commodity['name_en']}</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">{commodity['name_hi']}</p>
+    <div class="app-header">
+        <h1>{commodity['name_hi']} | {commodity['name_en']}</h1>
+        <p>📊 Price Analysis | मूल्य विश्लेषण</p>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
-    if st.button("← Back to Home / वापस जाएं"):
+    if st.button("← Back to Home / वापस जाएं", use_container_width=True):
         st.session_state.selected_commodity = None
         st.session_state.current_tab = 'home'
         st.rerun()
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>न्यूनतम / Min</h4>
-            <h2>₹{commodity['min_price']:.0f}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>मॉडल / Modal</h4>
-            <h2>₹{commodity['modal_price']:.0f}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f"""
-        <div class="metric-card">
-            <h4>अधिकतम / Max</h4>
-            <h2>₹{commodity['max_price']:.0f}</h2>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="metric-card">
+        <h4>न्यूनतम / Minimum Price</h4>
+        <h2>₹{commodity['min_price']:.0f}</h2>
+    </div>
+    <div class="metric-card">
+        <h4>मॉडल / Modal Price</h4>
+        <h2>₹{commodity['modal_price']:.0f}</h2>
+    </div>
+    <div class="metric-card">
+        <h4>अधिकतम / Maximum Price</h4>
+        <h2>₹{commodity['max_price']:.0f}</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("### 📈 Price Analysis / मूल्य विश्लेषण")
     
@@ -232,197 +221,272 @@ def render_commodity_detail():
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    /* Material 3 Design System */
+    :root {
+        /* Material 3 Color Tokens */
+        --md-sys-color-primary: #2D6A4F;
+        --md-sys-color-on-primary: #FFFFFF;
+        --md-sys-color-primary-container: #B7E4C7;
+        --md-sys-color-on-primary-container: #052E16;
+        
+        --md-sys-color-secondary: #52796F;
+        --md-sys-color-on-secondary: #FFFFFF;
+        --md-sys-color-secondary-container: #D8F3DC;
+        
+        --md-sys-color-surface: #FEFEFE;
+        --md-sys-color-surface-variant: #F1F3F4;
+        --md-sys-color-on-surface: #1A1C1E;
+        --md-sys-color-on-surface-variant: #42474E;
+        
+        --md-sys-color-outline: #72787E;
+        --md-sys-color-outline-variant: #C2C8CE;
+        
+        --md-sys-color-error: #BA1A1A;
+        --md-sys-color-error-container: #FFDAD6;
+        
+        /* Spacing Tokens */
+        --spacing-xs: 4px;
+        --spacing-sm: 8px;
+        --spacing-md: 16px;
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+        
+        /* Typography Scale */
+        --type-display-large: 57px;
+        --type-headline-large: 32px;
+        --type-headline-medium: 28px;
+        --type-headline-small: 24px;
+        --type-title-large: 22px;
+        --type-title-medium: 16px;
+        --type-title-small: 14px;
+        --type-body-large: 16px;
+        --type-body-medium: 14px;
+        --type-label-large: 14px;
+        
+        /* Elevation */
+        --elevation-0: none;
+        --elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+        --elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+        --elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    }
     
     * {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Hide Streamlit UI elements for native app look */
-    #MainMenu {visibility: hidden;}
-    header {visibility: hidden;}
-    footer {visibility: hidden;}
-    .stDeployButton {display: none;}
-    [data-testid="stToolbar"] {display: none;}
-    [data-testid="stDecoration"] {display: none;}
-    [data-testid="stStatusWidget"] {display: none;}
-    .stActionButton {display: none;}
-    
-    /* Mobile-first layout - Android App Style */
-    html, body {
-        overflow: hidden;
-        height: 100vh;
-        width: 100vw;
+    /* Hide Streamlit UI */
+    #MainMenu, header, footer, .stDeployButton, 
+    [data-testid="stToolbar"], [data-testid="stDecoration"], 
+    [data-testid="stStatusWidget"], .stActionButton {
+        display: none !important;
+        visibility: hidden !important;
     }
     
-    .stApp {
-        background-color: #F5F5F5;
-        max-width: 100vw;
-        height: 100vh;
+    /* Mobile-First Root Layout */
+    html, body, .stApp {
         margin: 0;
         padding: 0;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
+        background: var(--md-sys-color-surface-variant);
     }
     
     .main {
-        background-color: #F5F5F5;
+        background: var(--md-sys-color-surface-variant);
         padding: 0 !important;
-        padding-bottom: 70px !important;
+        padding-bottom: env(safe-area-inset-bottom, 80px) !important;
         max-width: 100vw;
-        margin: 0;
-        height: calc(100vh - 70px);
+        height: 100vh;
         overflow-y: auto !important;
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
     }
     
     .block-container {
-        padding: 0px !important;
-        max-width: 100vw !important;
+        padding: 0 !important;
+        max-width: 100% !important;
         margin: 0 !important;
     }
     
-    /* For larger screens, center with max-width */
-    @media (min-width: 768px) {
-        .stApp {
-            max-width: 480px;
-            margin: 0 auto;
-        }
-        .main {
-            max-width: 480px;
-        }
-        .block-container {
-            max-width: 480px !important;
-        }
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-        color: #2E7D32 !important;
-        font-weight: 500;
-    }
-    
+    /* Typography */
     h1 {
-        font-size: 24px !important;
-        margin-bottom: 8px !important;
+        font-size: var(--type-headline-large) !important;
+        font-weight: 600 !important;
+        color: var(--md-sys-color-on-surface) !important;
+        margin: 0 0 var(--spacing-sm) 0 !important;
+        line-height: 1.2 !important;
     }
     
     h2 {
-        font-size: 20px !important;
+        font-size: var(--type-headline-small) !important;
+        font-weight: 600 !important;
+        color: var(--md-sys-color-on-surface) !important;
+        margin: var(--spacing-md) 0 var(--spacing-sm) 0 !important;
     }
     
     h3 {
-        font-size: 18px !important;
+        font-size: var(--type-title-large) !important;
+        font-weight: 500 !important;
+        color: var(--md-sys-color-on-surface) !important;
+        margin: var(--spacing-md) 0 var(--spacing-sm) 0 !important;
     }
     
     p, div, span, label {
-        color: #424242 !important;
+        color: var(--md-sys-color-on-surface-variant) !important;
+        font-size: var(--type-body-medium) !important;
+        line-height: 1.5 !important;
     }
     
+    /* Modern App Header */
+    .app-header {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        padding: var(--spacing-lg) var(--spacing-md);
+        padding-top: calc(env(safe-area-inset-top, 0px) + var(--spacing-md));
+        box-shadow: var(--elevation-2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .app-header h1 {
+        color: var(--md-sys-color-on-primary) !important;
+        font-size: var(--type-headline-medium) !important;
+        margin: 0 !important;
+    }
+    
+    .app-header p {
+        color: var(--md-sys-color-on-primary) !important;
+        opacity: 0.9;
+        margin: var(--spacing-xs) 0 0 0 !important;
+        font-size: var(--type-body-medium) !important;
+    }
+    
+    /* Content Container */
+    .content-section {
+        padding: var(--spacing-md);
+    }
+    
+    /* Material 3 Cards */
     .metric-card {
-        background: #FFFFFF;
-        padding: 16px;
-        border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
-        margin: 8px 0;
-        border: none;
-        transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: var(--md-sys-color-surface);
+        padding: var(--spacing-md);
+        border-radius: 16px;
+        box-shadow: var(--elevation-1);
+        margin: var(--spacing-sm) 0;
+        border: 1px solid var(--md-sys-color-outline-variant);
+        transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
     }
     
-    .metric-card:hover {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.12);
+    .metric-card:active {
+        box-shadow: var(--elevation-2);
+        transform: scale(0.98);
     }
     
     .metric-card h4 {
-        color: #757575 !important;
-        font-size: 12px !important;
-        font-weight: 400;
-        margin-bottom: 4px;
+        color: var(--md-sys-color-on-surface-variant) !important;
+        font-size: var(--type-body-medium) !important;
+        font-weight: 500 !important;
+        margin-bottom: var(--spacing-xs) !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .metric-card h2 {
-        color: #2E7D32 !important;
-        font-size: 28px !important;
-        font-weight: 500;
-        margin: 0;
+        color: var(--md-sys-color-primary) !important;
+        font-size: var(--type-headline-small) !important;
+        font-weight: 600 !important;
+        margin: 0 !important;
     }
     
-    .green-header {
-        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 50%, #2E7D32 100%);
-        color: white;
-        padding: 20px 16px;
-        border-radius: 0px;
-        margin-bottom: 0px;
-        margin: 0 0 16px 0;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    }
-    
-    .content-section {
-        padding: 16px;
-    }
-    
-    .green-header h1 {
-        color: white !important;
-        margin: 0;
-    }
-    
+    /* Material 3 Buttons */
     .stButton>button {
-        background-color: #4CAF50 !important;
-        color: white !important;
-        font-weight: 500;
-        border-radius: 28px;
-        border: none;
-        padding: 14px 32px;
-        width: 100%;
-        font-size: 16px;
-        letter-spacing: 0.5px;
-        text-transform: none;
-        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.25), 0 1px 3px rgba(0,0,0,0.12);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: var(--md-sys-color-primary) !important;
+        color: var(--md-sys-color-on-primary) !important;
+        font-weight: 600 !important;
+        border-radius: 100px !important;
+        border: none !important;
+        padding: var(--spacing-md) var(--spacing-lg) !important;
+        min-height: 48px !important;
+        width: 100% !important;
+        font-size: var(--type-label-large) !important;
+        letter-spacing: 0.1px !important;
+        text-transform: none !important;
+        box-shadow: var(--elevation-1) !important;
+        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
     }
     
     .stButton>button:hover {
-        background-color: #43A047 !important;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.35), 0 2px 6px rgba(0,0,0,0.15);
-        transform: translateY(-1px);
+        background-color: var(--md-sys-color-primary) !important;
+        box-shadow: var(--elevation-2) !important;
     }
     
     .stButton>button:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+        transform: scale(0.98) !important;
+        box-shadow: var(--elevation-1) !important;
     }
     
-    [data-testid="stSelectbox"] {
-        background-color: #FFFFFF;
-        border-radius: 8px;
+    .stButton>button[kind="secondary"] {
+        background-color: var(--md-sys-color-surface) !important;
+        color: var(--md-sys-color-primary) !important;
+        border: 1px solid var(--md-sys-color-outline) !important;
+        box-shadow: none !important;
     }
     
-    [data-testid="stSelectbox"] label {
-        color: #424242 !important;
-        font-size: 14px !important;
-        font-weight: 500;
+    .stButton>button[kind="secondary"]:hover {
+        background-color: var(--md-sys-color-secondary-container) !important;
+        box-shadow: none !important;
+    }
+    
+    /* Form Inputs */
+    [data-testid="stSelectbox"], [data-testid="stTextInput"] {
+        margin-bottom: var(--spacing-md) !important;
+    }
+    
+    [data-testid="stSelectbox"] label, [data-testid="stTextInput"] label {
+        color: var(--md-sys-color-on-surface) !important;
+        font-size: var(--type-body-large) !important;
+        font-weight: 500 !important;
+        margin-bottom: var(--spacing-sm) !important;
     }
     
     input, select, textarea {
-        background-color: #F5F5F5 !important;
-        color: #424242 !important;
-        border: 1px solid #E0E0E0 !important;
-        border-radius: 8px !important;
-        font-size: 16px !important;
+        background-color: var(--md-sys-color-surface) !important;
+        color: var(--md-sys-color-on-surface) !important;
+        border: 1px solid var(--md-sys-color-outline) !important;
+        border-radius: 12px !important;
+        font-size: var(--type-body-large) !important;
+        padding: var(--spacing-md) !important;
+        min-height: 48px !important;
+        transition: all 0.2s ease !important;
     }
     
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--md-sys-color-primary) !important;
+        outline: 2px solid var(--md-sys-color-primary-container) !important;
+        outline-offset: 0px !important;
+    }
+    
+    /* Material 3 Bottom Navigation */
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
         width: 100vw !important;
-        background: #FFFFFF !important;
-        box-shadow: 0 -2px 8px rgba(0,0,0,0.15) !important;
-        border-top: 1px solid #E0E0E0 !important;
+        background: var(--md-sys-color-surface) !important;
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.1) !important;
+        border-top: 1px solid var(--md-sys-color-outline-variant) !important;
         z-index: 10000 !important;
-        padding: 4px 0 8px 0 !important;
-        height: 70px !important;
+        padding-bottom: env(safe-area-inset-bottom, 8px) !important;
+        height: auto !important;
+        min-height: 80px !important;
         display: flex !important;
         align-items: center !important;
     }
@@ -435,234 +499,196 @@ st.markdown("""
         z-index: 10000 !important;
     }
     
-    @media (min-width: 768px) {
-        .bottom-nav {
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 480px;
-            width: 480px;
-        }
-    }
-    
-    /* Bottom navigation buttons - Android Material Design style */
+    /* Bottom Nav Buttons */
     .bottom-nav .stButton > button {
         background: transparent !important;
-        color: #757575 !important;
+        color: var(--md-sys-color-on-surface-variant) !important;
         border: none !important;
-        padding: 6px 12px !important;
+        padding: var(--spacing-sm) var(--spacing-xs) !important;
         font-size: 12px !important;
         font-weight: 500 !important;
         text-align: center !important;
         width: 100% !important;
-        border-radius: 0 !important;
+        border-radius: 16px !important;
         box-shadow: none !important;
-        transition: all 0.2s ease !important;
-        min-height: 56px !important;
+        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+        min-height: 64px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 2px !important;
-        letter-spacing: 0.4px !important;
+        gap: 4px !important;
+        line-height: 1.2 !important;
     }
     
     .bottom-nav .stButton > button:hover {
-        background: rgba(76, 175, 80, 0.08) !important;
-        color: #4CAF50 !important;
+        background: var(--md-sys-color-secondary-container) !important;
         box-shadow: none !important;
         transform: none !important;
     }
     
     .bottom-nav .stButton > button:active {
-        background: rgba(76, 175, 80, 0.15) !important;
-        transform: none !important;
+        background: var(--md-sys-color-secondary-container) !important;
+        transform: scale(0.95) !important;
     }
     
-    /* Active tab styling */
+    /* Active Tab - Material 3 Style */
     .bottom-nav .stButton > button[kind="primary"] {
-        color: #4CAF50 !important;
-        background: transparent !important;
+        background: var(--md-sys-color-secondary-container) !important;
+        color: var(--md-sys-color-on-secondary-container) !important;
     }
     
     .bottom-nav .stButton > button[kind="primary"]:hover {
-        background: rgba(76, 175, 80, 0.08) !important;
+        background: var(--md-sys-color-secondary-container) !important;
     }
     
-    .nav-icon {
-        font-size: 24px;
-        display: block;
-        margin-bottom: 4px;
-    }
-    
-    [data-testid="stDataFrame"] {
-        background-color: #FFFFFF;
-    }
-    
-    .stRadio > label {
-        color: #424242 !important;
-        font-weight: 500;
-    }
-    
-    .stRadio [data-baseweb="radio"] {
-        background-color: #F5F5F5;
-    }
-    
-    div[data-baseweb="select"] > div {
-        background-color: #F5F5F5 !important;
-        color: #424242 !important;
-    }
-    
-    [data-testid="stMarkdownContainer"] p {
-        color: #424242 !important;
-    }
-    
-    hr {
-        border-color: #E0E0E0 !important;
-    }
-    
-    .commodity-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin: 16px 0;
-    }
-    
-    .commodity-item {
-        background: #FFFFFF;
-        border-radius: 16px;
-        padding: 14px 12px;
-        text-align: center;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .commodity-item:hover {
-        border-color: #4CAF50;
-        box-shadow: 0 6px 14px rgba(76, 175, 80, 0.25), 0 2px 6px rgba(0,0,0,0.1);
-    }
-    
-    .commodity-item img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 8px;
-    }
-    
-    .commodity-name {
-        font-size: 12px;
-        color: #424242;
-        font-weight: 500;
-    }
-    
-    .freshness-badge {
-        background: linear-gradient(135deg, #4CAF50, #66BB6A);
-        color: white;
-        padding: 5px 14px;
-        border-radius: 16px;
-        font-size: 11px;
-        font-weight: 500;
-        display: inline-block;
-        margin-left: 8px;
-        box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
-        letter-spacing: 0.3px;
-    }
-    
+    /* Material 3 Price Cards */
     .price-card {
-        background: #FFFFFF;
-        border-radius: 16px;
-        padding: 14px 16px;
-        margin: 10px 0;
+        background: var(--md-sys-color-surface);
+        border-radius: 20px;
+        padding: var(--spacing-md);
+        margin: var(--spacing-sm) 0;
         display: flex;
         align-items: center;
-        gap: 14px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid #F5F5F5;
+        gap: var(--spacing-md);
+        box-shadow: var(--elevation-1);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+        cursor: pointer;
+        min-height: 88px;
     }
     
-    .price-card:hover {
-        box-shadow: 0 4px 10px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
-        border-color: #E8F5E9;
+    .price-card:active {
+        transform: scale(0.98);
+        box-shadow: var(--elevation-2);
     }
     
     .price-card img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
         object-fit: cover;
+        flex-shrink: 0;
     }
     
     .price-info {
         flex: 1;
+        min-width: 0;
     }
     
     .price-info h3 {
-        margin: 0;
-        font-size: 16px;
-        color: #2E7D32 !important;
+        margin: 0 0 var(--spacing-xs) 0 !important;
+        font-size: var(--type-title-medium) !important;
+        color: var(--md-sys-color-on-surface) !important;
+        font-weight: 600 !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .price-info p {
-        margin: 0;
-        font-size: 12px;
-        color: #757575 !important;
+        margin: 0 !important;
+        font-size: var(--type-body-medium) !important;
+        color: var(--md-sys-color-on-surface-variant) !important;
     }
     
     .price-value {
-        font-size: 18px;
+        font-size: var(--type-title-large) !important;
+        font-weight: 700 !important;
+        color: var(--md-sys-color-primary) !important;
+        white-space: nowrap;
+    }
+    
+    /* Material 3 Badge */
+    .freshness-badge {
+        background: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        padding: var(--spacing-xs) var(--spacing-md);
+        border-radius: 8px;
+        font-size: 11px;
         font-weight: 600;
-        color: #2E7D32 !important;
+        display: inline-block;
+        margin-left: var(--spacing-sm);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+    
+    /* Chip Filters */
+    .filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: var(--md-sys-color-surface);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: 8px;
+        font-size: var(--type-label-large);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .filter-chip.active {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        border-color: transparent;
+    }
+    
+    /* Misc */
+    hr {
+        border-color: var(--md-sys-color-outline-variant) !important;
+        margin: var(--spacing-lg) 0 !important;
+    }
+    
+    [data-testid="stMarkdownContainer"] p {
+        color: var(--md-sys-color-on-surface-variant) !important;
+    }
+    
+    /* Loading & Spinner */
+    [data-testid="stSpinner"] > div {
+        border-color: var(--md-sys-color-primary) !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 def render_home():
     st.markdown(f"""
-    <div class="green-header">
-        <h1>🌾 Mandi Bhav</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">आपकी मंडी के सभी भाव</p>
-        <p style="color: rgba(255,255,255,0.9) !important; margin: 4px 0 0 0; font-size: 12px;">📍 {st.session_state.selected_district}, {st.session_state.selected_state}</p>
+    <div class="app-header">
+        <h1>🌾 Mandi Bhav | मंडी भाव</h1>
+        <p>📍 {st.session_state.selected_district}, {st.session_state.selected_state}</p>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 4])
-    with col1:
-        if st.button("⚙️"):
-            st.session_state.onboarding_complete = False
-            st.rerun()
-    with col2:
-        commodity_search = st.text_input(
-            "🔍 खोजें / Search",
-            placeholder="टमाटर, प्याज़... / Tomato, Onion...",
-            value=st.session_state.search_commodity or "",
-            label_visibility="collapsed"
-        )
-        if commodity_search:
-            st.session_state.search_commodity = commodity_search
+    if st.button("⚙️ Settings / सेटिंग्स", use_container_width=True):
+        st.session_state.onboarding_complete = False
+        st.rerun()
+    
+    commodity_search = st.text_input(
+        "🔍 Search Commodity / वस्तु खोजें",
+        placeholder="टमाटर, प्याज़... / Tomato, Onion...",
+        value=st.session_state.search_commodity or ""
+    )
+    if commodity_search:
+        st.session_state.search_commodity = commodity_search
     
     st.markdown("### 🗂️ Categories / श्रेणियां")
     
     categories = {
-        'all': {'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी'},
-        'vegetables': {'icon': '🥬', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
-        'fruits': {'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
-        'grains': {'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
-        'pulses': {'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें'}
+        'all': {'icon': '🌾', 'name': 'सभी | All'},
+        'vegetables': {'icon': '🥬', 'name': 'सब्ज़ियाँ | Vegetables'},
+        'fruits': {'icon': '🍎', 'name': 'फल | Fruits'},
+        'grains': {'icon': '🌾', 'name': 'अनाज | Grains'},
+        'pulses': {'icon': '🫘', 'name': 'दालें | Pulses'}
     }
     
-    cols = st.columns(5)
-    for idx, (cat_key, cat_data) in enumerate(categories.items()):
-        with cols[idx]:
-            is_selected = st.session_state.selected_category == cat_key
-            btn_style = "primary" if is_selected else "secondary"
-            if st.button(f"{cat_data['icon']}\n{cat_data['name_hi']}\n{cat_data['name_en']}", key=f"cat_{cat_key}", type=btn_style):
-                st.session_state.selected_category = cat_key
-                st.rerun()
+    for cat_key, cat_data in categories.items():
+        is_selected = st.session_state.selected_category == cat_key
+        btn_style = "primary" if is_selected else "secondary"
+        if st.button(f"{cat_data['icon']} {cat_data['name']}", key=f"cat_{cat_key}", type=btn_style, use_container_width=True):
+            st.session_state.selected_category = cat_key
+            st.rerun()
     
     if st.button("🔍 Search Prices / मूल्य खोजें", type="primary"):
         with st.spinner("Fetching prices / मूल्य प्राप्त कर रहे हैं..."):
@@ -680,33 +706,23 @@ def render_home():
             df = df[df['category'] == st.session_state.selected_category]
         
         if len(df) > 0:
-            col1, col2, col3 = st.columns(3)
+            avg_price = df['modal_price'].mean()
+            price_range = f"₹{df['min_price'].min():.0f}-{df['max_price'].max():.0f}"
             
-            with col1:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h4>वस्तुएँ / Items</h4>
-                    <h2>{len(df)}</h2>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col2:
-                avg_price = df['modal_price'].mean()
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h4>औसत / Avg</h4>
-                    <h2>₹{avg_price:.0f}</h2>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col3:
-                price_range = f"₹{df['min_price'].min():.0f}-{df['max_price'].max():.0f}"
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h4>सीमा / Range</h4>
-                    <h2 style="font-size: 18px !important;">{price_range}</h2>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="metric-card">
+                <h4>वस्तुएँ / Items</h4>
+                <h2>{len(df)}</h2>
+            </div>
+            <div class="metric-card">
+                <h4>औसत / Average Price</h4>
+                <h2>₹{avg_price:.0f}</h2>
+            </div>
+            <div class="metric-card">
+                <h4>सीमा / Price Range</h4>
+                <h2>{price_range}</h2>
+            </div>
+            """, unsafe_allow_html=True)
             
             st.markdown("### 📊 वस्तुओं की सूची / Commodities List")
             st.markdown('<div style="max-height: 60vh; overflow-y: auto; -webkit-overflow-scrolling: touch;">', unsafe_allow_html=True)
@@ -717,54 +733,51 @@ def render_home():
                 commodity_en = row['commodity_en']
                 commodity_hi = row['commodity_hi']
                 commodity_img = COMMODITY_IMAGES.get(commodity_en, 'attached_assets/stock_images/agricultural_market__f7641e9d.jpg')
+                is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
+                fav_icon = "⭐" if is_favorite else "☆"
                 
-                col_a, col_b = st.columns([5, 1])
+                commodity_key = f"view_{commodity_en}_{idx}"
+                if st.button(f"{commodity_hi} / {commodity_en}", key=commodity_key, use_container_width=True):
+                    st.session_state.selected_commodity = {
+                        'name_en': commodity_en,
+                        'name_hi': commodity_hi,
+                        'min_price': row['min_price'],
+                        'max_price': row['max_price'],
+                        'modal_price': row['modal_price'],
+                        'category': row['category'],
+                        'image': commodity_img
+                    }
+                    st.rerun()
                 
-                with col_a:
-                    if st.button(f"{commodity_hi}\n{commodity_en}", key=f"view_{commodity_en}_{idx}", use_container_width=True):
-                        st.session_state.selected_commodity = {
-                            'name_en': commodity_en,
-                            'name_hi': commodity_hi,
-                            'min_price': row['min_price'],
-                            'max_price': row['max_price'],
-                            'modal_price': row['modal_price'],
-                            'category': row['category'],
-                            'image': commodity_img
-                        }
-                        st.rerun()
-                    
-                    st.markdown(f"""
-                    <div class="price-card" style="margin-top: -10px;">
-                        <img src="{commodity_img}" alt="{commodity_en}">
-                        <div class="price-info">
-                            <h3>{commodity_hi} / {commodity_en}</h3>
-                            <p style="color: #757575 !important;">₹{row['min_price']:.0f} - ₹{row['max_price']:.0f} / क्विंटल</p>
-                        </div>
-                        <div>
-                            <div class="price-value">₹{row['modal_price']:.0f}</div>
-                            <span class="freshness-badge">● आज</span>
-                        </div>
+                st.markdown(f"""
+                <div class="price-card">
+                    <img src="{commodity_img}" alt="{commodity_en}">
+                    <div class="price-info">
+                        <h3>{commodity_hi} / {commodity_en}</h3>
+                        <p>₹{row['min_price']:.0f} - ₹{row['max_price']:.0f} / क्विंटल</p>
                     </div>
-                    """, unsafe_allow_html=True)
+                    <div>
+                        <div class="price-value">₹{row['modal_price']:.0f}</div>
+                        <span class="freshness-badge">आज</span>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
                 
-                with col_b:
-                    fav_key = f"fav_{commodity_en}_{idx}"
-                    is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
-                    
-                    if st.button("⭐" if is_favorite else "☆", key=fav_key):
-                        if is_favorite:
-                            st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
-                            st.toast(f"{commodity_hi} हटाया गया / Removed")
-                        else:
-                            st.session_state.favorites.append({
-                                'name': commodity_en,
-                                'name_hi': commodity_hi,
-                                'price': row['modal_price'],
-                                'location': st.session_state.selected_district,
-                                'image': commodity_img
-                            })
-                            st.toast(f"{commodity_hi} जोड़ा गया / Added")
-                        st.rerun()
+                fav_key = f"fav_{commodity_en}_{idx}"
+                if st.button(f"{fav_icon} Favorite / पसंदीदा", key=fav_key, use_container_width=True, type="secondary"):
+                    if is_favorite:
+                        st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
+                        st.toast(f"{commodity_hi} हटाया गया / Removed")
+                    else:
+                        st.session_state.favorites.append({
+                            'name': commodity_en,
+                            'name_hi': commodity_hi,
+                            'price': row['modal_price'],
+                            'location': st.session_state.selected_district,
+                            'image': commodity_img
+                        })
+                        st.toast(f"{commodity_hi} जोड़ा गया / Added")
+                    st.rerun()
             
             st.markdown('</div>', unsafe_allow_html=True)
             
@@ -801,9 +814,9 @@ def render_home():
 
 def render_charts():
     st.markdown("""
-    <div class="green-header">
-        <h1>📊 Price Analytics</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">View Trends & Insights</p>
+    <div class="app-header">
+        <h1>📊 Charts | चार्ट</h1>
+        <p>Price Analytics & Trends | मूल्य विश्लेषण</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -880,9 +893,9 @@ def render_charts():
 
 def render_trends():
     st.markdown("""
-    <div class="green-header">
-        <h1>⭐ Favorites</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">Your Saved Commodities</p>
+    <div class="app-header">
+        <h1>⭐ Favorites | पसंदीदा</h1>
+        <p>Your Saved Commodities | आपकी सहेजी वस्तुएँ</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -909,9 +922,9 @@ def render_trends():
 
 def render_about():
     st.markdown("""
-    <div class="green-header">
-        <h1>ℹ️ About</h1>
-        <p style="color: white !important; margin: 0; font-size: 14px;">About This App</p>
+    <div class="app-header">
+        <h1>ℹ️ About | बारे में</h1>
+        <p>About Mandi Bhav | मंडी भाव के बारे में</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -961,7 +974,7 @@ if not st.session_state.onboarding_complete:
 elif st.session_state.selected_commodity is not None:
     render_commodity_detail()
     
-    st.markdown('<div style="height: 80px;"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height: 90px;"></div>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="bottom-nav">
@@ -973,32 +986,28 @@ elif st.session_state.selected_commodity is not None:
     </style>
     """, unsafe_allow_html=True)
     
-    col1, col2 = st.columns(2)
+    if st.button("🏠 होम | Home", key="nav_home_detail", use_container_width=True, type="primary"):
+        st.session_state.selected_commodity = None
+        st.session_state.current_tab = 'home'
+        st.rerun()
     
-    with col1:
-        if st.button("🏠\nHome\nहोम", key="nav_home_detail", width="stretch", type="primary"):
-            st.session_state.selected_commodity = None
-            st.session_state.current_tab = 'home'
-            st.rerun()
-    
-    with col2:
-        if st.button("⭐\nFavorites\nपसंदीदा", key="nav_fav_detail", width="stretch", type="secondary"):
-            st.session_state.selected_commodity = None
-            st.session_state.current_tab = 'favorites'
-            st.rerun()
+    if st.button("⭐ पसंदीदा | Favorites", key="nav_fav_detail", use_container_width=True, type="secondary"):
+        st.session_state.selected_commodity = None
+        st.session_state.current_tab = 'favorites'
+        st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
 else:
     tabs = {
-        'home': {'icon': '🏠', 'label_en': 'Home', 'label_hi': 'होम', 'render': render_home},
-        'charts': {'icon': '📊', 'label_en': 'Charts', 'label_hi': 'चार्ट', 'render': render_charts},
-        'favorites': {'icon': '⭐', 'label_en': 'Favorites', 'label_hi': 'पसंदीदा', 'render': render_trends},
-        'about': {'icon': 'ℹ️', 'label_en': 'About', 'label_hi': 'बारे में', 'render': render_about}
+        'home': {'icon': '🏠', 'label': 'होम', 'render': render_home},
+        'charts': {'icon': '📊', 'label': 'चार्ट', 'render': render_charts},
+        'favorites': {'icon': '⭐', 'label': 'पसंदीदा', 'render': render_trends},
+        'about': {'icon': 'ℹ️', 'label': 'बारे में', 'render': render_about}
     }
     
     tabs[st.session_state.current_tab]['render']()
     
-    st.markdown('<div style="height: 80px;"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height: 90px;"></div>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="bottom-nav">
@@ -1010,26 +1019,20 @@ else:
     </style>
     """, unsafe_allow_html=True)
     
-    col1, col2, col3, col4 = st.columns(4)
+    if st.button(f"{tabs['home']['icon']} {tabs['home']['label']}", key="nav_home", use_container_width=True, type="primary" if st.session_state.current_tab == 'home' else "secondary"):
+        st.session_state.current_tab = 'home'
+        st.rerun()
     
-    with col1:
-        if st.button(f"{tabs['home']['icon']}\n{tabs['home']['label_hi']}\n{tabs['home']['label_en']}", key="nav_home", width="stretch", type="primary" if st.session_state.current_tab == 'home' else "secondary"):
-            st.session_state.current_tab = 'home'
-            st.rerun()
+    if st.button(f"{tabs['charts']['icon']} {tabs['charts']['label']}", key="nav_charts", use_container_width=True, type="primary" if st.session_state.current_tab == 'charts' else "secondary"):
+        st.session_state.current_tab = 'charts'
+        st.rerun()
     
-    with col2:
-        if st.button(f"{tabs['charts']['icon']}\n{tabs['charts']['label_hi']}\n{tabs['charts']['label_en']}", key="nav_charts", width="stretch", type="primary" if st.session_state.current_tab == 'charts' else "secondary"):
-            st.session_state.current_tab = 'charts'
-            st.rerun()
+    if st.button(f"{tabs['favorites']['icon']} {tabs['favorites']['label']}", key="nav_favorites", use_container_width=True, type="primary" if st.session_state.current_tab == 'favorites' else "secondary"):
+        st.session_state.current_tab = 'favorites'
+        st.rerun()
     
-    with col3:
-        if st.button(f"{tabs['favorites']['icon']}\n{tabs['favorites']['label_hi']}\n{tabs['favorites']['label_en']}", key="nav_favorites", width="stretch", type="primary" if st.session_state.current_tab == 'favorites' else "secondary"):
-            st.session_state.current_tab = 'favorites'
-            st.rerun()
-    
-    with col4:
-        if st.button(f"{tabs['about']['icon']}\n{tabs['about']['label_hi']}\n{tabs['about']['label_en']}", key="nav_about", width="stretch", type="primary" if st.session_state.current_tab == 'about' else "secondary"):
-            st.session_state.current_tab = 'about'
-            st.rerun()
+    if st.button(f"{tabs['about']['icon']} {tabs['about']['label']}", key="nav_about", use_container_width=True, type="primary" if st.session_state.current_tab == 'about' else "secondary"):
+        st.session_state.current_tab = 'about'
+        st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
