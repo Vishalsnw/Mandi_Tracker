@@ -8,6 +8,20 @@ The system scrapes and aggregates agricultural commodity prices from various man
 
 ## Recent Changes
 
+**November 18, 2025 - Complete Android App Experience with Enhanced Features**:
+- Added onboarding screen for first-time users to select and save their location (state/district)
+- Implemented clickable commodities that show individual price charts and detailed analysis
+- Added visual category cards with Hindi/English labels (All, Vegetables, Fruits, Grains, Pulses)
+- Enhanced Hindi language visibility throughout the app with bilingual labels on all UI elements
+- Improved commodity list with scrollable container showing up to 20 items at a time
+- Added settings button (⚙️) to allow users to change their location anytime
+- Enhanced bottom navigation with Hindi labels: होम/Home, चार्ट/Charts, पसंदीदा/Favorites, बारे में/About
+- Created dedicated commodity detail view with price range charts, insights, and favorite toggle
+- Improved mobile experience with better touch targets and Android Material Design styling
+- Added bilingual price metrics: वस्तुएँ/Items, औसत/Avg, सीमा/Range
+- Enhanced toast notifications with Hindi/English messages
+- Session state management ensures location persists across app usage
+
 **November 17, 2025 - Removed All Mock Data & API-Only Implementation**:
 - Completely removed all mock/sample data from the application
 - Deleted generate_sample_data(), generate_price_trends(), and get_nearby_mandis() functions
