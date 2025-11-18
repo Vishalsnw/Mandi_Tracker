@@ -894,11 +894,38 @@ def render_home():
                 is_favorite = any(f['name'] == commodity_en for f in st.session_state.favorites)
                 fav_icon = "⭐" if is_favorite else "☆"
                 
-                col_btn, col_fav = st.columns([4, 1])
+                # Attractive Tailwind commodity card
+                st_tw(f"""
+                <div class="bg-gradient-to-br from-white to-green-50 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 mb-3 border-2 border-green-100 hover:border-green-300">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-start gap-2 mb-2">
+                                <h3 class="text-gray-900 text-xl font-bold leading-tight">{commodity_hi}</h3>
+                            </div>
+                            <p class="text-green-700 text-base font-semibold mb-3">{commodity_en}</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md">
+                                    ₹{row['modal_price']:.0f}
+                                </span>
+                                <span class="text-gray-600 text-xs bg-gray-100 px-3 py-1 rounded-full">
+                                    ₹{row['min_price']:.0f} - ₹{row['max_price']:.0f}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="text-4xl filter drop-shadow-lg">{fav_icon}</div>
+                            <span class="text-xs text-gray-500 font-medium">Tap ⭐</span>
+                        </div>
+                    </div>
+                </div>
+                """, height=160)
                 
-                with col_btn:
+                # Two button area: main for viewing, small for favorite toggle
+                col_main, col_fav = st.columns([4, 1])
+                
+                with col_main:
                     commodity_key = f"view_{commodity_en}_{idx}"
-                    if st.button(f"{commodity_hi} / {commodity_en} - ₹{row['modal_price']:.0f}", key=commodity_key, use_container_width=True):
+                    if st.button(f"👁️ View Details", key=commodity_key, use_container_width=True):
                         st.session_state.selected_commodity = {
                             'name_en': commodity_en,
                             'name_hi': commodity_hi,
@@ -912,7 +939,7 @@ def render_home():
                 
                 with col_fav:
                     fav_key = f"fav_{commodity_en}_{idx}"
-                    if st.button(fav_icon, key=fav_key, use_container_width=True, type="secondary"):
+                    if st.button(fav_icon, key=fav_key, use_container_width=True):
                         if is_favorite:
                             st.session_state.favorites = [f for f in st.session_state.favorites if f['name'] != commodity_en]
                             st.toast(f"Removed / हटाया")
