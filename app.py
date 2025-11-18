@@ -51,39 +51,53 @@ def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
 def render_onboarding():
-    # Modern Android App Bar with Tailwind
+    # Glossy Material 3 Header
     st_tw("""
-    <div class="bg-gradient-to-br from-green-700 to-green-900 p-4 shadow-lg">
-        <div class="flex items-center gap-3">
-            <div class="text-4xl">🌾</div>
-            <h1 class="text-white text-2xl font-bold tracking-wide">Mandi Bhav</h1>
-        </div>
-    </div>
-    """, height=80)
-    
-    # Modern Welcome Card with Tailwind
-    st_tw("""
-    <div class="mx-4 mt-4 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-6 text-center border border-green-100">
-        <div class="text-5xl mb-3 drop-shadow-lg">🌾</div>
-        <p class="text-green-700 text-lg font-semibold mb-1">मंडी भाव में आपका स्वागत है</p>
-        <h2 class="text-green-800 text-xl font-bold">Welcome to Mandi Bhav</h2>
-    </div>
-    """, height=220)
-    
-    # Modern Location Selection Card with Tailwind
-    st_tw("""
-    <div class="mx-4 mt-4 bg-white rounded-3xl shadow-lg p-5 border border-gray-200">
-        <div class="flex items-center gap-3 pb-3 mb-3 border-b-2 border-gray-100">
-            <div class="bg-green-100 p-2 rounded-xl">
-                <span class="text-2xl">📍</span>
-            </div>
-            <div class="flex-1">
-                <h3 class="text-gray-900 text-lg font-semibold">Select Your Location</h3>
-                <p class="text-gray-500 text-sm">स्थान चुनें</p>
+    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
+        <div class="relative p-6 pb-8">
+            <div class="flex items-center gap-4">
+                <div class="text-6xl drop-shadow-2xl filter">🌾</div>
+                <div>
+                    <h1 class="text-white text-3xl font-extrabold tracking-tight drop-shadow-lg">Mandi Bhav</h1>
+                    <p class="text-green-50 text-sm font-medium mt-1">मंडी भाव - Live Market Prices</p>
+                </div>
             </div>
         </div>
+        <div class="h-4 bg-gradient-to-b from-transparent to-gray-50"></div>
     </div>
-    """, height=140)
+    """, height=180)
+    
+    # Glossy Welcome Card
+    st_tw("""
+    <div class="mx-4 mt-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 opacity-10 rounded-3xl"></div>
+        <div class="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center border-2 border-white/50">
+            <div class="text-6xl mb-4 animate-bounce">🌾</div>
+            <p class="text-emerald-700 text-xl font-bold mb-2 tracking-tight">मंडी भाव में आपका स्वागत है</p>
+            <h2 class="text-gray-800 text-2xl font-extrabold tracking-tight">Welcome to Mandi Bhav</h2>
+            <p class="text-gray-600 text-sm mt-3 max-w-sm mx-auto">Get real-time market prices for crops across India</p>
+        </div>
+    </div>
+    """, height=280)
+    
+    # Glossy Location Card
+    st_tw("""
+    <div class="mx-4 mt-6 mb-4">
+        <div class="relative overflow-hidden bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl border-2 border-green-100/50 p-6">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400 to-emerald-500 opacity-10 rounded-full -mr-16 -mt-16"></div>
+            <div class="relative flex items-center gap-4 pb-4 mb-4 border-b-2 border-green-100">
+                <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-2xl shadow-lg">
+                    <span class="text-3xl filter drop-shadow">📍</span>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-gray-900 text-xl font-bold tracking-tight">Select Location</h3>
+                    <p class="text-emerald-600 text-sm font-semibold">अपना स्थान चुनें</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    """, height=200)
     
     st.markdown('<div style="padding: 0 16px;">', unsafe_allow_html=True)
     
@@ -125,26 +139,47 @@ def render_onboarding():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def render_category_selector():
-    # Modern Tailwind Categories Header
+    # Glossy Header
     st_tw("""
-    <div class="bg-gradient-to-br from-green-700 to-green-900 p-4 shadow-lg">
-        <h1 class="text-white text-xl font-bold text-center tracking-wide">Select Category / श्रेणी चुनें</h1>
+    <div class="relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 shadow-2xl">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
+        <div class="relative p-6">
+            <h1 class="text-white text-2xl font-extrabold text-center tracking-tight drop-shadow-lg">Select Category</h1>
+            <p class="text-green-50 text-center text-sm font-medium mt-1">श्रेणी चुनें</p>
+        </div>
+        <div class="h-3 bg-gradient-to-b from-transparent to-gray-50"></div>
     </div>
-    """, height=80)
+    """, height=140)
     
-    st.markdown('<div style="padding: 12px; padding-bottom: 80px;">', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 16px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
-    # Category Cards with actual buttons
+    # Glossy Category Cards
     categories = [
-        {'key': 'all', 'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी'},
-        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
-        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
-        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
-        {'key': 'pulses', 'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें'},
+        {'key': 'all', 'icon': '🌾', 'name_en': 'All', 'name_hi': 'सभी', 'gradient': 'from-emerald-400 to-green-500'},
+        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ', 'gradient': 'from-green-400 to-lime-500'},
+        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल', 'gradient': 'from-rose-400 to-pink-500'},
+        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज', 'gradient': 'from-amber-400 to-yellow-500'},
+        {'key': 'pulses', 'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें', 'gradient': 'from-orange-400 to-red-500'},
     ]
     
     for cat in categories:
-        if st.button(f"{cat['icon']} {cat['name_en']} / {cat['name_hi']}", key=f"select_{cat['key']}", use_container_width=True):
+        st_tw(f"""
+        <div class="mb-4 relative overflow-hidden rounded-2xl shadow-xl border-2 border-white/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="absolute inset-0 bg-gradient-to-br {cat['gradient']} opacity-90"></div>
+            <div class="relative bg-white/30 backdrop-blur-md p-5">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl filter drop-shadow-lg">{cat['icon']}</div>
+                    <div class="flex-1">
+                        <h3 class="text-white text-xl font-extrabold tracking-tight drop-shadow-md">{cat['name_en']}</h3>
+                        <p class="text-white/90 text-sm font-semibold">{cat['name_hi']}</p>
+                    </div>
+                    <div class="text-white/70 text-3xl">→</div>
+                </div>
+            </div>
+        </div>
+        """, height=100)
+        
+        if st.button(f"Select {cat['name_en']}", key=f"select_{cat['key']}", use_container_width=True):
             st.session_state.selected_category = cat['key']
             st.session_state.show_commodity_selector = False
             st.session_state.current_tab = 'home'
@@ -156,13 +191,16 @@ def render_category_selector():
                 )
             st.rerun()
     
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8F8F0 0%, #FFE8E1 100%); padding: 16px; border-radius: 12px; margin: 16px 0;">
-        <h4 style="margin: 0 0 6px 0;">ℹ️ Select a category to continue</h4>
-        <p style="margin: 0; font-size: 13px;">Choose any category to view market prices</p>
-        <p style="margin: 0; font-size: 13px;">श्रेणी चुनें और बाजार मूल्य देखें</p>
+    st_tw("""
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200/50 p-5 mt-6">
+        <div class="absolute top-0 right-0 text-8xl opacity-10">ℹ️</div>
+        <div class="relative">
+            <h4 class="text-indigo-900 font-bold text-lg mb-2">Quick Tip</h4>
+            <p class="text-gray-700 text-sm mb-1">Choose any category to view market prices</p>
+            <p class="text-emerald-700 text-sm font-semibold">श्रेणी चुनें और बाजार मूल्य देखें</p>
+        </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=140)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -332,111 +370,42 @@ def render_commodity_detail():
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    /* Modern Grocery App Design System */
-    :root {
-        /* Fresh Grocery Store Colors */
-        --md-sys-color-primary: #0CAF60;
-        --md-sys-color-on-primary: #FFFFFF;
-        --md-sys-color-primary-container: #E8F8F0;
-        --md-sys-color-on-primary-container: #00522A;
-        
-        --md-sys-color-secondary: #FF6B35;
-        --md-sys-color-on-secondary: #FFFFFF;
-        --md-sys-color-secondary-container: #FFE8E1;
-        --md-sys-color-on-secondary-container: #8B3619;
-        
-        --md-sys-color-surface: #FFFFFF;
-        --md-sys-color-surface-variant: #F7F8FA;
-        --md-sys-color-on-surface: #1C1C1E;
-        --md-sys-color-on-surface-variant: #6E6E73;
-        
-        --md-sys-color-outline: #C7C7CC;
-        --md-sys-color-outline-variant: #E5E5EA;
-        
-        --md-sys-color-error: #FF3B30;
-        --md-sys-color-error-container: #FFDAD6;
-        
-        /* Spacing Tokens - Tighter for mobile */
-        --spacing-xs: 4px;
-        --spacing-sm: 8px;
-        --spacing-md: 12px;
-        --spacing-lg: 16px;
-        --spacing-xl: 24px;
-        
-        /* Typography Scale */
-        --type-display-large: 57px;
-        --type-headline-large: 32px;
-        --type-headline-medium: 28px;
-        --type-headline-small: 24px;
-        --type-title-large: 22px;
-        --type-title-medium: 16px;
-        --type-title-small: 14px;
-        --type-body-large: 16px;
-        --type-body-medium: 14px;
-        --type-label-large: 14px;
-        
-        /* Elevation */
-        --elevation-0: none;
-        --elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-        --elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
-        --elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
     
     * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
     
-    /* AGGRESSIVE: Hide ALL Streamlit UI Elements */
+    /* Hide Streamlit UI */
     #MainMenu, header, footer, .stDeployButton, 
     [data-testid="stToolbar"], [data-testid="stDecoration"], 
     [data-testid="stStatusWidget"], .stActionButton,
-    [data-testid="stHeader"], [data-testid="stSidebarNav"],
-    .css-1dp5vir, .st-emotion-cache-1dp5vir {
+    [data-testid="stHeader"], [data-testid="stSidebarNav"] {
         display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        width: 0 !important;
     }
     
-    /* AGGRESSIVE: Full Mobile App Root Layout */
+    /* Mobile-First Layout */
     html, body, .stApp, [data-testid="stAppViewContainer"] {
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        max-width: 100% !important;
-        height: 100% !important;
-        overflow: hidden !important;
-        background: #F7F8FA !important;
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
     }
     
     .main, [data-testid="stMain"] {
-        background: #F7F8FA !important;
         padding: 0 !important;
-        padding-top: 0 !important;
-        padding-bottom: 70px !important;
+        padding-bottom: 80px !important;
         margin: 0 !important;
         max-width: 100% !important;
-        width: 100% !important;
-        height: 100vh !important;
-        overflow-y: auto !important;
         overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-behavior: smooth !important;
     }
     
     .block-container, [data-testid="block-container"],
     .element-container, [data-testid="element-container"] {
         padding: 0 !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
         max-width: 100% !important;
-        width: 100% !important;
         margin: 0 !important;
     }
     
@@ -444,332 +413,55 @@ st.markdown("""
         display: none !important;
     }
     
-    /* Typography */
-    h1 {
-        font-size: 26px !important;
-        font-weight: 700 !important;
-        color: var(--md-sys-color-on-surface) !important;
-        margin: 0 !important;
-        line-height: 1.2 !important;
-    }
-    
-    h2 {
-        font-size: 20px !important;
-        font-weight: 700 !important;
-        color: var(--md-sys-color-on-surface) !important;
-        margin: 0 0 var(--spacing-sm) 0 !important;
-    }
-    
-    h3 {
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        color: var(--md-sys-color-on-surface) !important;
-        margin: 0 0 var(--spacing-xs) 0 !important;
-    }
-    
-    p, div, span, label {
-        color: var(--md-sys-color-on-surface-variant) !important;
-        font-size: var(--type-body-medium) !important;
-        line-height: 1.5 !important;
-    }
-    
-    /* Modern App Header */
-    .app-header {
-        background: linear-gradient(135deg, #0CAF60 0%, #00944F 100%);
-        color: var(--md-sys-color-on-primary);
-        padding: 14px 16px;
-        padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
-        box-shadow: 0 2px 12px rgba(12, 175, 96, 0.15);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-    
-    .app-header h1 {
-        color: var(--md-sys-color-on-primary) !important;
-        font-size: 22px !important;
-        margin: 0 !important;
-    }
-    
-    .app-header p {
-        color: var(--md-sys-color-on-primary) !important;
-        opacity: 0.95;
-        margin: 2px 0 0 0 !important;
-        font-size: 13px !important;
-    }
-    
-    /* Content Container */
-    .content-section {
-        padding: 12px;
-    }
-    
-    /* Material 3 Cards */
-    .metric-card {
-        background: var(--md-sys-color-surface);
-        padding: var(--spacing-md);
-        border-radius: 16px;
-        box-shadow: var(--elevation-1);
-        margin: var(--spacing-sm) 0;
-        border: 1px solid var(--md-sys-color-outline-variant);
-        transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-    }
-    
-    .metric-card:active {
-        box-shadow: var(--elevation-2);
-        transform: scale(0.98);
-    }
-    
-    .metric-card h4 {
-        color: var(--md-sys-color-on-surface-variant) !important;
-        font-size: var(--type-body-medium) !important;
-        font-weight: 500 !important;
-        margin-bottom: var(--spacing-xs) !important;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .metric-card h2 {
-        color: var(--md-sys-color-primary) !important;
-        font-size: var(--type-headline-small) !important;
-        font-weight: 600 !important;
-        margin: 0 !important;
-    }
-    
-    /* Material 3 Buttons */
+    /* Glossy Material 3 Buttons */
     .stButton>button {
-        background-color: var(--md-sys-color-primary) !important;
-        color: var(--md-sys-color-on-primary) !important;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        color: white !important;
         font-weight: 600 !important;
-        border-radius: 12px !important;
+        border-radius: 16px !important;
         border: none !important;
-        padding: 0 16px !important;
-        height: 48px !important;
-        min-height: 48px !important;
-        max-height: 48px !important;
-        width: 100% !important;
+        padding: 0 20px !important;
+        height: 52px !important;
         font-size: 15px !important;
-        letter-spacing: 0.2px !important;
-        text-transform: none !important;
-        box-shadow: 0 2px 8px rgba(12, 175, 96, 0.2) !important;
-        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), inset 0 1px 1px rgba(255,255,255,0.3) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
     .stButton>button:hover {
-        background-color: var(--md-sys-color-primary) !important;
-        box-shadow: var(--elevation-2) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255,255,255,0.3) !important;
     }
     
     .stButton>button:active {
-        transform: scale(0.98) !important;
-        box-shadow: var(--elevation-1) !important;
+        transform: translateY(0px) !important;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2) !important;
     }
     
     .stButton>button[kind="secondary"] {
-        background-color: var(--md-sys-color-surface) !important;
-        color: var(--md-sys-color-on-surface) !important;
-        border: 1.5px solid var(--md-sys-color-outline-variant) !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+        background: rgba(255,255,255,0.9) !important;
+        color: #059669 !important;
+        border: 2px solid #10b981 !important;
+        backdrop-filter: blur(10px) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08), inset 0 1px 1px rgba(255,255,255,0.5) !important;
     }
     
-    .stButton>button[kind="secondary"]:hover {
-        background-color: var(--md-sys-color-surface-variant) !important;
-        border-color: var(--md-sys-color-primary) !important;
-        box-shadow: 0 2px 8px rgba(12, 175, 96, 0.15) !important;
-    }
-    
-    /* Form Inputs - Android Style */
-    [data-testid="stSelectbox"], [data-testid="stTextInput"] {
-        margin-bottom: 8px !important;
-    }
-    
-    [data-testid="stSelectbox"] label, [data-testid="stTextInput"] label {
-        color: var(--md-sys-color-on-surface) !important;
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        margin-bottom: 6px !important;
-    }
-    
+    /* Glossy Inputs */
     input, select, textarea {
-        background-color: white !important;
-        color: var(--md-sys-color-on-surface) !important;
-        border: 1.5px solid var(--md-sys-color-outline-variant) !important;
-        border-radius: 10px !important;
+        background: rgba(255,255,255,0.95) !important;
+        border: 2px solid #d1fae5 !important;
+        border-radius: 14px !important;
         font-size: 15px !important;
-        padding: 12px 14px !important;
-        height: 48px !important;
-        min-height: 48px !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-        transition: all 0.2s ease !important;
+        padding: 14px 16px !important;
+        height: 52px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.02) !important;
+        backdrop-filter: blur(10px) !important;
+        transition: all 0.3s ease !important;
     }
     
     input:focus, select:focus, textarea:focus {
-        border-color: var(--md-sys-color-primary) !important;
+        border-color: #10b981 !important;
         outline: none !important;
-        box-shadow: 0 2px 8px rgba(45, 106, 79, 0.15) !important;
-    }
-    
-    /* Material 3 Bottom Navigation */
-    .bottom-nav {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100vw !important;
-        background: var(--md-sys-color-surface) !important;
-        box-shadow: 0 -2px 8px rgba(0,0,0,0.1) !important;
-        border-top: 1px solid var(--md-sys-color-outline-variant) !important;
-        z-index: 10000 !important;
-        padding-bottom: env(safe-area-inset-bottom, 8px) !important;
-        height: auto !important;
-        min-height: 80px !important;
-        display: flex !important;
-        align-items: center !important;
-    }
-    
-    .element-container:has(.bottom-nav) {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        z-index: 10000 !important;
-    }
-    
-    /* Bottom Nav Buttons */
-    .bottom-nav .stButton > button {
-        background: transparent !important;
-        color: var(--md-sys-color-on-surface-variant) !important;
-        border: none !important;
-        padding: var(--spacing-sm) var(--spacing-xs) !important;
-        font-size: 12px !important;
-        font-weight: 500 !important;
-        text-align: center !important;
-        width: 100% !important;
-        border-radius: 16px !important;
-        box-shadow: none !important;
-        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
-        min-height: 64px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 4px !important;
-        line-height: 1.2 !important;
-    }
-    
-    .bottom-nav .stButton > button:hover {
-        background: var(--md-sys-color-secondary-container) !important;
-        box-shadow: none !important;
-        transform: none !important;
-    }
-    
-    .bottom-nav .stButton > button:active {
-        background: var(--md-sys-color-secondary-container) !important;
-        transform: scale(0.95) !important;
-    }
-    
-    /* Active Tab - Material 3 Style */
-    .bottom-nav .stButton > button[kind="primary"] {
-        background: var(--md-sys-color-secondary-container) !important;
-        color: var(--md-sys-color-on-secondary-container) !important;
-    }
-    
-    .bottom-nav .stButton > button[kind="primary"]:hover {
-        background: var(--md-sys-color-secondary-container) !important;
-    }
-    
-    /* Material 3 Price Cards */
-    .price-card {
-        background: var(--md-sys-color-surface);
-        border-radius: 20px;
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-md);
-        box-shadow: var(--elevation-1);
-        border: 1px solid var(--md-sys-color-outline-variant);
-        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-        cursor: pointer;
-        min-height: 88px;
-    }
-    
-    .price-card:active {
-        transform: scale(0.98);
-        box-shadow: var(--elevation-2);
-    }
-    
-    .price-card img {
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
-        object-fit: cover;
-        flex-shrink: 0;
-    }
-    
-    .price-info {
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .price-info h3 {
-        margin: 0 0 var(--spacing-xs) 0 !important;
-        font-size: var(--type-title-medium) !important;
-        color: var(--md-sys-color-on-surface) !important;
-        font-weight: 600 !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    
-    .price-info p {
-        margin: 0 !important;
-        font-size: var(--type-body-medium) !important;
-        color: var(--md-sys-color-on-surface-variant) !important;
-    }
-    
-    .price-value {
-        font-size: var(--type-title-large) !important;
-        font-weight: 700 !important;
-        color: var(--md-sys-color-primary) !important;
-        white-space: nowrap;
-    }
-    
-    /* Material 3 Badge */
-    .freshness-badge {
-        background: var(--md-sys-color-primary-container);
-        color: var(--md-sys-color-on-primary-container);
-        padding: var(--spacing-xs) var(--spacing-md);
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 600;
-        display: inline-block;
-        margin-left: var(--spacing-sm);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    /* Chip Filters */
-    .filter-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-xs);
-        padding: var(--spacing-sm) var(--spacing-md);
-        background: var(--md-sys-color-surface);
-        border: 1px solid var(--md-sys-color-outline);
-        border-radius: 8px;
-        font-size: var(--type-label-large);
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .filter-chip.active {
-        background: var(--md-sys-color-secondary-container);
-        color: var(--md-sys-color-on-secondary-container);
-        border-color: transparent;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(0,0,0,0.02) !important;
     }
     
     /* Misc */
