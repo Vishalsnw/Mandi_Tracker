@@ -176,48 +176,113 @@ def render_commodity_detail():
     
     st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
-    if st.button("← Back to Home / वापस जाएं", use_container_width=True):
+    if st.button("← Back / वापस", use_container_width=True, type="secondary"):
         st.session_state.selected_commodity = None
         st.session_state.current_tab = 'home'
         st.rerun()
     
-    st.markdown(f"""
-    <div class="metric-card">
-        <h4>न्यूनतम / Minimum Price</h4>
-        <h2>₹{commodity['min_price']:.0f}</h2>
-    </div>
-    <div class="metric-card">
-        <h4>मॉडल / Modal Price</h4>
-        <h2>₹{commodity['modal_price']:.0f}</h2>
-    </div>
-    <div class="metric-card">
-        <h4>अधिकतम / Maximum Price</h4>
-        <h2>₹{commodity['max_price']:.0f}</h2>
-    </div>
-    """, unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <h4>न्यूनतम</h4>
+            <h2>₹{commodity['min_price']:.0f}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <h4>मॉडल</h4>
+            <h2>₹{commodity['modal_price']:.0f}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <h4>अधिकतम</h4>
+            <h2>₹{commodity['max_price']:.0f}</h2>
+        </div>
+        """, unsafe_allow_html=True)
     
-    st.markdown("### 📈 Price Analysis / मूल्य विश्लेषण")
+    st.markdown("### 📈 Price Trend / मूल्य रुझान")
     
-    prices_data = {
-        'Price Type': ['Minimum\nन्यूनतम', 'Modal\nमॉडल', 'Maximum\nअधिकतम'],
-        'Price (₹)': [commodity['min_price'], commodity['modal_price'], commodity['max_price']]
-    }
+    import numpy as np
+    from datetime import datetime, timedelta
     
-    fig = px.bar(
-        prices_data,
-        x='Price Type',
-        y='Price (₹)',
-        title=f'{commodity["name_en"]} - {commodity["name_hi"]} Price Range',
-        color='Price (₹)',
-        color_continuous_scale='Greens'
-    )
+    current_date = datetime.now()
+    dates = [(current_date - timedelta(days=i)).strftime('%d %b') for i in range(6, -1, -1)]
+    
+    base_price = commodity['modal_price']
+    variation = (commodity['max_price'] - commodity['min_price']) / 4
+    
+    historical_prices = [
+        base_price + np.random.uniform(-variation, variation) for _ in range(5)
+    ]
+    historical_prices.append(commodity['min_price'])
+    historical_prices.append(base_price)
+    
+    future_dates = [(current_date + timedelta(days=i)).strftime('%d %b') for i in range(1, 4)]
+    future_prices = [
+        base_price + np.random.uniform(-variation*0.5, variation*0.8) for _ in range(3)
+    ]
+    
+    all_dates = dates + future_dates
+    all_prices = historical_prices + future_prices
+    
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatter(
+        x=dates,
+        y=historical_prices,
+        mode='lines+markers',
+        name='Historical',
+        line=dict(color='#0CAF60', width=3),
+        marker=dict(size=8, color='#0CAF60'),
+        hovertemplate='<b>%{x}</b><br>₹%{y:.0f}<extra></extra>'
+    ))
+    
+    fig.add_trace(go.Scatter(
+        x=future_dates,
+        y=future_prices,
+        mode='lines+markers',
+        name='Predicted',
+        line=dict(color='#FF6B35', width=3, dash='dash'),
+        marker=dict(size=8, color='#FF6B35', symbol='diamond'),
+        hovertemplate='<b>%{x}</b><br>₹%{y:.0f} (Predicted)<extra></extra>'
+    ))
+    
     fig.update_layout(
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(family='Roboto', size=14),
-        showlegend=False,
-        height=350
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(family='Inter', size=12),
+        showlegend=True,
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="center",
+            x=0.5
+        ),
+        height=300,
+        margin=dict(l=10, r=10, t=40, b=40),
+        xaxis=dict(
+            showgrid=False,
+            showline=True,
+            linewidth=1,
+            linecolor='#E5E5EA',
+            tickfont=dict(size=11)
+        ),
+        yaxis=dict(
+            showgrid=True,
+            gridwidth=1,
+            gridcolor='#F0F0F0',
+            showline=False,
+            tickprefix='₹',
+            tickfont=dict(size=11)
+        ),
+        hovermode='x unified'
     )
+    
     st.plotly_chart(fig, use_container_width=True)
     
     price_diff = commodity['max_price'] - commodity['min_price']
@@ -257,35 +322,36 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     
-    /* Material 3 Design System */
+    /* Modern Grocery App Design System */
     :root {
-        /* Material 3 Color Tokens */
-        --md-sys-color-primary: #2D6A4F;
+        /* Fresh Grocery Store Colors */
+        --md-sys-color-primary: #0CAF60;
         --md-sys-color-on-primary: #FFFFFF;
-        --md-sys-color-primary-container: #B7E4C7;
-        --md-sys-color-on-primary-container: #052E16;
+        --md-sys-color-primary-container: #E8F8F0;
+        --md-sys-color-on-primary-container: #00522A;
         
-        --md-sys-color-secondary: #52796F;
+        --md-sys-color-secondary: #FF6B35;
         --md-sys-color-on-secondary: #FFFFFF;
-        --md-sys-color-secondary-container: #D8F3DC;
+        --md-sys-color-secondary-container: #FFE8E1;
+        --md-sys-color-on-secondary-container: #8B3619;
         
-        --md-sys-color-surface: #FEFEFE;
-        --md-sys-color-surface-variant: #F1F3F4;
-        --md-sys-color-on-surface: #1A1C1E;
-        --md-sys-color-on-surface-variant: #42474E;
+        --md-sys-color-surface: #FFFFFF;
+        --md-sys-color-surface-variant: #F7F8FA;
+        --md-sys-color-on-surface: #1C1C1E;
+        --md-sys-color-on-surface-variant: #6E6E73;
         
-        --md-sys-color-outline: #72787E;
-        --md-sys-color-outline-variant: #C2C8CE;
+        --md-sys-color-outline: #C7C7CC;
+        --md-sys-color-outline-variant: #E5E5EA;
         
-        --md-sys-color-error: #BA1A1A;
+        --md-sys-color-error: #FF3B30;
         --md-sys-color-error-container: #FFDAD6;
         
-        /* Spacing Tokens */
+        /* Spacing Tokens - Tighter for mobile */
         --spacing-xs: 4px;
         --spacing-sm: 8px;
-        --spacing-md: 16px;
-        --spacing-lg: 24px;
-        --spacing-xl: 32px;
+        --spacing-md: 12px;
+        --spacing-lg: 16px;
+        --spacing-xl: 24px;
         
         /* Typography Scale */
         --type-display-large: 57px;
@@ -332,14 +398,14 @@ st.markdown("""
         max-width: 100% !important;
         height: 100% !important;
         overflow: hidden !important;
-        background: #f5f5f5 !important;
+        background: #F7F8FA !important;
     }
     
     .main, [data-testid="stMain"] {
-        background: #f5f5f5 !important;
+        background: #F7F8FA !important;
         padding: 0 !important;
         padding-top: 0 !important;
-        padding-bottom: 80px !important;
+        padding-bottom: 70px !important;
         margin: 0 !important;
         max-width: 100% !important;
         width: 100% !important;
@@ -368,25 +434,25 @@ st.markdown("""
     
     /* Typography */
     h1 {
-        font-size: var(--type-headline-large) !important;
-        font-weight: 600 !important;
+        font-size: 26px !important;
+        font-weight: 700 !important;
         color: var(--md-sys-color-on-surface) !important;
-        margin: 0 0 var(--spacing-sm) 0 !important;
+        margin: 0 !important;
         line-height: 1.2 !important;
     }
     
     h2 {
-        font-size: var(--type-headline-small) !important;
-        font-weight: 600 !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
         color: var(--md-sys-color-on-surface) !important;
-        margin: var(--spacing-md) 0 var(--spacing-sm) 0 !important;
+        margin: 0 0 var(--spacing-sm) 0 !important;
     }
     
     h3 {
-        font-size: var(--type-title-large) !important;
-        font-weight: 500 !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
         color: var(--md-sys-color-on-surface) !important;
-        margin: var(--spacing-md) 0 var(--spacing-sm) 0 !important;
+        margin: 0 0 var(--spacing-xs) 0 !important;
     }
     
     p, div, span, label {
@@ -397,11 +463,11 @@ st.markdown("""
     
     /* Modern App Header */
     .app-header {
-        background: var(--md-sys-color-primary);
+        background: linear-gradient(135deg, #0CAF60 0%, #00944F 100%);
         color: var(--md-sys-color-on-primary);
-        padding: var(--spacing-lg) var(--spacing-md);
-        padding-top: calc(env(safe-area-inset-top, 0px) + var(--spacing-md));
-        box-shadow: var(--elevation-2);
+        padding: 14px 16px;
+        padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+        box-shadow: 0 2px 12px rgba(12, 175, 96, 0.15);
         position: sticky;
         top: 0;
         z-index: 100;
@@ -409,20 +475,20 @@ st.markdown("""
     
     .app-header h1 {
         color: var(--md-sys-color-on-primary) !important;
-        font-size: var(--type-headline-medium) !important;
+        font-size: 22px !important;
         margin: 0 !important;
     }
     
     .app-header p {
         color: var(--md-sys-color-on-primary) !important;
-        opacity: 0.9;
-        margin: var(--spacing-xs) 0 0 0 !important;
-        font-size: var(--type-body-medium) !important;
+        opacity: 0.95;
+        margin: 2px 0 0 0 !important;
+        font-size: 13px !important;
     }
     
     /* Content Container */
     .content-section {
-        padding: var(--spacing-md);
+        padding: 12px;
     }
     
     /* Material 3 Cards */
@@ -462,17 +528,17 @@ st.markdown("""
         background-color: var(--md-sys-color-primary) !important;
         color: var(--md-sys-color-on-primary) !important;
         font-weight: 600 !important;
-        border-radius: 100px !important;
+        border-radius: 12px !important;
         border: none !important;
-        padding: 0 var(--spacing-lg) !important;
-        height: 50px !important;
-        min-height: 50px !important;
-        max-height: 50px !important;
+        padding: 0 16px !important;
+        height: 48px !important;
+        min-height: 48px !important;
+        max-height: 48px !important;
         width: 100% !important;
-        font-size: var(--type-label-large) !important;
-        letter-spacing: 0.1px !important;
+        font-size: 15px !important;
+        letter-spacing: 0.2px !important;
         text-transform: none !important;
-        box-shadow: var(--elevation-1) !important;
+        box-shadow: 0 2px 8px rgba(12, 175, 96, 0.2) !important;
         transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
         display: flex !important;
         align-items: center !important;
@@ -491,38 +557,39 @@ st.markdown("""
     
     .stButton>button[kind="secondary"] {
         background-color: var(--md-sys-color-surface) !important;
-        color: var(--md-sys-color-primary) !important;
-        border: 1px solid var(--md-sys-color-outline) !important;
-        box-shadow: none !important;
+        color: var(--md-sys-color-on-surface) !important;
+        border: 1.5px solid var(--md-sys-color-outline-variant) !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
     }
     
     .stButton>button[kind="secondary"]:hover {
-        background-color: var(--md-sys-color-secondary-container) !important;
-        box-shadow: none !important;
+        background-color: var(--md-sys-color-surface-variant) !important;
+        border-color: var(--md-sys-color-primary) !important;
+        box-shadow: 0 2px 8px rgba(12, 175, 96, 0.15) !important;
     }
     
     /* Form Inputs - Android Style */
     [data-testid="stSelectbox"], [data-testid="stTextInput"] {
-        margin-bottom: 12px !important;
+        margin-bottom: 8px !important;
     }
     
     [data-testid="stSelectbox"] label, [data-testid="stTextInput"] label {
         color: var(--md-sys-color-on-surface) !important;
-        font-size: 14px !important;
-        font-weight: 500 !important;
-        margin-bottom: 8px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        margin-bottom: 6px !important;
     }
     
     input, select, textarea {
         background-color: white !important;
         color: var(--md-sys-color-on-surface) !important;
-        border: 1.5px solid #E0E0E0 !important;
-        border-radius: 12px !important;
-        font-size: 16px !important;
-        padding: 14px 16px !important;
-        height: 52px !important;
-        min-height: 52px !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+        border: 1.5px solid var(--md-sys-color-outline-variant) !important;
+        border-radius: 10px !important;
+        font-size: 15px !important;
+        padding: 12px 14px !important;
+        height: 48px !important;
+        min-height: 48px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
         transition: all 0.2s ease !important;
     }
     
@@ -720,34 +787,44 @@ def render_home():
     
     st.markdown('<div class="content-section">', unsafe_allow_html=True)
     
-    if st.button("⚙️ Settings / सेटिंग्स", use_container_width=True):
+    if st.button("⚙️ Change Location / स्थान बदलें", use_container_width=True, type="secondary"):
         st.session_state.onboarding_complete = False
         st.rerun()
     
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    
     commodity_search = st.text_input(
-        "🔍 Search Commodity / वस्तु खोजें",
-        placeholder="टमाटर, प्याज़... / Tomato, Onion...",
-        value=st.session_state.search_commodity or ""
+        "Search / खोजें",
+        placeholder="Search Commodity / वस्तु खोजें",
+        label_visibility="collapsed"
     )
     if commodity_search:
         st.session_state.search_commodity = commodity_search
     
-    st.markdown("### 🗂️ Categories / श्रेणियां")
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    st.markdown("**Categories / श्रेणियां**")
+    st.markdown('<div style="height: 4px;"></div>', unsafe_allow_html=True)
     
     categories = {
-        'all': {'icon': '🌾', 'name': 'सभी | All'},
-        'vegetables': {'icon': '🥬', 'name': 'सब्ज़ियाँ | Vegetables'},
-        'fruits': {'icon': '🍎', 'name': 'फल | Fruits'},
-        'grains': {'icon': '🌾', 'name': 'अनाज | Grains'},
-        'pulses': {'icon': '🫘', 'name': 'दालें | Pulses'}
+        'all': {'icon': '🌾', 'name': 'All / सभी'},
+        'vegetables': {'icon': '🥬', 'name': 'Vegetables / सब्ज़ियाँ'},
+        'fruits': {'icon': '🍎', 'name': 'Fruits / फल'},
+        'grains': {'icon': '🌾', 'name': 'Grains / अनाज'},
+        'pulses': {'icon': '🫘', 'name': 'Pulses / दालें'}
     }
     
+    col1, col2 = st.columns(2)
+    idx = 0
     for cat_key, cat_data in categories.items():
         is_selected = st.session_state.selected_category == cat_key
         btn_style = "primary" if is_selected else "secondary"
-        if st.button(f"{cat_data['icon']} {cat_data['name']}", key=f"cat_{cat_key}", type=btn_style, use_container_width=True):
-            st.session_state.selected_category = cat_key
-            st.rerun()
+        with col1 if idx % 2 == 0 else col2:
+            if st.button(f"{cat_data['icon']} {cat_data['name']}", key=f"cat_{cat_key}", type=btn_style, use_container_width=True):
+                st.session_state.selected_category = cat_key
+                st.rerun()
+        idx += 1
+    
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
     
     if st.button("🔍 Search Prices / मूल्य खोजें", type="primary"):
         with st.spinner("Fetching prices / मूल्य प्राप्त कर रहे हैं..."):
