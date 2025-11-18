@@ -10,7 +10,7 @@ from streamlit_tailwind import st_tw
 st.set_page_config(
     page_title="Mandi Bhav - मंडी भाव",
     page_icon="🌾",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
@@ -132,47 +132,30 @@ def render_category_selector():
     </div>
     """, height=400)
     
-    # Search box with Tailwind styling
-    commodity_search = st.text_input(
-        "Search Commodity",
-        placeholder="Search Commodity / वस्तु खोजें",
-        label_visibility="collapsed",
-        key="category_search"
-    )
-    
     st.markdown('<div style="padding: 16px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
-    # Modern Tailwind Category Cards
-    st_tw("""
-    <div class="space-y-3 px-4">
-        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
-            <div class="text-4xl">🥒</div>
-            <div class="flex-1">
-                <h3 class="text-gray-900 text-lg font-semibold">Vegetables</h3>
-                <p class="text-gray-500 text-sm">सब्ज़ियाँ</p>
-            </div>
-            <div class="text-green-600">›</div>
-        </div>
-        
-        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
-            <div class="text-4xl">🍎</div>
-            <div class="flex-1">
-                <h3 class="text-gray-900 text-lg font-semibold">Fruits</h3>
-                <p class="text-gray-500 text-sm">फल</p>
-            </div>
-            <div class="text-green-600">›</div>
-        </div>
-        
-        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
-            <div class="text-4xl">🌾</div>
-            <div class="flex-1">
-                <h3 class="text-gray-900 text-lg font-semibold">Grains</h3>
-                <p class="text-gray-500 text-sm">अनाज</p>
-            </div>
-            <div class="text-green-600">›</div>
-        </div>
-    </div>
-    """, height=1200)
+    # Category Cards with actual buttons
+    categories = [
+        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
+        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
+        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
+        {'key': 'pulses', 'icon': '🫘', 'name_en': 'Pulses', 'name_hi': 'दालें'},
+    ]
+    
+    for cat in categories:
+        if st.button(f"{cat['icon']} {cat['name_en']} / {cat['name_hi']}", key=f"select_{cat['key']}", use_container_width=True):
+            st.session_state.selected_category = cat['key']
+            st.session_state.show_commodity_selector = False
+            st.session_state.current_tab = 'home'
+            st.rerun()
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    if st.button("🌾 All / सभी", key="select_all", use_container_width=True, type="secondary"):
+        st.session_state.selected_category = 'all'
+        st.session_state.show_commodity_selector = False
+        st.session_state.current_tab = 'home'
+        st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
 
