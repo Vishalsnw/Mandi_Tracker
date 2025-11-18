@@ -1017,6 +1017,7 @@ dependencies = [
     { name = "requests" },
     { name = "selenium" },
     { name = "streamlit" },
+    { name = "streamlit-tailwind" },
     { name = "trafilatura" },
 ]
 
@@ -1029,6 +1030,7 @@ requires-dist = [
     { name = "requests", specifier = ">=2.32.5" },
     { name = "selenium", specifier = ">=4.38.0" },
     { name = "streamlit", specifier = ">=1.51.0" },
+    { name = "streamlit-tailwind", specifier = ">=0.1.0" },
     { name = "trafilatura", specifier = ">=2.0.0" },
 ]
 
@@ -1244,6 +1246,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/59/6d/327ddd5fc35fcf2aeecb4040668337f5565a1c6c95b1e892b8bfd4bb9031/streamlit-1.51.0.tar.gz", hash = "sha256:1e742a9c0b698f466c6f5bf58d333beda5a1fbe8de660743976791b5c1446ef6", size = 9742904, upload-time = "2025-10-29T17:07:39.082Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/39/60/868371b6482ccd9ef423c6f62650066cf8271fdb2ee84f192695ad6b7a96/streamlit-1.51.0-py3-none-any.whl", hash = "sha256:4008b029f71401ce54946bb09a6a3e36f4f7652cbb48db701224557738cfda38", size = 10171702, upload-time = "2025-10-29T17:07:35.97Z" },
+]
+
+[[package]]
+name = "streamlit-tailwind"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jinja2" },
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a1/be/36cdafc6aadfb3bdaea0f1a1580bbf4478fd810d56e4df4d13338c9e2f30/streamlit-tailwind-0.1.0.tar.gz", hash = "sha256:0622166ed8cdf29d3cceab667d5ccef7f0e155a5723f7c7fe99f2501173387cd", size = 4033, upload-time = "2022-11-23T11:13:27.784Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b6/60/b0ed434ae6c0db4c0afd83cb59391ba13886d8df4f04905c637050ca5d94/streamlit_tailwind-0.1.0-py3-none-any.whl", hash = "sha256:6cb8738cce9a4ee8e8e6c68667b558d863b6f5fd685bdb42b81a4cdd98735af5", size = 5248, upload-time = "2022-11-23T11:13:26.571Z" },
 ]
 
 [[package]]

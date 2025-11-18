@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from datetime import datetime
 from scraper import scrape_apmc_data
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
+from streamlit_tailwind import st_tw
 
 st.set_page_config(
     page_title="Mandi Bhav - मंडी भाव",
@@ -50,121 +51,41 @@ def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
 def render_onboarding():
-    st.markdown("""
-    <style>
-    /* Full Screen Android App Bar */
-    .android-app-bar {
-        background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
-        padding: 20px 16px 16px 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        width: 100%;
-        position: relative;
-    }
-    .app-bar-content {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        max-width: 100%;
-    }
-    .app-bar-logo {
-        font-size: 32px;
-        line-height: 1;
-    }
-    .app-bar-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: white !important;
-        margin: 0 !important;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Modern Welcome Card */
-    .modern-welcome-card {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        border-radius: 24px;
-        padding: 32px 24px;
-        margin: 16px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        text-align: center;
-        border: 1px solid rgba(45, 106, 79, 0.1);
-    }
-    .modern-welcome-icon {
-        font-size: 56px;
-        margin-bottom: 16px;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-    }
-    .modern-welcome-text-hi {
-        font-size: 20px;
-        font-weight: 600;
-        color: #52796F !important;
-        margin: 8px 0 !important;
-        line-height: 1.4 !important;
-    }
-    .modern-welcome-text-en {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2D6A4F !important;
-        margin: 4px 0 16px 0 !important;
-        line-height: 1.3 !important;
-    }
-    
-    /* Modern Location Card */
-    .modern-location-card {
-        background: white;
-        border-radius: 24px;
-        padding: 24px 20px;
-        margin: 16px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        border: 1px solid #E0E0E0;
-    }
-    .modern-location-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-        padding-bottom: 16px;
-        border-bottom: 2px solid #f5f5f5;
-    }
-    .modern-location-icon {
-        font-size: 24px;
-        background: #E8F5E9;
-        padding: 8px;
-        border-radius: 12px;
-    }
-    .modern-location-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #1A1C1E !important;
-        margin: 0 !important;
-        flex: 1;
-    }
-    
-    /* Button Container */
-    .button-container {
-        padding: 16px;
-        padding-bottom: 24px;
-    }
-    </style>
-    
-    <div class="android-app-bar">
-        <div class="app-bar-content">
-            <div class="app-bar-logo">🌾</div>
-            <div class="app-bar-title">Mandi Bhav</div>
+    # Modern Android App Bar with Tailwind
+    st_tw("""
+    <div class="bg-gradient-to-br from-green-700 to-green-900 p-5 shadow-lg">
+        <div class="flex items-center gap-3">
+            <div class="text-4xl">🌾</div>
+            <h1 class="text-white text-2xl font-bold tracking-wide">Mandi Bhav</h1>
         </div>
     </div>
+    """, height=400)
     
-    <div class="modern-welcome-card">
-        <div class="modern-welcome-icon">🌾</div>
-        <div class="modern-welcome-text-hi">मंडी भाव में आपका स्वागत है</div>
-        <div class="modern-welcome-text-en">Welcome to Mandi Bhav</div>
+    # Modern Welcome Card with Tailwind
+    st_tw("""
+    <div class="mx-4 mt-4 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-8 text-center border border-green-100">
+        <div class="text-6xl mb-4 drop-shadow-lg">🌾</div>
+        <p class="text-green-700 text-xl font-semibold mb-2">मंडी भाव में आपका स्वागत है</p>
+        <h2 class="text-green-800 text-2xl font-bold">Welcome to Mandi Bhav</h2>
     </div>
+    """, height=960)
     
-    <div class="modern-location-card">
-        <div class="modern-location-header">
-            <span class="modern-location-icon">📍</span>
-            <div class="modern-location-title">Select Your Location<br><span style="font-size: 14px; color: #666;">स्थान चुनें</span></div>
+    # Modern Location Selection Card with Tailwind
+    st_tw("""
+    <div class="mx-4 mt-4 bg-white rounded-3xl shadow-lg p-6 border border-gray-200">
+        <div class="flex items-center gap-3 pb-4 mb-4 border-b-2 border-gray-100">
+            <div class="bg-green-100 p-2 rounded-xl">
+                <span class="text-2xl">📍</span>
+            </div>
+            <div class="flex-1">
+                <h3 class="text-gray-900 text-xl font-semibold">Select Your Location</h3>
+                <p class="text-gray-500 text-sm">स्थान चुनें</p>
+            </div>
         </div>
-    """, unsafe_allow_html=True)
+    </div>
+    """, height=560)
+    
+    st.markdown('<div style="padding: 0 16px;">', unsafe_allow_html=True)
     
     state_options = list(INDIAN_STATES_DISTRICTS.keys())
     selected_state = st.selectbox(
@@ -193,7 +114,8 @@ def render_onboarding():
     
     st.markdown("</div>", unsafe_allow_html=True)
     
-    st.markdown('<div class="button-container">', unsafe_allow_html=True)
+    # Tailwind Continue Button
+    st.markdown('<div style="padding: 16px 16px 24px 16px;">', unsafe_allow_html=True)
     if st.button("Continue / जारी रखें", type="primary", use_container_width=True):
         st.session_state.selected_state = selected_state
         st.session_state.selected_district = selected_district
@@ -203,90 +125,54 @@ def render_onboarding():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def render_category_selector():
-    # App Bar
-    st.markdown("""
-    <style>
-    .category-screen-header {
-        background: var(--md-sys-color-primary);
-        padding: 16px;
-        padding-top: 24px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin: -16px -16px 0 -16px;
-    }
-    .category-title {
-        font-size: 24px;
-        font-weight: 600;
-        color: white !important;
-        margin: 0 !important;
-        text-align: center;
-    }
-    .search-container {
-        padding: 16px;
-    }
-    .category-button-large {
-        background: white !important;
-        border-radius: 20px !important;
-        padding: 16px 20px !important;
-        margin: 8px 16px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        min-height: 72px !important;
-        border: 1px solid #E0E0E0 !important;
-        transition: all 0.2s ease !important;
-        font-size: 18px !important;
-        font-weight: 500 !important;
-        color: #1A1C1E !important;
-    }
-    .category-button-large:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
-        transform: translateY(-2px) !important;
-    }
-    .category-button-large.selected {
-        background: #B7E4C7 !important;
-        border-color: #2D6A4F !important;
-        color: #2D6A4F !important;
-    }
-    .category-icon {
-        font-size: 32px;
-    }
-    </style>
-    
-    <div class="category-screen-header">
-        <div class="category-title">Categories / श्रेणियाँ</div>
+    # Modern Tailwind Categories Header
+    st_tw("""
+    <div class="bg-gradient-to-br from-green-700 to-green-900 p-5 shadow-lg">
+        <h1 class="text-white text-2xl font-bold text-center tracking-wide">Categories / श्रेणियाँ</h1>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=400)
     
-    st.markdown('<div class="search-container">', unsafe_allow_html=True)
+    # Search box with Tailwind styling
     commodity_search = st.text_input(
         "Search Commodity",
         placeholder="Search Commodity / वस्तु खोजें",
         label_visibility="collapsed",
         key="category_search"
     )
-    st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div style="padding-bottom: 80px;">', unsafe_allow_html=True)
+    st.markdown('<div style="padding: 16px; padding-bottom: 80px;">', unsafe_allow_html=True)
     
-    categories = [
-        {'key': 'vegetables', 'icon': '🥒', 'name_en': 'Vegetables', 'name_hi': 'सब्ज़ियाँ'},
-        {'key': 'fruits', 'icon': '🍎', 'name_en': 'Fruits', 'name_hi': 'फल'},
-        {'key': 'grains', 'icon': '🌾', 'name_en': 'Grains', 'name_hi': 'अनाज'},
-    ]
-    
-    for cat in categories:
-        is_selected = st.session_state.selected_category == cat['key']
-        selected_class = "selected" if is_selected else ""
+    # Modern Tailwind Category Cards
+    st_tw("""
+    <div class="space-y-3 px-4">
+        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
+            <div class="text-4xl">🥒</div>
+            <div class="flex-1">
+                <h3 class="text-gray-900 text-lg font-semibold">Vegetables</h3>
+                <p class="text-gray-500 text-sm">सब्ज़ियाँ</p>
+            </div>
+            <div class="text-green-600">›</div>
+        </div>
         
-        if st.button(
-            f"{cat['icon']}  {cat['name_en']} / {cat['name_hi']}", 
-            key=f"cat_select_{cat['key']}", 
-            use_container_width=True
-        ):
-            st.session_state.selected_category = cat['key']
-            st.session_state.show_commodity_selector = False
-            st.rerun()
+        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
+            <div class="text-4xl">🍎</div>
+            <div class="flex-1">
+                <h3 class="text-gray-900 text-lg font-semibold">Fruits</h3>
+                <p class="text-gray-500 text-sm">फल</p>
+            </div>
+            <div class="text-green-600">›</div>
+        </div>
+        
+        <div class="bg-white hover:bg-green-50 rounded-2xl shadow-md hover:shadow-lg p-5 border border-gray-200 transition-all cursor-pointer flex items-center gap-4">
+            <div class="text-4xl">🌾</div>
+            <div class="flex-1">
+                <h3 class="text-gray-900 text-lg font-semibold">Grains</h3>
+                <p class="text-gray-500 text-sm">अनाज</p>
+            </div>
+            <div class="text-green-600">›</div>
+        </div>
+    </div>
+    """, height=1200)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
