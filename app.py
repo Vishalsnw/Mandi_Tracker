@@ -9,7 +9,7 @@ from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
 st.set_page_config(
     page_title="Mandi Bhav - मंडी भाव",
     page_icon="🌾",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
@@ -50,74 +50,99 @@ def get_text(key):
     return TRANSLATIONS[st.session_state.language][key]
 
 def render_onboarding():
-    # App Bar
     st.markdown("""
     <style>
+    /* Full Screen Android App Bar */
     .android-app-bar {
-        background: var(--md-sys-color-primary);
-        padding: 16px;
-        padding-top: 24px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin: -16px -16px 0 -16px;
+        background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
+        padding: 20px 16px 16px 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        width: 100%;
+        position: relative;
     }
     .app-bar-content {
         display: flex;
         align-items: center;
         gap: 12px;
+        max-width: 100%;
     }
     .app-bar-logo {
-        font-size: 28px;
+        font-size: 32px;
+        line-height: 1;
     }
     .app-bar-title {
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 24px;
+        font-weight: 700;
         color: white !important;
         margin: 0 !important;
+        letter-spacing: 0.5px;
     }
-    .welcome-card {
-        background: white;
-        border-radius: 20px;
-        padding: 24px;
+    
+    /* Modern Welcome Card */
+    .modern-welcome-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 24px;
+        padding: 32px 24px;
         margin: 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         text-align: center;
+        border: 1px solid rgba(45, 106, 79, 0.1);
     }
-    .welcome-card-icon {
-        font-size: 40px;
-        margin-bottom: 12px;
+    .modern-welcome-icon {
+        font-size: 56px;
+        margin-bottom: 16px;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
-    .welcome-text-primary {
-        font-size: 22px;
+    .modern-welcome-text-hi {
+        font-size: 20px;
         font-weight: 600;
-        color: #2D6A4F !important;
-        margin: 8px 0 !important;
-        line-height: 1.3 !important;
-    }
-    .welcome-text-secondary {
-        font-size: 18px;
-        font-weight: 500;
         color: #52796F !important;
-        margin: 4px 0 !important;
+        margin: 8px 0 !important;
         line-height: 1.4 !important;
     }
-    .location-card {
-        background: white;
-        border-radius: 20px;
-        padding: 20px;
-        margin: 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    .modern-welcome-text-en {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2D6A4F !important;
+        margin: 4px 0 16px 0 !important;
+        line-height: 1.3 !important;
     }
-    .location-card-header {
+    
+    /* Modern Location Card */
+    .modern-location-card {
+        background: white;
+        border-radius: 24px;
+        padding: 24px 20px;
+        margin: 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        border: 1px solid #E0E0E0;
+    }
+    .modern-location-header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 16px;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #f5f5f5;
     }
-    .location-card-title {
-        font-size: 18px;
+    .modern-location-icon {
+        font-size: 24px;
+        background: #E8F5E9;
+        padding: 8px;
+        border-radius: 12px;
+    }
+    .modern-location-title {
+        font-size: 20px;
         font-weight: 600;
         color: #1A1C1E !important;
         margin: 0 !important;
+        flex: 1;
+    }
+    
+    /* Button Container */
+    .button-container {
+        padding: 16px;
+        padding-bottom: 24px;
     }
     </style>
     
@@ -128,16 +153,16 @@ def render_onboarding():
         </div>
     </div>
     
-    <div class="welcome-card">
-        <div class="welcome-card-icon">🌾</div>
-        <div class="welcome-text-secondary">मंडी भाव में आपका स्वागत है</div>
-        <div class="welcome-text-primary">Welcome to Mandi Bhav</div>
+    <div class="modern-welcome-card">
+        <div class="modern-welcome-icon">🌾</div>
+        <div class="modern-welcome-text-hi">मंडी भाव में आपका स्वागत है</div>
+        <div class="modern-welcome-text-en">Welcome to Mandi Bhav</div>
     </div>
     
-    <div class="location-card">
-        <div class="location-card-header">
-            <span style="font-size: 20px;">📍</span>
-            <div class="location-card-title">Select Your Location / स्थान चुनें</div>
+    <div class="modern-location-card">
+        <div class="modern-location-header">
+            <span class="modern-location-icon">📍</span>
+            <div class="modern-location-title">Select Your Location<br><span style="font-size: 14px; color: #666;">स्थान चुनें</span></div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -168,7 +193,7 @@ def render_onboarding():
     
     st.markdown("</div>", unsafe_allow_html=True)
     
-    st.markdown('<div style="padding: 0 16px 24px 16px;">', unsafe_allow_html=True)
+    st.markdown('<div class="button-container">', unsafe_allow_html=True)
     if st.button("Continue / जारी रखें", type="primary", use_container_width=True):
         st.session_state.selected_state = selected_state
         st.session_state.selected_district = selected_district
@@ -418,40 +443,58 @@ st.markdown("""
         -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Hide Streamlit UI */
+    /* AGGRESSIVE: Hide ALL Streamlit UI Elements */
     #MainMenu, header, footer, .stDeployButton, 
     [data-testid="stToolbar"], [data-testid="stDecoration"], 
-    [data-testid="stStatusWidget"], .stActionButton {
+    [data-testid="stStatusWidget"], .stActionButton,
+    [data-testid="stHeader"], [data-testid="stSidebarNav"],
+    .css-1dp5vir, .st-emotion-cache-1dp5vir {
         display: none !important;
         visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
     }
     
-    /* Mobile-First Root Layout */
-    html, body, .stApp {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: #f5f5f5;
-    }
-    
-    .main {
-        background: #f5f5f5;
+    /* AGGRESSIVE: Full Mobile App Root Layout */
+    html, body, .stApp, [data-testid="stAppViewContainer"] {
+        margin: 0 !important;
         padding: 0 !important;
-        padding-bottom: env(safe-area-inset-bottom, 80px) !important;
-        max-width: 100vw;
-        height: 100vh;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        background: #f5f5f5 !important;
+    }
+    
+    .main, [data-testid="stMain"] {
+        background: #f5f5f5 !important;
+        padding: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 80px !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 100vh !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
     }
     
-    .block-container {
+    .block-container, [data-testid="block-container"],
+    .element-container, [data-testid="element-container"] {
         padding: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         max-width: 100% !important;
+        width: 100% !important;
         margin: 0 !important;
+    }
+    
+    section[data-testid="stSidebar"] {
+        display: none !important;
     }
     
     /* Typography */
