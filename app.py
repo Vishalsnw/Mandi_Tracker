@@ -235,7 +235,7 @@ def render_category_selector():
     
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     commodity_search = st.text_input(
-        "",
+        "Search Commodity",
         placeholder="Search Commodity / वस्तु खोजें",
         label_visibility="collapsed",
         key="category_search"
