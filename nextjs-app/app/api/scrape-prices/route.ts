@@ -55,9 +55,16 @@ export async function GET(request: NextRequest) {
   const district = searchParams.get('district');
   const commodity = searchParams.get('commodity');
 
-  const API_KEY = "579b464db66ec23bdd0000011a8be7e716d24aad697fad89aa08940a";
+  const API_KEY = process.env.DATA_GOV_API_KEY;
   const RESOURCE_ID = "9ef84268-d588-465a-a308-a864a43d0070";
   const BASE_URL = `https://api.data.gov.in/resource/${RESOURCE_ID}`;
+
+  if (!API_KEY) {
+    return NextResponse.json(
+      { error: 'API key not configured. Please set DATA_GOV_API_KEY environment variable.', data: [] },
+      { status: 500 }
+    );
+  }
 
   try {
     const filters: any = {};

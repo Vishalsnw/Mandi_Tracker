@@ -18,10 +18,13 @@ export default function OnboardingScreen() {
     const stateData = statesData[state as keyof typeof statesData];
     if (!stateData) return [];
     
-    if (Array.isArray(stateData.districts[0])) {
-      return (stateData.districts as Array<{en: string, hi: string}>).map(d => d.en);
+    const districts = stateData.districts;
+    if (!Array.isArray(districts) || districts.length === 0) return [];
+    
+    if (typeof districts[0] === 'object' && districts[0] !== null && 'en' in districts[0]) {
+      return (districts as Array<{en: string, hi: string}>).map(d => d.en);
     }
-    return stateData.districts as string[];
+    return districts as string[];
   };
 
   const handleContinue = () => {

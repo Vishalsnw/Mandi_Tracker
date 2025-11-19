@@ -15,8 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Mandi Bhav - मंडी भाव | Live Market Prices",
   description: "Get real-time market prices for crops across India from APMC mandis",
-  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
-  themeColor: "#059669",
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#059669',
 };
 
 export default function RootLayout({

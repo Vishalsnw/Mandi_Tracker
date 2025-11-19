@@ -25,7 +25,7 @@ function PriceCard({ commodity, minPrice, maxPrice, modalPrice, market, category
     }
   };
 
-  const volatility = ((maxPrice - minPrice) / modalPrice * 100).toFixed(1);
+  const volatility = modalPrice > 0 ? ((maxPrice - minPrice) / modalPrice * 100).toFixed(1) : '0.0';
   const priceRange = maxPrice - minPrice;
 
   return (
