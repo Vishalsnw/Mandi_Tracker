@@ -1,0 +1,129 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+interface PriceRecord {
+  commodity_en: string;
+  commodity_hi: string;
+  category: string;
+  min_price: number;
+  max_price: number;
+  modal_price: number;
+  unit: string;
+  state: string;
+  district: string;
+  arrival_date: string;
+  market: string;
+  variety: string;
+  grade: string;
+}
+
+function categorizeCommodity(commodityName: string): string {
+  const commodity_lower = commodityName.toLowerCase();
+  
+  const vegetables = ['tomato', 'onion', 'potato', 'cabbage', 'cauliflower', 'carrot', 'brinjal', 
+                      'chilli', 'pepper', 'capsicum', 'cucumber', 'pumpkin', 'gourd', 'radish',
+                      'beetroot', 'spinach', 'coriander', 'ginger', 'garlic', 'ladyfinger', 'okra'];
+  
+  const fruits = ['apple', 'mango', 'banana', 'orange', 'grapes', 'pomegranate', 'papaya', 
+                  'watermelon', 'muskmelon', 'guava', 'pineapple', 'lemon', 'lime', 'coconut'];
+  
+  const grains = ['wheat', 'rice', 'maize', 'bajra', 'jowar', 'ragi', 'barley', 'paddy'];
+  
+  const pulses = ['tur', 'moong', 'urad', 'chana', 'masoor', 'dal', 'peas', 'gram', 'lentil', 'arhar'];
+  
+  for (const veg of vegetables) {
+    if (commodity_lower.includes(veg)) return 'vegetables';
+  }
+  
+  for (const fruit of fruits) {
+    if (commodity_lower.includes(fruit)) return 'fruits';
+  }
+  
+  for (const grain of grains) {
+    if (commodity_lower.includes(grain)) return 'grains';
+  }
+  
+  for (const pulse of pulses) {
+    if (commodity_lower.includes(pulse)) return 'pulses';
+  }
+  
+  return 'vegetables';
+}
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const state = searchParams.get('state');
+  const district = searchParams.get('district');
+  const commodity = searchParams.get('commodity');
+
+  const API_KEY = "579b464db66ec23bdd0000011a8be7e716d24aad697fad89aa08940a";
+  const RESOURCE_ID = "9ef84268-d588-465a-a308-a864a43d0070";
+  const BASE_URL = `https://api.data.gov.in/resource/${RESOURCE_ID}`;
+
+  try {
+    const filters: any = {};
+    if (state) filters.state = state;
+    if (district) filters.district = district;
+    if (commodity) filters.commodity = commodity;
+
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+      'format': 'json',
+      'offset': '0',
+      'limit': '500'
+    });
+
+    if (Object.keys(filters).length > 0) {
+      params.append('filters', JSON.stringify(filters));
+    }
+
+    const response = await fetch(`${BASE_URL}?${params.toString()}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0'
+      }
+    });
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: 'Failed to fetch data from API', data: [] },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    const records = data.records || [];
+
+    const processedData: PriceRecord[] = records.map((record: any) => {
+      const commodityName = record.commodity || 'Unknown';
+      const category = categorizeCommodity(commodityName);
+
+      return {
+        commodity_en: commodityName,
+        commodity_hi: commodityName,
+        category,
+        min_price: parseFloat(record.min_price || '0'),
+        max_price: parseFloat(record.max_price || '0'),
+        modal_price: parseFloat(record.modal_price || '0'),
+        unit: 'Quintal',
+        state: record.state || '',
+        district: record.district || '',
+        arrival_date: record.arrival_date || new Date().toLocaleDateString('en-GB'),
+        market: record.market || `${record.district} Mandi`,
+        variety: record.variety || '',
+        grade: record.grade || ''
+      };
+    }).filter((record: PriceRecord) => record.state && record.district);
+
+    return NextResponse.json({
+      success: true,
+      data: processedData,
+      count: processedData.length
+    });
+
+  } catch (error: any) {
+    console.error('Error fetching APMC data:', error);
+    return NextResponse.json(
+      { error: 'Internal server error', message: error.message, data: [] },
+      { status: 500 }
+    );
+  }
+}

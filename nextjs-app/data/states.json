@@ -1,0 +1,113 @@
+{
+  "Haryana": {
+    "name_hi": "हरियाणा",
+    "districts": [
+      {"en": "Ambala", "hi": "अंबाला"},
+      {"en": "Bhiwani", "hi": "भिवानी"},
+      {"en": "Charkhi Dadri", "hi": "चरखी दादरी"},
+      {"en": "Faridabad", "hi": "फरीदाबाद"},
+      {"en": "Fatehabad", "hi": "फतेहाबाद"},
+      {"en": "Gurugram", "hi": "गुरुग्राम"},
+      {"en": "Hisar", "hi": "हिसार"},
+      {"en": "Jhajjar", "hi": "झज्जर"},
+      {"en": "Jind", "hi": "जींद"},
+      {"en": "Kaithal", "hi": "कैथल"},
+      {"en": "Karnal", "hi": "करनाल"},
+      {"en": "Kurukshetra", "hi": "कुरुक्षेत्र"},
+      {"en": "Mahendragarh", "hi": "महेंद्रगढ़"},
+      {"en": "Nuh", "hi": "नूह"},
+      {"en": "Palwal", "hi": "पलवल"},
+      {"en": "Panchkula", "hi": "पंचकुला"},
+      {"en": "Panipat", "hi": "पानीपत"},
+      {"en": "Rewari", "hi": "रेवाड़ी"},
+      {"en": "Rohtak", "hi": "रोहतक"},
+      {"en": "Sirsa", "hi": "सिरसा"},
+      {"en": "Sonipat", "hi": "सोनीपत"},
+      {"en": "Yamunanagar", "hi": "यमुनानगर"}
+    ]
+  },
+  "Punjab": {
+    "name_hi": "पंजाब",
+    "districts": [
+      {"en": "Amritsar", "hi": "अमृतसर"},
+      {"en": "Barnala", "hi": "बरनाला"},
+      {"en": "Bathinda", "hi": "बठिंडा"},
+      {"en": "Faridkot", "hi": "फरीदकोट"},
+      {"en": "Fatehgarh Sahib", "hi": "फतेहगढ़ साहिब"},
+      {"en": "Fazilka", "hi": "फाजिल्का"},
+      {"en": "Ferozepur", "hi": "फिरोजपुर"},
+      {"en": "Gurdaspur", "hi": "गुरदासपुर"},
+      {"en": "Hoshiarpur", "hi": "होशियारपुर"},
+      {"en": "Jalandhar", "hi": "जालंधर"},
+      {"en": "Kapurthala", "hi": "कपूरथला"},
+      {"en": "Ludhiana", "hi": "लुधियाना"},
+      {"en": "Mansa", "hi": "मानसा"},
+      {"en": "Moga", "hi": "मोगा"},
+      {"en": "Muktsar", "hi": "मुक्तसर"},
+      {"en": "Pathankot", "hi": "पठानकोट"},
+      {"en": "Patiala", "hi": "पटियाला"},
+      {"en": "Rupnagar", "hi": "रूपनगर"},
+      {"en": "Sahibzada Ajit Singh Nagar", "hi": "साहिबजादा अजीत सिंह नगर"},
+      {"en": "Sangrur", "hi": "संगरूर"},
+      {"en": "Shaheed Bhagat Singh Nagar", "hi": "शहीद भगत सिंह नगर"},
+      {"en": "Tarn Taran", "hi": "तरनतारन"}
+    ]
+  },
+  "Maharashtra": {
+    "name_hi": "महाराष्ट्र",
+    "districts": [
+      {"en": "Ahmednagar", "hi": "अहमदनगर"},
+      {"en": "Akola", "hi": "अकोला"},
+      {"en": "Amravati", "hi": "अमरावती"},
+      {"en": "Aurangabad", "hi": "औरंगाबाद"},
+      {"en": "Beed", "hi": "बीड"},
+      {"en": "Bhandara", "hi": "भंडारा"},
+      {"en": "Buldhana", "hi": "बुलढाणा"},
+      {"en": "Chandrapur", "hi": "चंद्रपुर"},
+      {"en": "Dhule", "hi": "धुले"},
+      {"en": "Gadchiroli", "hi": "गडचिरोली"},
+      {"en": "Gondia", "hi": "गोंदिया"},
+      {"en": "Hingoli", "hi": "हिंगोली"},
+      {"en": "Jalgaon", "hi": "जळगाव"},
+      {"en": "Jalna", "hi": "जालना"},
+      {"en": "Kolhapur", "hi": "कोल्हापूर"},
+      {"en": "Latur", "hi": "लातूर"},
+      {"en": "Mumbai City", "hi": "मुंबई शहर"},
+      {"en": "Mumbai Suburban", "hi": "मुंबई उपनगरीय"},
+      {"en": "Nagpur", "hi": "नागपूर"},
+      {"en": "Nanded", "hi": "नांदेड"},
+      {"en": "Nandurbar", "hi": "नंदुरबार"},
+      {"en": "Nashik", "hi": "नाशिक"},
+      {"en": "Osmanabad", "hi": "उस्मानाबाद"},
+      {"en": "Palghar", "hi": "पालघर"},
+      {"en": "Parbhani", "hi": "परभणी"},
+      {"en": "Pune", "hi": "पुणे"},
+      {"en": "Raigad", "hi": "रायगड"},
+      {"en": "Ratnagiri", "hi": "रत्नागिरी"},
+      {"en": "Sangli", "hi": "सांगली"},
+      {"en": "Satara", "hi": "सातारा"},
+      {"en": "Sindhudurg", "hi": "सिंधुदुर्ग"},
+      {"en": "Solapur", "hi": "सोलापूर"},
+      {"en": "Thane", "hi": "ठाणे"},
+      {"en": "Wardha", "hi": "वर्धा"},
+      {"en": "Washim", "hi": "वाशिम"},
+      {"en": "Yavatmal", "hi": "यवतमाळ"}
+    ]
+  },
+  "Delhi": {
+    "name_hi": "दिल्ली",
+    "districts": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"]
+  },
+  "Uttar Pradesh": {
+    "name_hi": "उत्तर प्रदेश",
+    "districts": ["Agra", "Aligarh", "Prayagraj", "Varanasi", "Lucknow", "Kanpur Nagar", "Ghaziabad", "Meerut", "Noida", "Greater Noida"]
+  },
+  "Rajasthan": {
+    "name_hi": "राजस्थान",
+    "districts": ["Jaipur", "Jodhpur", "Kota", "Ajmer", "Udaipur", "Bikaner", "Alwar", "Bharatpur"]
+  },
+  "Gujarat": {
+    "name_hi": "गुजरात",
+    "districts": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar", "Gandhinagar", "Anand"]
+  }
+}
