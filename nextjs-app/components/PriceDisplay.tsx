@@ -72,10 +72,12 @@ export default function PriceDisplay() {
     selectedDistrict, 
     priceData, 
     selectedCategory,
+    searchQuery,
     loading,
     error,
     setPriceData, 
     setSelectedCategory,
+    setSearchQuery,
     setLoading,
     setError,
     reset
@@ -110,9 +112,17 @@ export default function PriceDisplay() {
     }
   };
 
-  const filteredData = selectedCategory === 'all' 
+  let filteredData = selectedCategory === 'all' 
     ? priceData 
     : priceData.filter(item => item.category === selectedCategory);
+  
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase();
+    filteredData = filteredData.filter(item => 
+      item.commodity_en.toLowerCase().includes(query) ||
+      item.commodity_hi.toLowerCase().includes(query)
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -137,6 +147,16 @@ export default function PriceDisplay() {
       </div>
 
       <div className="flex-1 max-w-6xl mx-auto w-full p-4">
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="🔍 Search commodity / वस्तु खोजें"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg focus:border-emerald-500 focus:outline-none"
+          />
+        </div>
+
         <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
           {['all', 'vegetables', 'fruits', 'grains', 'pulses'].map((cat) => (
             <button

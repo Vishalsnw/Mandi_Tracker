@@ -16,15 +16,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Next.js App"
+args = "Mandi Bhav App"
 
 [[workflows.workflow]]
-name = "Next.js App"
+name = "Mandi Bhav App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd nextjs-app && npm run dev -- -p 5000"
+args = "cd nextjs-app && npm run dev"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
@@ -35,8 +35,8 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 35887
-externalPort = 3003
+localPort = 32859
+externalPort = 3002
 
 [[ports]]
 localPort = 36111
