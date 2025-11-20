@@ -5,6 +5,13 @@ import plotly.graph_objects as go
 from datetime import datetime
 from scraper import scrape_apmc_data
 from data_config import INDIAN_STATES_DISTRICTS, COMMODITY_IMAGES, TRANSLATIONS
+from price_history import (
+    get_price_history, 
+    save_price_record, 
+    analyze_price_trend,
+    collect_and_store_prices,
+    generate_mock_history
+)
 
 st.set_page_config(
     page_title="Mandi Bhav - मंडी भाव",
@@ -209,11 +216,23 @@ def render_category_selector():
             st.session_state.show_commodity_selector = False
             st.session_state.current_tab = 'home'
             with st.spinner("Loading prices / मूल्य लोड हो रहे हैं..."):
-                st.session_state.price_data = scrape_apmc_data(
+                df = scrape_apmc_data(
                     st.session_state.selected_state, 
                     st.session_state.selected_district,
                     None
                 )
+                st.session_state.price_data = df
+                # Save real prices to history
+                if not df.empty:
+                    for _, row in df.iterrows():
+                        save_price_record(
+                            st.session_state.selected_state,
+                            st.session_state.selected_district,
+                            row.get('commodity_en', 'Unknown'),
+                            float(row.get('min_price', 0)),
+                            float(row.get('max_price', 0)),
+                            float(row.get('modal_price', 0))
+                        )
             st.rerun()
     
     st.markdown("""
@@ -360,21 +379,159 @@ def render_commodity_detail():
     
     st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
     
-    # Explain future features
+    # Historical Price Chart
+    st.markdown("**📈 Price History / मूल्य इतिहास**")
+    st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
+    
+    # Save current price to history immediately
+    save_price_record(
+        st.session_state.selected_state,
+        st.session_state.selected_district,
+        commodity['name_en'],
+        commodity['min_price'],
+        commodity['max_price'],
+        commodity['modal_price']
+    )
+    
+    # Get historical data
+    history_df = get_price_history(
+        st.session_state.selected_state,
+        st.session_state.selected_district,
+        commodity['name_en'],
+        days=30
+    )
+    
+    if not history_df.empty:
+        # Analyze trend and get recommendation
+        analysis = analyze_price_trend(history_df)
+        
+        # Enhanced Recommendation Banner based on historical trend
+        if "Good time to sell" in analysis['recommendation']:
+            rec_bg = "linear-gradient(135deg, #D4EDDA 0%, #C3E6CB 100%)"
+            rec_icon = "✅"
+        elif "Wait" in analysis['recommendation'] or "rising" in analysis['recommendation']:
+            rec_bg = "linear-gradient(135deg, #FFF3CD 0%, #FFE69C 100%)"
+            rec_icon = "⏳"
+        elif "unstable" in analysis['recommendation']:
+            rec_bg = "linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%)"
+            rec_icon = "⚠️"
+        else:
+            rec_bg = "linear-gradient(135deg, #E2E3E5 0%, #D6D8DB 100%)"
+            rec_icon = "➡️"
+        
+        st.markdown(f"""
+        <div style="background: {rec_bg}; padding: 16px; border-radius: 16px; margin: 0 0 16px 0; border: 3px solid rgba(0,0,0,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0 0 4px 0; font-size: 18px; font-weight: 700; color: #333;">
+                {rec_icon} AI-Powered Recommendation / एआई सिफारिश
+            </h3>
+            <p style="margin: 0; font-size: 15px; font-weight: 600; color: #555;">{analysis['recommendation']}</p>
+            <p style="margin: 4px 0 0 0; font-size: 13px; color: #666;">{analysis['reason']}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Trend Metrics
+        col_trend1, col_trend2, col_trend3 = st.columns(3)
+        with col_trend1:
+            st.markdown(f"""
+            <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; border: 2px solid #DEE2E6; text-align: center;">
+                <p style="margin: 0; font-size: 12px; color: #666; font-weight: 600;">TREND</p>
+                <p style="margin: 4px 0 0 0; font-size: 16px; color: #333; font-weight: 700;">{analysis.get('trend_pct', 0):.1f}%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col_trend2:
+            st.markdown(f"""
+            <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; border: 2px solid #DEE2E6; text-align: center;">
+                <p style="margin: 0; font-size: 12px; color: #666; font-weight: 600;">POSITION</p>
+                <p style="margin: 4px 0 0 0; font-size: 16px; color: #333; font-weight: 700;">{analysis.get('price_percentile', 50):.0f}%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col_trend3:
+            st.markdown(f"""
+            <div style="background: #F8F9FA; padding: 12px; border-radius: 12px; border: 2px solid #DEE2E6; text-align: center;">
+                <p style="margin: 0; font-size: 12px; color: #666; font-weight: 600;">VOLATILITY</p>
+                <p style="margin: 4px 0 0 0; font-size: 16px; color: #333; font-weight: 700;">{analysis.get('volatility', 0):.1f}%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown('<div style="height: 12px;"></div>', unsafe_allow_html=True)
+        
+        # Create line chart
+        fig = go.Figure()
+        
+        # Add price lines
+        fig.add_trace(go.Scatter(
+            x=history_df['date'],
+            y=history_df['modal_price'],
+            mode='lines+markers',
+            name='Modal Price / मॉडल मूल्य',
+            line=dict(color='#059669', width=3),
+            marker=dict(size=6)
+        ))
+        
+        fig.add_trace(go.Scatter(
+            x=history_df['date'],
+            y=history_df['max_price'],
+            mode='lines',
+            name='Max Price / अधिकतम मूल्य',
+            line=dict(color='#FF6B35', width=2, dash='dot'),
+            opacity=0.6
+        ))
+        
+        fig.add_trace(go.Scatter(
+            x=history_df['date'],
+            y=history_df['min_price'],
+            mode='lines',
+            name='Min Price / न्यूनतम मूल्य',
+            line=dict(color='#0CAF60', width=2, dash='dot'),
+            opacity=0.6
+        ))
+        
+        # Update layout
+        fig.update_layout(
+            title=f"30-Day Price Trend / 30 दिन की मूल्य प्रवृत्ति",
+            xaxis_title="Date / तारीख",
+            yaxis_title="Price (₹/Quintal)",
+            hovermode='x unified',
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(family='Poppins', size=12),
+            height=400,
+            margin=dict(l=20, r=20, t=60, b=20),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=-0.3,
+                xanchor="center",
+                x=0.5
+            )
+        )
+        
+        fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#f0f0f0')
+        fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#f0f0f0')
+        
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("""
+        📊 **Historical Price Tracking**
+        
+        Price history is collected each time you view commodity prices. 
+        Come back tomorrow to see the 30-day trend chart and AI-powered recommendations!
+        
+        **मूल्य इतिहास**: हर बार जब आप मूल्य देखते हैं तो डेटा एकत्र किया जाता है। 
+        30-दिन का चार्ट देखने के लिए कल वापस आएं!
+        """)
+    
+    st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
+    
+    # Future features info
     st.info("""
-    **💡 Future Features Coming Soon / आने वाली सुविधाएं**
+    **💡 Coming Soon / जल्द आ रहा है**
     
     - **Price Alerts**: Get notified when prices reach your target  
       **मूल्य अलर्ट**: जब मूल्य आपके लक्ष्य तक पहुंचे तो सूचित हों
     
-    - **Historical Trends**: View past price data and patterns  
-      **ऐतिहासिक रुझान**: पिछले मूल्य डेटा और पैटर्न देखें
-    
     - **Nearby Mandis**: Compare prices across different markets  
       **आस-पास की मंडियां**: विभिन्न बाजारों में मूल्यों की तुलना करें
-    
-    These features require database storage and will be added in an update.  
-    इन सुविधाओं के लिए डेटाबेस स्टोरेज की आवश्यकता है और अपडेट में जोड़ा जाएगा।
     """)
     
     st.markdown('</div>', unsafe_allow_html=True)

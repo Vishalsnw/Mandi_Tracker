@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { savePriceRecord } from '@/lib/priceHistory';
 
 interface PriceRecord {
   commodity_en: string;
@@ -119,6 +120,24 @@ export async function GET(request: NextRequest) {
         grade: record.grade || ''
       };
     }).filter((record: PriceRecord) => record.state && record.district);
+
+    // Save prices to history
+    if (state && district && processedData.length > 0) {
+      try {
+        for (const record of processedData) {
+          savePriceRecord(
+            state,
+            district,
+            record.commodity_en,
+            record.min_price,
+            record.max_price,
+            record.modal_price
+          );
+        }
+      } catch (err) {
+        console.error('Error saving price history:', err);
+      }
+    }
 
     return NextResponse.json({
       success: true,

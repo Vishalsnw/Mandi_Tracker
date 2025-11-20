@@ -16,10 +16,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "nextjs-app"
+args = "Next.js App"
 
 [[workflows.workflow]]
-name = "nextjs-app"
+name = "Next.js App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
@@ -33,14 +33,6 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 34441
-externalPort = 3002
-
-[[ports]]
-localPort = 35503
-externalPort = 6000
 
 [[ports]]
 localPort = 35887

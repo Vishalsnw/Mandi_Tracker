@@ -56,3 +56,10 @@ uv.lock
 # Project specific
 MandiTracker.zip
 MandiTracker/
+price_history_data/
+
+# Next.js
+nextjs-app/.next/
+nextjs-app/out/
+nextjs-app/node_modules/
+nextjs-app/.env*.local
