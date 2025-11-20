@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.389Z",
+    "commodity": "Pear(Marasebu)",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 10000,
+    "max_price": 10000,
+    "modal_price": 10000
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:48:04.554Z",
+    "commodity": "Maize",
+    "state": "Maharashtra",
+    "district": "Jalgaon",
+    "min_price": 1230,
+    "max_price": 1230,
+    "modal_price": 1230
+  }
+]

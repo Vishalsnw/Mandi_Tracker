@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.382Z",
+    "commodity": "Tomato",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 800,
+    "max_price": 1000,
+    "modal_price": 900
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.379Z",
+    "commodity": "Onion Green",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 10,
+    "max_price": 10,
+    "modal_price": 10
+  }
+]

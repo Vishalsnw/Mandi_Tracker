@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.382Z",
+    "commodity": "Orange",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 7000,
+    "max_price": 7000,
+    "modal_price": 7000
+  }
+]

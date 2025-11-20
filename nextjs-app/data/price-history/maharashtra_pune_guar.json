@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.386Z",
+    "commodity": "Guar",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 7000,
+    "max_price": 8000,
+    "modal_price": 7500
+  }
+]

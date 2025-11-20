@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.388Z",
+    "commodity": "Cucumbar(Kheera)",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 1500,
+    "max_price": 2000,
+    "modal_price": 1750
+  }
+]

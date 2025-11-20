@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.385Z",
+    "commodity": "Ginger(Green)",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 4000,
+    "max_price": 4000,
+    "modal_price": 4000
+  }
+]

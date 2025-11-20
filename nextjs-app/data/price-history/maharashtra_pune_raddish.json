@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.374Z",
+    "commodity": "Raddish",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 15,
+    "max_price": 15,
+    "modal_price": 15
+  }
+]

@@ -36,6 +36,13 @@ Preferred communication style: Simple, everyday language.
 - **Error Handling**: Robust error handling for API unavailability and network issues.
 - **Server-Side Fetching**: API calls made from Next.js backend to avoid CORS issues.
 
+**Data Availability by Location** (November 2025):
+- Data availability varies significantly by district in the government APMC database
+- Some districts have abundant data (e.g., Maharashtra Pune: 72 commodities)
+- Others have limited data (e.g., Maharashtra Jalgaon: 1 commodity, Punjab Bathinda: 0 commodities)
+- The app now displays an informative message when limited data is available, suggesting users try larger districts
+- This is a characteristic of the real government data source, not an application limitation
+
 ### Historical Price Tracking (NEW)
 **Strategy**: Stores historical price data locally using JSON files (Node.js filesystem).
 **Implementation**: `/lib/priceHistory.ts` module manages price history storage, retrieval, and trend analysis.

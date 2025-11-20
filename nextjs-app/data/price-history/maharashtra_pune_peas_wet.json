@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.375Z",
+    "commodity": "Peas Wet",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 13000,
+    "max_price": 15000,
+    "modal_price": 14000
+  }
+]

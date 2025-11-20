@@ -216,8 +216,17 @@ export default function PriceDisplay() {
           <>
             <div className="bg-white rounded-2xl p-4 mb-6 shadow-md">
               <p className="text-gray-700">
-                <span className="font-bold text-2xl text-emerald-600">{filteredData.length}</span> commodities found
+                <span className="font-bold text-2xl text-emerald-600">{filteredData.length}</span> {language === 'hi' ? 'वस्तुएं मिलीं' : 'commodities found'}
               </p>
+              {priceData.length <= 5 && (
+                <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-sm text-blue-800">
+                    {language === 'hi' 
+                      ? '💡 सूचना: कुछ क्षेत्रों में सीमित डेटा उपलब्ध है क्योंकि यह सरकारी APMC डेटाबेस से आता है। अधिक डेटा के लिए अन्य बड़े जिले (जैसे पुणे, मुंबई) आज़माएं।'
+                      : '💡 Note: Limited data available for this location from the government APMC database. Try larger districts (like Pune, Mumbai) for more commodity data.'}
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

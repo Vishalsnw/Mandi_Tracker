@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:50:00.382Z",
+    "commodity": "Mint(Pudina)",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "min_price": 5,
+    "max_price": 5,
+    "modal_price": 5
+  }
+]
