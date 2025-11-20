@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
   const BASE_URL = `https://api.data.gov.in/resource/${RESOURCE_ID}`;
 
   try {
-    const params = new URLSearchParams({
+    let params = new URLSearchParams({
       'api-key': API_KEY,
       'format': 'json',
       'offset': '0',
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
       params.append('filters[commodity]', commodity);
     }
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}`, {
+    let response = await fetch(`${BASE_URL}?${params.toString()}`, {
       headers: {
         'User-Agent': 'Mozilla/5.0'
       }
@@ -92,8 +92,36 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const data = await response.json();
-    const records = data.records || [];
+    let data = await response.json();
+    let records = data.records || [];
+    let isFallback = false;
+
+    if (records.length === 0 && state && district) {
+      params = new URLSearchParams({
+        'api-key': API_KEY,
+        'format': 'json',
+        'offset': '0',
+        'limit': '500'
+      });
+      
+      params.append('filters[state]', state);
+      
+      if (commodity) {
+        params.append('filters[commodity]', commodity);
+      }
+
+      response = await fetch(`${BASE_URL}?${params.toString()}`, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0'
+        }
+      });
+
+      if (response.ok) {
+        data = await response.json();
+        records = data.records || [];
+        isFallback = records.length > 0;
+      }
+    }
 
     const processedData: PriceRecord[] = records.map((record: any) => {
       const commodityName = record.commodity || 'Unknown';
@@ -138,7 +166,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: processedData,
-      count: processedData.length
+      count: processedData.length,
+      isFallback,
+      requestedDistrict: district
     });
 
   } catch (error: any) {

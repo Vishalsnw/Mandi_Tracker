@@ -96,6 +96,8 @@ export default function PriceDisplay() {
   } = useStore();
   
   const [selectedCommodity, setSelectedCommodity] = useState<any>(null);
+  const [isFallbackData, setIsFallbackData] = useState(false);
+  const [requestedDistrict, setRequestedDistrict] = useState('');
   
   const t = translations[language];
 
@@ -108,6 +110,7 @@ export default function PriceDisplay() {
   const fetchPrices = async () => {
     setLoading(true);
     setError(null);
+    setIsFallbackData(false);
     
     try {
       const response = await axios.get('/api/scrape-prices', {
@@ -118,6 +121,8 @@ export default function PriceDisplay() {
       });
       
       setPriceData(response.data.data || []);
+      setIsFallbackData(response.data.isFallback || false);
+      setRequestedDistrict(response.data.requestedDistrict || selectedDistrict);
     } catch (err: any) {
       setError(err.message || 'Error loading data');
       console.error('Error fetching prices:', err);
@@ -218,7 +223,18 @@ export default function PriceDisplay() {
               <p className="text-gray-700">
                 <span className="font-bold text-2xl text-emerald-600">{filteredData.length}</span> {language === 'hi' ? 'वस्तुएं मिलीं' : 'commodities found'}
               </p>
-              {priceData.length <= 5 && (
+              
+              {isFallbackData && (
+                <div className="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-300">
+                  <p className="text-sm text-amber-900 font-semibold">
+                    {language === 'hi' 
+                      ? `📍 ${requestedDistrict} में कोई डेटा नहीं मिला। ${selectedState} राज्य के सभी बाजारों से मूल्य दिखा रहे हैं।`
+                      : `📍 No data found for ${requestedDistrict}. Showing prices from all markets in ${selectedState} state.`}
+                  </p>
+                </div>
+              )}
+              
+              {!isFallbackData && priceData.length <= 5 && (
                 <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
                   <p className="text-sm text-blue-800">
                     {language === 'hi' 
