@@ -43,7 +43,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
 
   const savePriceRecord = async () => {
     try {
-      await axios.post('http://localhost:3000/api/save-price', {
+      await axios.post('/api/scrape-prices', {
         commodity: commodity.commodity_en,
         state: commodity.state,
         district: commodity.district,
@@ -58,7 +58,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
 
   const fetchRecommendation = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/recommend', {
+      const response = await axios.post('/api/recommend', {
         commodity: commodity.commodity_en,
         state: commodity.state,
         district: commodity.district,
@@ -76,7 +76,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
 
   const fetchPriceHistory = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/price-history', {
+      const response = await axios.get('/api/price-history', {
         params: {
           commodity: commodity.commodity_en,
           state: commodity.state,
@@ -84,7 +84,11 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
           days: 30
         }
       });
-      setPriceHistory(response.data);
+      
+      // Only set history if data is available
+      if (response.data && response.data.history && response.data.history.length > 0) {
+        setPriceHistory(response.data.history);
+      }
     } catch (err) {
       console.error('Error fetching price history:', err);
     }
