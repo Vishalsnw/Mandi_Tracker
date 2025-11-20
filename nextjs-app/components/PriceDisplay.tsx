@@ -59,11 +59,19 @@ function PriceCard({ commodity, commodityHi, minPrice, maxPrice, modalPrice, mar
         </div>
       </div>
 
-      <div className="flex justify-between text-sm text-gray-600">
+      <div className="flex justify-between text-sm text-gray-600 mb-3">
         <span>Range: ₹{priceRange}</span>
         <span className={`font-semibold ${parseFloat(volatility) > 20 ? 'text-red-500' : 'text-green-500'}`}>
           {volatility}% volatility
         </span>
+      </div>
+      
+      <div className="text-center pt-3 border-t border-gray-200">
+        <p className="text-emerald-600 font-semibold text-sm flex items-center justify-center gap-1">
+          <span>👉</span>
+          {language === 'hi' ? 'विवरण देखने के लिए टैप करें' : 'Tap to view details'}
+          <span>📊</span>
+        </p>
       </div>
     </div>
   );

@@ -62,11 +62,6 @@ export async function GET(request: NextRequest) {
   const BASE_URL = `https://api.data.gov.in/resource/${RESOURCE_ID}`;
 
   try {
-    const filters: any = {};
-    if (state) filters.state = state;
-    if (district) filters.district = district;
-    if (commodity) filters.commodity = commodity;
-
     const params = new URLSearchParams({
       'api-key': API_KEY,
       'format': 'json',
@@ -74,8 +69,14 @@ export async function GET(request: NextRequest) {
       'limit': '500'
     });
 
-    if (Object.keys(filters).length > 0) {
-      params.append('filters', JSON.stringify(filters));
+    if (state) {
+      params.append('filters[state]', state);
+    }
+    if (district) {
+      params.append('filters[district]', district);
+    }
+    if (commodity) {
+      params.append('filters[commodity]', commodity);
     }
 
     const response = await fetch(`${BASE_URL}?${params.toString()}`, {
