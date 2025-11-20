@@ -149,3 +149,25 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const data = await request.json();
+    
+    savePriceRecord(
+      data.state,
+      data.district,
+      data.commodity,
+      data.min_price,
+      data.max_price,
+      data.modal_price
+    );
+    
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: 'Error saving price record', message: error.message },
+      { status: 500 }
+    );
+  }
+}
