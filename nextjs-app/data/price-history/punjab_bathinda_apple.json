@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.296Z",
+    "commodity": "Apple",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 4000,
+    "max_price": 5000,
+    "modal_price": 4500
+  }
+]

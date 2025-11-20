@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.288Z",
+    "commodity": "Banana",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1800,
+    "max_price": 2200,
+    "modal_price": 2000
+  }
+]

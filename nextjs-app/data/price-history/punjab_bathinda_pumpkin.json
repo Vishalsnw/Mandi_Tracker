@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.327Z",
+    "commodity": "Pumpkin",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1300,
+    "max_price": 1800,
+    "modal_price": 1500
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.289Z",
+    "commodity": "Carrot",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1500,
+    "max_price": 2000,
+    "modal_price": 1800
+  }
+]

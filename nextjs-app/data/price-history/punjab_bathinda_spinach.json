@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.310Z",
+    "commodity": "Spinach",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 2000,
+    "max_price": 2000,
+    "modal_price": 2000
+  }
+]

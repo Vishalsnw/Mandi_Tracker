@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.307Z",
+    "commodity": "Guava",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 5500,
+    "max_price": 6500,
+    "modal_price": 6000
+  }
+]

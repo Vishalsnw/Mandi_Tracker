@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.306Z",
+    "commodity": "Raddish",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 750,
+    "max_price": 850,
+    "modal_price": 800
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.279Z",
+    "commodity": "Peas Wet",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 11000,
+    "max_price": 11000,
+    "modal_price": 11000
+  }
+]

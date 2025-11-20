@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.305Z",
+    "commodity": "Pineapple",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 4300,
+    "max_price": 4500,
+    "modal_price": 4400
+  }
+]

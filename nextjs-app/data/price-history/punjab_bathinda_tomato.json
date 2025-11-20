@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.321Z",
+    "commodity": "Tomato",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1200,
+    "max_price": 3200,
+    "modal_price": 2000
+  }
+]

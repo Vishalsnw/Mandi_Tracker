@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.329Z",
+    "commodity": "Potato",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 800,
+    "max_price": 1000,
+    "modal_price": 900
+  }
+]

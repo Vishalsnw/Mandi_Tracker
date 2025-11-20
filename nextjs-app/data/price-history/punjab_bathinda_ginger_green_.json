@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.277Z",
+    "commodity": "Ginger(Green)",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 5700,
+    "max_price": 5800,
+    "modal_price": 5700
+  }
+]

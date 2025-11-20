@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.280Z",
+    "commodity": "Water Melon",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 2600,
+    "max_price": 2600,
+    "modal_price": 2600
+  }
+]

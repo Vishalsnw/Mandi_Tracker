@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.327Z",
+    "commodity": "Lemon",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 5000,
+    "max_price": 9900,
+    "modal_price": 8000
+  }
+]

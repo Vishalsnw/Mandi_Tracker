@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.278Z",
+    "commodity": "Methi(Leaves)",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 750,
+    "max_price": 800,
+    "modal_price": 750
+  }
+]

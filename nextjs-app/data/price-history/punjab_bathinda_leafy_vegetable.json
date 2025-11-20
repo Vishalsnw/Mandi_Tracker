@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.268Z",
+    "commodity": "Leafy Vegetable",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 600,
+    "max_price": 1000,
+    "modal_price": 800
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.312Z",
+    "commodity": "Onion",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 500,
+    "max_price": 1500,
+    "modal_price": 1100
+  }
+]

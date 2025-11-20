@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.256Z",
+    "commodity": "Papaya (Raw)",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 2500,
+    "max_price": 2800,
+    "modal_price": 2600
+  }
+]

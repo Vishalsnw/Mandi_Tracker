@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.265Z",
+    "commodity": "Grapes",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 10000,
+    "max_price": 20000,
+    "modal_price": 15000
+  }
+]

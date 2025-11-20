@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.303Z",
+    "commodity": "Green Chilli",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 3300,
+    "max_price": 3500,
+    "modal_price": 3400
+  }
+]

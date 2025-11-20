@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.311Z",
+    "commodity": "Cabbage",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 700,
+    "max_price": 1600,
+    "modal_price": 1000
+  }
+]

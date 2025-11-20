@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.217Z",
+    "commodity": "Sweet Pumpkin",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 850,
+    "max_price": 1000,
+    "modal_price": 900
+  }
+]

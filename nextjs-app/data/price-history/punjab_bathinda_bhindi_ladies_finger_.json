@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.302Z",
+    "commodity": "Bhindi(Ladies Finger)",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1300,
+    "max_price": 1500,
+    "modal_price": 1400
+  }
+]

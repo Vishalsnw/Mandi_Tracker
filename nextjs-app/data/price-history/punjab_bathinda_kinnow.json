@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.226Z",
+    "commodity": "Kinnow",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 1000,
+    "max_price": 2000,
+    "modal_price": 1500
+  }
+]

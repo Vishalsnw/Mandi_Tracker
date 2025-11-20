@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.306Z",
+    "commodity": "French Beans (Frasbean)",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 6000,
+    "max_price": 7000,
+    "modal_price": 6500
+  }
+]

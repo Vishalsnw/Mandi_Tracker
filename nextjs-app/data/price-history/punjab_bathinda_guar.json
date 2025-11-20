@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-11-20T20:59:59.266Z",
+    "commodity": "Guar",
+    "state": "Punjab",
+    "district": "Bathinda",
+    "min_price": 5100,
+    "max_price": 10000,
+    "modal_price": 8000
+  }
+]
