@@ -18,6 +18,10 @@ author = "agent"
 task = "workflow.run"
 args = "Mandi Bhav App"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Python API"
+
 [[workflows.workflow]]
 name = "Mandi Bhav App"
 author = "agent"
@@ -30,13 +34,25 @@ waitForPort = 5000
 [workflows.workflow.metadata]
 outputType = "webview"
 
+[[workflows.workflow]]
+name = "Python API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python api/recommendations.py"
+waitForPort = 3000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 32859
-externalPort = 3002
 
 [[ports]]
 localPort = 36111
@@ -53,6 +69,10 @@ externalPort = 5000
 [[ports]]
 localPort = 43091
 externalPort = 6800
+
+[[ports]]
+localPort = 44323
+externalPort = 3002
 
 [[ports]]
 localPort = 45409

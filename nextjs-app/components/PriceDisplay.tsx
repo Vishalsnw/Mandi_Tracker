@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '@/lib/store';
 import translations from '@/data/translations.json';
 import axios from 'axios';
+import CommodityDetail from './CommodityDetail';
 
 interface PriceCardProps {
   commodity: string;
@@ -14,7 +15,7 @@ interface PriceCardProps {
   category: string;
 }
 
-function PriceCard({ commodity, minPrice, maxPrice, modalPrice, market, category }: PriceCardProps) {
+function PriceCard({ commodity, commodityHi, minPrice, maxPrice, modalPrice, market, category, language, onClick }: PriceCardProps & { commodityHi: string; language: 'en' | 'hi'; onClick: () => void }) {
   const getCategoryEmoji = (cat: string) => {
     switch (cat) {
       case 'vegetables': return '🥬';
@@ -29,12 +30,15 @@ function PriceCard({ commodity, minPrice, maxPrice, modalPrice, market, category
   const priceRange = maxPrice - minPrice;
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+    <div 
+      className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer hover:scale-105"
+      onClick={onClick}
+    >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <span className="text-4xl">{getCategoryEmoji(category)}</span>
           <div>
-            <h3 className="text-xl font-bold text-gray-800">{commodity}</h3>
+            <h3 className="text-xl font-bold text-gray-800">{language === 'hi' ? commodityHi : commodity}</h3>
             <p className="text-sm text-gray-500">{market}</p>
           </div>
         </div>
@@ -82,6 +86,8 @@ export default function PriceDisplay() {
     setError,
     reset
   } = useStore();
+  
+  const [selectedCommodity, setSelectedCommodity] = useState<any>(null);
   
   const t = translations[language];
 
@@ -211,17 +217,28 @@ export default function PriceDisplay() {
                 <PriceCard
                   key={index}
                   commodity={item.commodity_en}
+                  commodityHi={item.commodity_hi}
                   minPrice={item.min_price}
                   maxPrice={item.max_price}
                   modalPrice={item.modal_price}
                   market={item.market}
                   category={item.category}
+                  language={language}
+                  onClick={() => setSelectedCommodity(item)}
                 />
               ))}
             </div>
           </>
         )}
       </div>
+
+      {selectedCommodity && (
+        <CommodityDetail
+          commodity={selectedCommodity}
+          language={language}
+          onClose={() => setSelectedCommodity(null)}
+        />
+      )}
     </div>
   );
 }

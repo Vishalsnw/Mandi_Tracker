@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { savePriceRecord } from '@/lib/priceHistory';
+import { getHindiName } from '@/lib/hindiNames';
 
 interface PriceRecord {
   commodity_en: string;
@@ -96,10 +97,11 @@ export async function GET(request: NextRequest) {
     const processedData: PriceRecord[] = records.map((record: any) => {
       const commodityName = record.commodity || 'Unknown';
       const category = categorizeCommodity(commodityName);
+      const hindiName = getHindiName(commodityName);
 
       return {
         commodity_en: commodityName,
-        commodity_hi: commodityName,
+        commodity_hi: hindiName,
         category,
         min_price: parseFloat(record.min_price || '0'),
         max_price: parseFloat(record.max_price || '0'),
