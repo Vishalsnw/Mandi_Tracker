@@ -31,7 +31,10 @@ function PriceCard({ commodity, commodityHi, minPrice, maxPrice, modalPrice, mar
 
   // Simple trend indicator based on price position in range
   const getPriceTrend = () => {
-    const position = ((modalPrice - minPrice) / (maxPrice - minPrice)) * 100;
+    const range = maxPrice - minPrice;
+    if (range === 0) return { icon: '━', color: 'text-blue-500', label: language === 'hi' ? 'स्थिर' : 'Stable' };
+    
+    const position = ((modalPrice - minPrice) / range) * 100;
     if (position > 70) return { icon: '📈', color: 'text-red-500', label: language === 'hi' ? 'उच्च' : 'High' };
     if (position < 30) return { icon: '📉', color: 'text-green-500', label: language === 'hi' ? 'कम' : 'Low' };
     return { icon: '➡️', color: 'text-yellow-500', label: language === 'hi' ? 'सामान्य' : 'Normal' };

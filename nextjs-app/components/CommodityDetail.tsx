@@ -46,7 +46,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
 
   const savePriceRecord = async () => {
     try {
-      await axios.post('/api/scrape-prices', {
+      await axios.post('/api/price-history', {
         commodity: commodity.commodity_en,
         state: commodity.state,
         district: commodity.district,
@@ -320,7 +320,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
                     className="w-full p-3 border-2 border-blue-300 rounded-xl focus:border-blue-500 focus:outline-none"
                   />
                 </div>
-                {inputCost && quantity && (
+                {inputCost && quantity && parseFloat(quantity) > 0 && parseFloat(inputCost) > 0 && (
                   <div className="bg-white rounded-xl p-4 border-2 border-blue-300">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
@@ -346,6 +346,13 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
                         </p>
                       </div>
                     </div>
+                  </div>
+                )}
+                {inputCost && quantity && (parseFloat(quantity) <= 0 || parseFloat(inputCost) <= 0) && (
+                  <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-3">
+                    <p className="text-yellow-800 text-sm">
+                      {language === 'hi' ? '⚠️ कृपया वैध मात्रा और लागत दर्ज करें (0 से अधिक)' : '⚠️ Please enter valid quantity and cost (greater than 0)'}
+                    </p>
                   </div>
                 )}
               </div>
