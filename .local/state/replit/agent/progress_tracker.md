@@ -6,3 +6,5 @@
 [x] 6. Move API key to environment variable - API key uses APMC_API_KEY env var with fallback
 [x] 7. Verify build and deployment - Build succeeds, dev server running successfully
 [x] 8. Update deployment configuration - Set to autoscale for Next.js production deployment
+[x] 9. Fix price history charts - Corrected HISTORY_DIR path to load existing price data
+[x] 10. Install npm dependencies - All Next.js packages installed and app running on port 5000

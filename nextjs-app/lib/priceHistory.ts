@@ -8,7 +8,7 @@ interface PriceHistoryRecord {
   modal_price: number;
 }
 
-const HISTORY_DIR = path.join(process.cwd(), 'nextjs-app', 'data', 'price-history');
+const HISTORY_DIR = path.join(process.cwd(), 'data', 'price-history');
 
 function getFileName(state: string, district: string, commodity: string): string {
   const sanitized = `${state}_${district}_${commodity}`
