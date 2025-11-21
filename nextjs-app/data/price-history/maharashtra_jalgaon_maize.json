@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:48:04.554Z",
-    "commodity": "Maize",
-    "state": "Maharashtra",
-    "district": "Jalgaon",
-    "min_price": 1230,
-    "max_price": 1230,
-    "modal_price": 1230
+    "date": "2025-11-21",
+    "min_price": 780,
+    "max_price": 1320,
+    "modal_price": 1092
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 927,
+    "max_price": 1664,
+    "modal_price": 1288
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 907,
+    "max_price": 1379,
+    "modal_price": 1156
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 798,
+    "max_price": 1356,
+    "modal_price": 1124
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 1059,
+    "max_price": 1532,
+    "modal_price": 1301
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 1166,
+    "max_price": 1806,
+    "modal_price": 1396
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 990,
+    "max_price": 1755,
+    "modal_price": 1377
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 1070,
+    "max_price": 1649,
+    "modal_price": 1419
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 1021,
+    "max_price": 1452,
+    "modal_price": 1258
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 1056,
+    "max_price": 1624,
+    "modal_price": 1286
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 1107,
+    "max_price": 1757,
+    "modal_price": 1410
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 993,
+    "max_price": 1469,
+    "modal_price": 1235
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 1039,
+    "max_price": 1667,
+    "modal_price": 1434
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 978,
+    "max_price": 1458,
+    "modal_price": 1205
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 1037,
+    "max_price": 1728,
+    "modal_price": 1352
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 999,
+    "max_price": 1815,
+    "modal_price": 1408
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 1071,
+    "max_price": 1611,
+    "modal_price": 1365
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 980,
+    "max_price": 1648,
+    "modal_price": 1289
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 1086,
+    "max_price": 1897,
+    "modal_price": 1545
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 1193,
+    "max_price": 1794,
+    "modal_price": 1493
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 1226,
+    "max_price": 1872,
+    "modal_price": 1458
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 1132,
+    "max_price": 1683,
+    "modal_price": 1408
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 1091,
+    "max_price": 1747,
+    "modal_price": 1395
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 1185,
+    "max_price": 1915,
+    "modal_price": 1491
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 1106,
+    "max_price": 1925,
+    "modal_price": 1568
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 1145,
+    "max_price": 1898,
+    "modal_price": 1495
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 969,
+    "max_price": 1645,
+    "modal_price": 1274
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 931,
+    "max_price": 1614,
+    "modal_price": 1304
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 1244,
+    "max_price": 1897,
+    "modal_price": 1619
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 1094,
+    "max_price": 1527,
+    "modal_price": 1293
   }
 ]

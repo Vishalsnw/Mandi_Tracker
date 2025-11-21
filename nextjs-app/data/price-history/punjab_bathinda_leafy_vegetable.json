@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:59:59.268Z",
-    "commodity": "Leafy Vegetable",
-    "state": "Punjab",
-    "district": "Bathinda",
-    "min_price": 600,
-    "max_price": 1000,
-    "modal_price": 800
+    "date": "2025-11-21",
+    "min_price": 589,
+    "max_price": 926,
+    "modal_price": 728
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 590,
+    "max_price": 951,
+    "modal_price": 789
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 691,
+    "max_price": 1094,
+    "modal_price": 859
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 641,
+    "max_price": 1029,
+    "modal_price": 834
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 629,
+    "max_price": 942,
+    "modal_price": 758
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 573,
+    "max_price": 898,
+    "modal_price": 729
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 682,
+    "max_price": 1128,
+    "modal_price": 880
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 778,
+    "max_price": 1183,
+    "modal_price": 955
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 725,
+    "max_price": 1123,
+    "modal_price": 876
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 581,
+    "max_price": 963,
+    "modal_price": 826
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 631,
+    "max_price": 915,
+    "modal_price": 763
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 748,
+    "max_price": 1034,
+    "modal_price": 890
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 555,
+    "max_price": 979,
+    "modal_price": 780
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 555,
+    "max_price": 1019,
+    "modal_price": 790
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 744,
+    "max_price": 1055,
+    "modal_price": 896
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 590,
+    "max_price": 1023,
+    "modal_price": 807
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 703,
+    "max_price": 980,
+    "modal_price": 836
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 718,
+    "max_price": 1061,
+    "modal_price": 897
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 644,
+    "max_price": 1092,
+    "modal_price": 912
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 745,
+    "max_price": 1178,
+    "modal_price": 1021
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 638,
+    "max_price": 1103,
+    "modal_price": 876
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 747,
+    "max_price": 1181,
+    "modal_price": 930
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 703,
+    "max_price": 1073,
+    "modal_price": 847
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 768,
+    "max_price": 1215,
+    "modal_price": 972
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 841,
+    "max_price": 1146,
+    "modal_price": 990
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 725,
+    "max_price": 1199,
+    "modal_price": 1025
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 803,
+    "max_price": 1262,
+    "modal_price": 1005
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 690,
+    "max_price": 1156,
+    "modal_price": 937
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 690,
+    "max_price": 1109,
+    "modal_price": 861
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 659,
+    "max_price": 1097,
+    "modal_price": 873
   }
 ]

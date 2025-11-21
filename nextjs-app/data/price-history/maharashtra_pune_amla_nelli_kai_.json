@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.836Z",
-    "commodity": "Amla(Nelli Kai)",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 5000,
-    "max_price": 5000,
-    "modal_price": 5000
+    "date": "2025-11-21",
+    "min_price": 3941,
+    "max_price": 6685,
+    "modal_price": 5348
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 4568,
+    "max_price": 6573,
+    "modal_price": 5447
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 3720,
+    "max_price": 5965,
+    "modal_price": 5029
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 3436,
+    "max_price": 5280,
+    "modal_price": 4538
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 3527,
+    "max_price": 6288,
+    "modal_price": 4882
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 3546,
+    "max_price": 5715,
+    "modal_price": 4719
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 3811,
+    "max_price": 6570,
+    "modal_price": 5128
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 4283,
+    "max_price": 5836,
+    "modal_price": 5065
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 4727,
+    "max_price": 6742,
+    "modal_price": 5602
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 3559,
+    "max_price": 5755,
+    "modal_price": 4990
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 4121,
+    "max_price": 6440,
+    "modal_price": 5305
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 4051,
+    "max_price": 6140,
+    "modal_price": 5252
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 4070,
+    "max_price": 6635,
+    "modal_price": 5570
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 4527,
+    "max_price": 6415,
+    "modal_price": 5449
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 3880,
+    "max_price": 5878,
+    "modal_price": 4972
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 4150,
+    "max_price": 7324,
+    "modal_price": 5898
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 4972,
+    "max_price": 7665,
+    "modal_price": 5960
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 4077,
+    "max_price": 7175,
+    "modal_price": 5706
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 4815,
+    "max_price": 6976,
+    "modal_price": 5677
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 4682,
+    "max_price": 6580,
+    "modal_price": 5582
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 4419,
+    "max_price": 6308,
+    "modal_price": 5332
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 4554,
+    "max_price": 6313,
+    "modal_price": 5464
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 4260,
+    "max_price": 6492,
+    "modal_price": 5628
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 4708,
+    "max_price": 8248,
+    "modal_price": 6460
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 4299,
+    "max_price": 7338,
+    "modal_price": 5834
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 4650,
+    "max_price": 7946,
+    "modal_price": 6249
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 4458,
+    "max_price": 7166,
+    "modal_price": 5702
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 4177,
+    "max_price": 6683,
+    "modal_price": 5172
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 4883,
+    "max_price": 8306,
+    "modal_price": 6405
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 4004,
+    "max_price": 6471,
+    "modal_price": 5324
   }
 ]

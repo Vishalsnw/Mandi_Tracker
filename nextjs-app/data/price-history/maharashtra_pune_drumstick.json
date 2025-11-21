@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.842Z",
-    "commodity": "Drumstick",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 8000,
-    "max_price": 10000,
-    "modal_price": 9000
+    "date": "2025-11-21",
+    "min_price": 7592,
+    "max_price": 11456,
+    "modal_price": 9844
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 7573,
+    "max_price": 11690,
+    "modal_price": 9380
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 6969,
+    "max_price": 10939,
+    "modal_price": 8544
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 7364,
+    "max_price": 12244,
+    "modal_price": 9917
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 7025,
+    "max_price": 11568,
+    "modal_price": 9267
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 7571,
+    "max_price": 12750,
+    "modal_price": 9818
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 6525,
+    "max_price": 10207,
+    "modal_price": 8018
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 7713,
+    "max_price": 12239,
+    "modal_price": 9692
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 7322,
+    "max_price": 12269,
+    "modal_price": 10074
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 6585,
+    "max_price": 10289,
+    "modal_price": 8602
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 7077,
+    "max_price": 10260,
+    "modal_price": 8878
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 7803,
+    "max_price": 12445,
+    "modal_price": 10761
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 7700,
+    "max_price": 12407,
+    "modal_price": 10557
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 8978,
+    "max_price": 13019,
+    "modal_price": 10736
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 8964,
+    "max_price": 12688,
+    "modal_price": 10871
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 8101,
+    "max_price": 11282,
+    "modal_price": 9752
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 9069,
+    "max_price": 13118,
+    "modal_price": 10880
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 7511,
+    "max_price": 10583,
+    "modal_price": 9115
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 8298,
+    "max_price": 12831,
+    "modal_price": 10836
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 8997,
+    "max_price": 14135,
+    "modal_price": 11220
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 7071,
+    "max_price": 10838,
+    "modal_price": 9179
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 7691,
+    "max_price": 10987,
+    "modal_price": 9058
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 7162,
+    "max_price": 12475,
+    "modal_price": 9984
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 7562,
+    "max_price": 12827,
+    "modal_price": 10684
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 7356,
+    "max_price": 11035,
+    "modal_price": 9391
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 8483,
+    "max_price": 14992,
+    "modal_price": 11738
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 8952,
+    "max_price": 13531,
+    "modal_price": 10727
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 7850,
+    "max_price": 13208,
+    "modal_price": 10621
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 8071,
+    "max_price": 11801,
+    "modal_price": 10129
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 8284,
+    "max_price": 13652,
+    "modal_price": 10926
   }
 ]

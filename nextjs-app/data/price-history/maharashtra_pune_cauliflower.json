@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.843Z",
-    "commodity": "Cauliflower",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 3000,
-    "max_price": 3000,
-    "modal_price": 3000
+    "date": "2025-11-21",
+    "min_price": 2156,
+    "max_price": 3840,
+    "modal_price": 3035
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 2372,
+    "max_price": 3471,
+    "modal_price": 2875
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 2379,
+    "max_price": 3441,
+    "modal_price": 2906
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 2822,
+    "max_price": 4113,
+    "modal_price": 3428
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 2178,
+    "max_price": 3564,
+    "modal_price": 3070
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 2605,
+    "max_price": 3753,
+    "modal_price": 3244
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 2634,
+    "max_price": 4263,
+    "modal_price": 3492
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2136,
+    "max_price": 3378,
+    "modal_price": 2748
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 2171,
+    "max_price": 3280,
+    "modal_price": 2763
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 2736,
+    "max_price": 4205,
+    "modal_price": 3401
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 2604,
+    "max_price": 3903,
+    "modal_price": 3126
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 2290,
+    "max_price": 3699,
+    "modal_price": 3060
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 2921,
+    "max_price": 4634,
+    "modal_price": 3567
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 2445,
+    "max_price": 3976,
+    "modal_price": 3188
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 2132,
+    "max_price": 3679,
+    "modal_price": 3013
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 2556,
+    "max_price": 3644,
+    "modal_price": 3063
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 3002,
+    "max_price": 4366,
+    "modal_price": 3720
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 2606,
+    "max_price": 3632,
+    "modal_price": 3143
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 2394,
+    "max_price": 4091,
+    "modal_price": 3174
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 2541,
+    "max_price": 3957,
+    "modal_price": 3387
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 2493,
+    "max_price": 4537,
+    "modal_price": 3499
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 2161,
+    "max_price": 3583,
+    "modal_price": 3064
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 2813,
+    "max_price": 4876,
+    "modal_price": 3839
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 2876,
+    "max_price": 4377,
+    "modal_price": 3505
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 2917,
+    "max_price": 4532,
+    "modal_price": 3669
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 2618,
+    "max_price": 4317,
+    "modal_price": 3472
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 2881,
+    "max_price": 4799,
+    "modal_price": 3808
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 2408,
+    "max_price": 4079,
+    "modal_price": 3297
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 3016,
+    "max_price": 4748,
+    "modal_price": 3677
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2735,
+    "max_price": 4071,
+    "modal_price": 3364
   }
 ]

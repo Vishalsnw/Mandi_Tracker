@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.837Z",
-    "commodity": "Water Melon",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 2000,
-    "max_price": 2000,
-    "modal_price": 2000
+    "date": "2025-11-21",
+    "min_price": 1443,
+    "max_price": 2392,
+    "modal_price": 1916
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 1678,
+    "max_price": 2424,
+    "modal_price": 2037
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 1647,
+    "max_price": 2647,
+    "modal_price": 2040
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 1653,
+    "max_price": 2436,
+    "modal_price": 2102
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 1787,
+    "max_price": 2709,
+    "modal_price": 2283
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 1340,
+    "max_price": 2236,
+    "modal_price": 1812
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 1319,
+    "max_price": 2223,
+    "modal_price": 1783
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 1677,
+    "max_price": 3065,
+    "modal_price": 2358
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 1451,
+    "max_price": 2413,
+    "modal_price": 1937
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 1957,
+    "max_price": 2725,
+    "modal_price": 2325
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 1563,
+    "max_price": 2645,
+    "modal_price": 2096
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 1682,
+    "max_price": 2557,
+    "modal_price": 2165
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 1436,
+    "max_price": 2399,
+    "modal_price": 1927
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 1647,
+    "max_price": 2743,
+    "modal_price": 2121
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 1783,
+    "max_price": 2527,
+    "modal_price": 2186
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 1739,
+    "max_price": 2903,
+    "modal_price": 2257
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 2016,
+    "max_price": 2924,
+    "modal_price": 2383
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 1467,
+    "max_price": 2545,
+    "modal_price": 2093
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 1876,
+    "max_price": 3056,
+    "modal_price": 2498
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 1755,
+    "max_price": 2513,
+    "modal_price": 2177
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 1934,
+    "max_price": 3158,
+    "modal_price": 2453
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 1535,
+    "max_price": 2632,
+    "modal_price": 2080
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 1764,
+    "max_price": 2921,
+    "modal_price": 2509
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 1725,
+    "max_price": 2435,
+    "modal_price": 2060
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 1979,
+    "max_price": 3003,
+    "modal_price": 2610
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 1826,
+    "max_price": 2747,
+    "modal_price": 2163
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 1953,
+    "max_price": 2968,
+    "modal_price": 2416
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 1623,
+    "max_price": 2569,
+    "modal_price": 2139
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 1809,
+    "max_price": 2537,
+    "modal_price": 2134
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2138,
+    "max_price": 3176,
+    "modal_price": 2657
   }
 ]

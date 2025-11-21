@@ -1,8 +1,182 @@
 [
   {
     "date": "2025-11-21",
-    "min_price": 2000,
-    "max_price": 2500,
-    "modal_price": 2200
+    "min_price": 1907,
+    "max_price": 2933,
+    "modal_price": 2372
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 1685,
+    "max_price": 2702,
+    "modal_price": 2186
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 1827,
+    "max_price": 2794,
+    "modal_price": 2390
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 1864,
+    "max_price": 2989,
+    "modal_price": 2463
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 2109,
+    "max_price": 3152,
+    "modal_price": 2490
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 1688,
+    "max_price": 2849,
+    "modal_price": 2240
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 1551,
+    "max_price": 2495,
+    "modal_price": 2004
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2046,
+    "max_price": 2911,
+    "modal_price": 2439
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 1789,
+    "max_price": 3029,
+    "modal_price": 2529
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 2010,
+    "max_price": 2889,
+    "modal_price": 2503
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 2030,
+    "max_price": 3037,
+    "modal_price": 2610
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 1989,
+    "max_price": 3139,
+    "modal_price": 2555
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 2081,
+    "max_price": 3042,
+    "modal_price": 2585
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 1844,
+    "max_price": 2965,
+    "modal_price": 2397
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 1918,
+    "max_price": 3339,
+    "modal_price": 2643
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 2007,
+    "max_price": 2871,
+    "modal_price": 2437
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 1920,
+    "max_price": 3128,
+    "modal_price": 2544
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 2050,
+    "max_price": 2828,
+    "modal_price": 2412
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 1539,
+    "max_price": 2665,
+    "modal_price": 2150
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 2171,
+    "max_price": 3168,
+    "modal_price": 2722
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 1819,
+    "max_price": 2967,
+    "modal_price": 2321
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 2305,
+    "max_price": 3324,
+    "modal_price": 2770
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 2315,
+    "max_price": 3354,
+    "modal_price": 2782
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 1955,
+    "max_price": 3041,
+    "modal_price": 2591
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 1947,
+    "max_price": 2915,
+    "modal_price": 2486
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 1814,
+    "max_price": 2943,
+    "modal_price": 2357
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 2149,
+    "max_price": 3129,
+    "modal_price": 2699
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 1948,
+    "max_price": 3597,
+    "modal_price": 2780
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 1950,
+    "max_price": 3123,
+    "modal_price": 2670
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2178,
+    "max_price": 3281,
+    "modal_price": 2787
   }
 ]

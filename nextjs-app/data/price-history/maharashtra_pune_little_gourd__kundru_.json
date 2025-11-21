@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.835Z",
-    "commodity": "Little gourd (Kundru)",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 4000,
-    "max_price": 4000,
-    "modal_price": 4000
+    "date": "2025-11-21",
+    "min_price": 2797,
+    "max_price": 4840,
+    "modal_price": 3781
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 2652,
+    "max_price": 4463,
+    "modal_price": 3772
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 2922,
+    "max_price": 4819,
+    "modal_price": 4057
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 3383,
+    "max_price": 5823,
+    "modal_price": 4529
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 2845,
+    "max_price": 4851,
+    "modal_price": 3927
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 3193,
+    "max_price": 4749,
+    "modal_price": 3818
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 3375,
+    "max_price": 5427,
+    "modal_price": 4296
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2932,
+    "max_price": 5072,
+    "modal_price": 4121
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 3165,
+    "max_price": 4926,
+    "modal_price": 3837
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 3271,
+    "max_price": 4771,
+    "modal_price": 4008
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 3585,
+    "max_price": 6305,
+    "modal_price": 4861
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 4042,
+    "max_price": 6168,
+    "modal_price": 4845
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 2659,
+    "max_price": 4768,
+    "modal_price": 3763
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 3184,
+    "max_price": 5156,
+    "modal_price": 4075
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 3162,
+    "max_price": 5695,
+    "modal_price": 4422
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 3118,
+    "max_price": 5076,
+    "modal_price": 4185
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 3886,
+    "max_price": 5466,
+    "modal_price": 4578
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 3370,
+    "max_price": 5069,
+    "modal_price": 4224
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 2984,
+    "max_price": 4826,
+    "modal_price": 3977
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 3846,
+    "max_price": 5775,
+    "modal_price": 4617
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 4057,
+    "max_price": 5581,
+    "modal_price": 4792
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 3474,
+    "max_price": 5127,
+    "modal_price": 4328
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 3490,
+    "max_price": 5485,
+    "modal_price": 4457
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 3904,
+    "max_price": 5536,
+    "modal_price": 4648
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 3415,
+    "max_price": 4869,
+    "modal_price": 4110
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 3523,
+    "max_price": 5449,
+    "modal_price": 4285
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 3658,
+    "max_price": 5268,
+    "modal_price": 4445
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 3833,
+    "max_price": 6043,
+    "modal_price": 4961
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 3205,
+    "max_price": 5408,
+    "modal_price": 4397
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 3677,
+    "max_price": 6131,
+    "modal_price": 5004
   }
 ]

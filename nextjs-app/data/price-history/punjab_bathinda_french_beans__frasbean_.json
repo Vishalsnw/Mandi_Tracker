@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:59:59.306Z",
-    "commodity": "French Beans (Frasbean)",
-    "state": "Punjab",
-    "district": "Bathinda",
-    "min_price": 6000,
-    "max_price": 7000,
-    "modal_price": 6500
+    "date": "2025-11-21",
+    "min_price": 4498,
+    "max_price": 7587,
+    "modal_price": 5993
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 4799,
+    "max_price": 7701,
+    "modal_price": 5978
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 5079,
+    "max_price": 8472,
+    "modal_price": 6659
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 4262,
+    "max_price": 7328,
+    "modal_price": 5671
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 5578,
+    "max_price": 9305,
+    "modal_price": 7603
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 5319,
+    "max_price": 9646,
+    "modal_price": 7553
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 4922,
+    "max_price": 7389,
+    "modal_price": 6187
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 6013,
+    "max_price": 9029,
+    "modal_price": 7271
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 4635,
+    "max_price": 7651,
+    "modal_price": 5971
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 5159,
+    "max_price": 7778,
+    "modal_price": 6304
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 5130,
+    "max_price": 7992,
+    "modal_price": 6547
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 5110,
+    "max_price": 8756,
+    "modal_price": 7214
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 6464,
+    "max_price": 9497,
+    "modal_price": 7713
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 4937,
+    "max_price": 8130,
+    "modal_price": 6299
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 6640,
+    "max_price": 9316,
+    "modal_price": 7911
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 6325,
+    "max_price": 10015,
+    "modal_price": 8105
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 4962,
+    "max_price": 8178,
+    "modal_price": 6476
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 5571,
+    "max_price": 7797,
+    "modal_price": 6651
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 6475,
+    "max_price": 9629,
+    "modal_price": 7624
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 5748,
+    "max_price": 10216,
+    "modal_price": 8065
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 5347,
+    "max_price": 8698,
+    "modal_price": 7435
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 6234,
+    "max_price": 10761,
+    "modal_price": 8337
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 6562,
+    "max_price": 10172,
+    "modal_price": 8356
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 5095,
+    "max_price": 7912,
+    "modal_price": 6812
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 6007,
+    "max_price": 10301,
+    "modal_price": 8466
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 5792,
+    "max_price": 8983,
+    "modal_price": 7670
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 5679,
+    "max_price": 9246,
+    "modal_price": 7439
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 5867,
+    "max_price": 9616,
+    "modal_price": 7881
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 6507,
+    "max_price": 9907,
+    "modal_price": 8096
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 5952,
+    "max_price": 9819,
+    "modal_price": 8405
   }
 ]

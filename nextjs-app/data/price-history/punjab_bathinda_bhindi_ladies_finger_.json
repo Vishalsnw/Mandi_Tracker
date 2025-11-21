@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:59:59.302Z",
-    "commodity": "Bhindi(Ladies Finger)",
-    "state": "Punjab",
-    "district": "Bathinda",
-    "min_price": 1300,
-    "max_price": 1500,
-    "modal_price": 1400
+    "date": "2025-11-21",
+    "min_price": 1222,
+    "max_price": 1821,
+    "modal_price": 1492
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 915,
+    "max_price": 1501,
+    "modal_price": 1259
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 1098,
+    "max_price": 1666,
+    "modal_price": 1326
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 909,
+    "max_price": 1597,
+    "modal_price": 1239
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 1247,
+    "max_price": 2026,
+    "modal_price": 1635
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 1036,
+    "max_price": 1803,
+    "modal_price": 1440
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 1365,
+    "max_price": 2015,
+    "modal_price": 1613
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 1212,
+    "max_price": 1806,
+    "modal_price": 1475
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 1196,
+    "max_price": 1896,
+    "modal_price": 1528
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 1033,
+    "max_price": 1609,
+    "modal_price": 1289
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 1222,
+    "max_price": 1759,
+    "modal_price": 1516
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 1035,
+    "max_price": 1753,
+    "modal_price": 1407
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 1145,
+    "max_price": 1915,
+    "modal_price": 1496
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 1059,
+    "max_price": 1835,
+    "modal_price": 1416
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 1180,
+    "max_price": 1750,
+    "modal_price": 1429
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 1071,
+    "max_price": 1791,
+    "modal_price": 1407
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 1174,
+    "max_price": 1981,
+    "modal_price": 1565
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 1311,
+    "max_price": 2052,
+    "modal_price": 1696
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 1227,
+    "max_price": 1901,
+    "modal_price": 1515
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 1219,
+    "max_price": 2041,
+    "modal_price": 1598
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 1187,
+    "max_price": 1708,
+    "modal_price": 1424
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 1121,
+    "max_price": 1668,
+    "modal_price": 1406
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 1023,
+    "max_price": 1862,
+    "modal_price": 1453
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 1453,
+    "max_price": 2014,
+    "modal_price": 1736
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 1289,
+    "max_price": 1906,
+    "modal_price": 1570
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 1260,
+    "max_price": 2115,
+    "modal_price": 1786
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 1298,
+    "max_price": 1895,
+    "modal_price": 1567
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 1290,
+    "max_price": 2244,
+    "modal_price": 1809
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 1350,
+    "max_price": 2059,
+    "modal_price": 1659
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 1446,
+    "max_price": 2303,
+    "modal_price": 1791
   }
 ]

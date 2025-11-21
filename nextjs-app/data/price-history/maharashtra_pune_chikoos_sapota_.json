@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.842Z",
-    "commodity": "Chikoos(Sapota)",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 3500,
-    "max_price": 3500,
-    "modal_price": 3500
+    "date": "2025-11-21",
+    "min_price": 3047,
+    "max_price": 4815,
+    "modal_price": 3911
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 2970,
+    "max_price": 5209,
+    "modal_price": 4022
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 3156,
+    "max_price": 4407,
+    "modal_price": 3808
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 2733,
+    "max_price": 4910,
+    "modal_price": 3825
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 2452,
+    "max_price": 4010,
+    "modal_price": 3478
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 2609,
+    "max_price": 4577,
+    "modal_price": 3602
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 2812,
+    "max_price": 4260,
+    "modal_price": 3330
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2656,
+    "max_price": 4684,
+    "modal_price": 3665
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 3150,
+    "max_price": 5003,
+    "modal_price": 4150
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 3071,
+    "max_price": 4343,
+    "modal_price": 3766
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 2551,
+    "max_price": 3975,
+    "modal_price": 3249
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 3293,
+    "max_price": 4960,
+    "modal_price": 4061
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 3098,
+    "max_price": 4663,
+    "modal_price": 3851
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 2799,
+    "max_price": 4217,
+    "modal_price": 3489
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 2826,
+    "max_price": 4928,
+    "modal_price": 3857
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 3030,
+    "max_price": 5250,
+    "modal_price": 4259
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 3385,
+    "max_price": 5094,
+    "modal_price": 4024
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 3020,
+    "max_price": 4686,
+    "modal_price": 3676
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 3081,
+    "max_price": 5573,
+    "modal_price": 4329
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 2755,
+    "max_price": 4614,
+    "modal_price": 3797
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 2881,
+    "max_price": 4842,
+    "modal_price": 3789
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 2676,
+    "max_price": 4306,
+    "modal_price": 3534
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 3280,
+    "max_price": 5360,
+    "modal_price": 4236
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 3436,
+    "max_price": 5699,
+    "modal_price": 4436
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 2977,
+    "max_price": 5300,
+    "modal_price": 4180
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 2637,
+    "max_price": 4565,
+    "modal_price": 3694
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 3277,
+    "max_price": 4653,
+    "modal_price": 3922
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 3798,
+    "max_price": 5608,
+    "modal_price": 4651
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 3007,
+    "max_price": 4929,
+    "modal_price": 4115
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2667,
+    "max_price": 4275,
+    "modal_price": 3699
   }
 ]

@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:59:59.291Z",
-    "commodity": "Round gourd",
-    "state": "Punjab",
-    "district": "Bathinda",
-    "min_price": 2500,
-    "max_price": 3000,
-    "modal_price": 2800
+    "date": "2025-11-21",
+    "min_price": 2224,
+    "max_price": 3343,
+    "modal_price": 2868
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 2441,
+    "max_price": 3805,
+    "modal_price": 3161
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 2263,
+    "max_price": 3273,
+    "modal_price": 2713
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 2316,
+    "max_price": 3385,
+    "modal_price": 2782
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 2663,
+    "max_price": 3828,
+    "modal_price": 3214
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 2033,
+    "max_price": 3097,
+    "modal_price": 2481
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 2032,
+    "max_price": 3450,
+    "modal_price": 2854
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2057,
+    "max_price": 3227,
+    "modal_price": 2602
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 2183,
+    "max_price": 3110,
+    "modal_price": 2635
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 2088,
+    "max_price": 3393,
+    "modal_price": 2880
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 2280,
+    "max_price": 3618,
+    "modal_price": 3040
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 2701,
+    "max_price": 4261,
+    "modal_price": 3295
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 2492,
+    "max_price": 3798,
+    "modal_price": 3193
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 2140,
+    "max_price": 3251,
+    "modal_price": 2747
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 2599,
+    "max_price": 3798,
+    "modal_price": 3289
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 2376,
+    "max_price": 3469,
+    "modal_price": 2989
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 2562,
+    "max_price": 3516,
+    "modal_price": 3044
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 2238,
+    "max_price": 3711,
+    "modal_price": 2903
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 2297,
+    "max_price": 3501,
+    "modal_price": 2876
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 2740,
+    "max_price": 4236,
+    "modal_price": 3326
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 2502,
+    "max_price": 4053,
+    "modal_price": 3216
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 2803,
+    "max_price": 4281,
+    "modal_price": 3402
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 2495,
+    "max_price": 4149,
+    "modal_price": 3215
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 2468,
+    "max_price": 4445,
+    "modal_price": 3430
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 2520,
+    "max_price": 4175,
+    "modal_price": 3225
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 2651,
+    "max_price": 4351,
+    "modal_price": 3634
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 2967,
+    "max_price": 4628,
+    "modal_price": 3654
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 2336,
+    "max_price": 3767,
+    "modal_price": 2985
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 2347,
+    "max_price": 3512,
+    "modal_price": 3022
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2436,
+    "max_price": 3788,
+    "modal_price": 3272
   }
 ]

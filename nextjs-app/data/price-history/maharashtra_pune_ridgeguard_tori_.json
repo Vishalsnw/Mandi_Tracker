@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.843Z",
-    "commodity": "Ridgeguard(Tori)",
-    "state": "Maharashtra",
-    "district": "Pune",
+    "date": "2025-11-21",
+    "min_price": 2737,
+    "max_price": 4450,
+    "modal_price": 3583
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 2396,
+    "max_price": 3930,
+    "modal_price": 3347
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 2396,
+    "max_price": 3686,
+    "modal_price": 3141
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 2800,
+    "max_price": 4266,
+    "modal_price": 3589
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 3338,
+    "max_price": 5228,
+    "modal_price": 4027
+  },
+  {
+    "date": "2025-11-16",
     "min_price": 3000,
-    "max_price": 4000,
-    "modal_price": 3500
+    "max_price": 4552,
+    "modal_price": 3615
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 2887,
+    "max_price": 4163,
+    "modal_price": 3427
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 2714,
+    "max_price": 4091,
+    "modal_price": 3522
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 2851,
+    "max_price": 4467,
+    "modal_price": 3467
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 2809,
+    "max_price": 4363,
+    "modal_price": 3619
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 3359,
+    "max_price": 4937,
+    "modal_price": 3973
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 3146,
+    "max_price": 4605,
+    "modal_price": 3721
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 3163,
+    "max_price": 4827,
+    "modal_price": 3760
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 3025,
+    "max_price": 4737,
+    "modal_price": 3770
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 2593,
+    "max_price": 4180,
+    "modal_price": 3409
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 3574,
+    "max_price": 5231,
+    "modal_price": 4264
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 2714,
+    "max_price": 4522,
+    "modal_price": 3522
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 2828,
+    "max_price": 4040,
+    "modal_price": 3471
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 2890,
+    "max_price": 4366,
+    "modal_price": 3509
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 2544,
+    "max_price": 4148,
+    "modal_price": 3470
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 2974,
+    "max_price": 5080,
+    "modal_price": 3951
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 3447,
+    "max_price": 5326,
+    "modal_price": 4277
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 3079,
+    "max_price": 4720,
+    "modal_price": 3643
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 2613,
+    "max_price": 4338,
+    "modal_price": 3601
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 3185,
+    "max_price": 5227,
+    "modal_price": 4023
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 3089,
+    "max_price": 4765,
+    "modal_price": 3679
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 2802,
+    "max_price": 4938,
+    "modal_price": 3804
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 3456,
+    "max_price": 4792,
+    "modal_price": 4160
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 3538,
+    "max_price": 5248,
+    "modal_price": 4392
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 2714,
+    "max_price": 4664,
+    "modal_price": 3709
   }
 ]

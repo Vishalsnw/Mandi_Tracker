@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:59:59.300Z",
-    "commodity": "Elephant Yam (Suran)",
-    "state": "Punjab",
-    "district": "Bathinda",
-    "min_price": 5500,
-    "max_price": 5500,
-    "modal_price": 5500
+    "date": "2025-11-21",
+    "min_price": 4364,
+    "max_price": 7103,
+    "modal_price": 5705
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 3513,
+    "max_price": 5930,
+    "modal_price": 4933
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 5059,
+    "max_price": 7815,
+    "modal_price": 6377
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 5027,
+    "max_price": 7077,
+    "modal_price": 5947
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 4729,
+    "max_price": 7355,
+    "modal_price": 6235
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 4018,
+    "max_price": 6404,
+    "modal_price": 4956
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 3823,
+    "max_price": 6465,
+    "modal_price": 5314
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 4919,
+    "max_price": 7103,
+    "modal_price": 6147
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 4172,
+    "max_price": 6814,
+    "modal_price": 5728
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 5137,
+    "max_price": 8172,
+    "modal_price": 6465
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 3827,
+    "max_price": 6722,
+    "modal_price": 5341
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 4049,
+    "max_price": 7160,
+    "modal_price": 5544
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 4526,
+    "max_price": 8142,
+    "modal_price": 6349
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 4718,
+    "max_price": 6571,
+    "modal_price": 5572
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 4494,
+    "max_price": 7387,
+    "modal_price": 6338
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 5128,
+    "max_price": 7328,
+    "modal_price": 6310
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 4002,
+    "max_price": 6493,
+    "modal_price": 5548
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 4157,
+    "max_price": 7001,
+    "modal_price": 5590
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 4455,
+    "max_price": 7315,
+    "modal_price": 5785
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 5690,
+    "max_price": 8324,
+    "modal_price": 6785
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 4598,
+    "max_price": 7087,
+    "modal_price": 6129
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 4912,
+    "max_price": 7530,
+    "modal_price": 5990
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 5087,
+    "max_price": 8592,
+    "modal_price": 6738
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 5128,
+    "max_price": 8420,
+    "modal_price": 6519
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 4938,
+    "max_price": 7980,
+    "modal_price": 6364
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 5642,
+    "max_price": 8789,
+    "modal_price": 6813
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 5224,
+    "max_price": 9142,
+    "modal_price": 7158
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 5410,
+    "max_price": 8218,
+    "modal_price": 6906
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 5359,
+    "max_price": 8398,
+    "modal_price": 6659
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 4883,
+    "max_price": 7706,
+    "modal_price": 6058
   }
 ]

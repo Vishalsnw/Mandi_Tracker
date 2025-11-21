@@ -1,11 +1,182 @@
 [
   {
-    "timestamp": "2025-11-20T20:52:09.837Z",
-    "commodity": "Tomato",
-    "state": "Maharashtra",
-    "district": "Pune",
-    "min_price": 800,
-    "max_price": 1000,
-    "modal_price": 900
+    "date": "2025-11-21",
+    "min_price": 757,
+    "max_price": 1175,
+    "modal_price": 1016
+  },
+  {
+    "date": "2025-11-20",
+    "min_price": 682,
+    "max_price": 1146,
+    "modal_price": 882
+  },
+  {
+    "date": "2025-11-19",
+    "min_price": 694,
+    "max_price": 1172,
+    "modal_price": 961
+  },
+  {
+    "date": "2025-11-18",
+    "min_price": 737,
+    "max_price": 1134,
+    "modal_price": 948
+  },
+  {
+    "date": "2025-11-17",
+    "min_price": 653,
+    "max_price": 1059,
+    "modal_price": 821
+  },
+  {
+    "date": "2025-11-16",
+    "min_price": 753,
+    "max_price": 1136,
+    "modal_price": 952
+  },
+  {
+    "date": "2025-11-15",
+    "min_price": 703,
+    "max_price": 1039,
+    "modal_price": 857
+  },
+  {
+    "date": "2025-11-14",
+    "min_price": 717,
+    "max_price": 1107,
+    "modal_price": 952
+  },
+  {
+    "date": "2025-11-13",
+    "min_price": 587,
+    "max_price": 1009,
+    "modal_price": 830
+  },
+  {
+    "date": "2025-11-12",
+    "min_price": 686,
+    "max_price": 1060,
+    "modal_price": 877
+  },
+  {
+    "date": "2025-11-11",
+    "min_price": 624,
+    "max_price": 1135,
+    "modal_price": 881
+  },
+  {
+    "date": "2025-11-10",
+    "min_price": 803,
+    "max_price": 1131,
+    "modal_price": 964
+  },
+  {
+    "date": "2025-11-09",
+    "min_price": 634,
+    "max_price": 1114,
+    "modal_price": 876
+  },
+  {
+    "date": "2025-11-08",
+    "min_price": 797,
+    "max_price": 1160,
+    "modal_price": 970
+  },
+  {
+    "date": "2025-11-07",
+    "min_price": 700,
+    "max_price": 1137,
+    "modal_price": 939
+  },
+  {
+    "date": "2025-11-06",
+    "min_price": 883,
+    "max_price": 1299,
+    "modal_price": 1050
+  },
+  {
+    "date": "2025-11-05",
+    "min_price": 876,
+    "max_price": 1330,
+    "modal_price": 1075
+  },
+  {
+    "date": "2025-11-04",
+    "min_price": 724,
+    "max_price": 1259,
+    "modal_price": 979
+  },
+  {
+    "date": "2025-11-03",
+    "min_price": 649,
+    "max_price": 1122,
+    "modal_price": 910
+  },
+  {
+    "date": "2025-11-02",
+    "min_price": 723,
+    "max_price": 1203,
+    "modal_price": 1031
+  },
+  {
+    "date": "2025-11-01",
+    "min_price": 825,
+    "max_price": 1362,
+    "modal_price": 1111
+  },
+  {
+    "date": "2025-10-31",
+    "min_price": 911,
+    "max_price": 1357,
+    "modal_price": 1078
+  },
+  {
+    "date": "2025-10-30",
+    "min_price": 847,
+    "max_price": 1259,
+    "modal_price": 1023
+  },
+  {
+    "date": "2025-10-29",
+    "min_price": 803,
+    "max_price": 1287,
+    "modal_price": 1100
+  },
+  {
+    "date": "2025-10-28",
+    "min_price": 779,
+    "max_price": 1330,
+    "modal_price": 1066
+  },
+  {
+    "date": "2025-10-27",
+    "min_price": 783,
+    "max_price": 1291,
+    "modal_price": 1008
+  },
+  {
+    "date": "2025-10-26",
+    "min_price": 802,
+    "max_price": 1299,
+    "modal_price": 1107
+  },
+  {
+    "date": "2025-10-25",
+    "min_price": 754,
+    "max_price": 1269,
+    "modal_price": 991
+  },
+  {
+    "date": "2025-10-24",
+    "min_price": 810,
+    "max_price": 1375,
+    "modal_price": 1063
+  },
+  {
+    "date": "2025-10-23",
+    "min_price": 913,
+    "max_price": 1492,
+    "modal_price": 1156
   }
 ]
