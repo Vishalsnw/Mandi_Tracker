@@ -59,12 +59,15 @@ Preferred communication style: Simple, everyday language.
   - Market volatility
 - **Automatic data collection**: Every API call saves prices to history
 
-**⚠️ Production Migration Required**: 
-The current JSON-based storage works for demonstration. For production deployment:
-1. Create PostgreSQL database using Replit's built-in PostgreSQL
-2. Create schema: `price_history` table with: id, state, district, commodity, date, min_price, max_price, modal_price, created_at
-3. Update `/lib/priceHistory.ts` to use a Postgres client (e.g., `@vercel/postgres` or `pg`)
-4. Set up daily cron job or scheduled function to collect prices
+**⚠️ Production Deployment Notes**: 
+The current JSON-based storage works in development (Replit) but is read-only on serverless platforms like Vercel:
+- **Current Behavior**: Price history gracefully fails to save on Vercel but doesn't crash the app
+- **Core Features Work**: Real-time price fetching, UI, and visualizations all work on Vercel
+- **Future Enhancement**: For persistent history on serverless, migrate to:
+  1. PostgreSQL database (e.g., Vercel Postgres, Supabase)
+  2. Create schema: `price_history` table with: id, state, district, commodity, date, min_price, max_price, modal_price, created_at
+  3. Update `/lib/priceHistory.ts` to use database client (e.g., `@vercel/postgres` or `pg`)
+  4. Set up daily cron job or scheduled function to collect prices
 
 ### Data Structure and State Management
 **Configuration**: `/data/states.json` and `/data/translations.json` centralize reference data.
@@ -80,12 +83,12 @@ The current JSON-based storage works for demonstration. For production deploymen
 - **Price Record Structure**: Contains commodity identification, min/max/modal prices, market location, and temporal data.
 
 ### Application Flow
-1.  **Initialization**: Loads configurations and initializes session state.
-2.  **User Input**: Collects state, district, and commodity filters.
-3.  **Data Retrieval**: Invokes the scraper with user parameters.
-4.  **Data Processing**: Transforms retrieved data into pandas DataFrames.
-5.  **Visualization**: Generates Plotly charts for price analysis.
-6.  **Presentation**: Renders results in styled cards and interactive charts.
+1.  **Initialization**: Next.js loads the app with client-side state management (Zustand)
+2.  **User Input**: Onboarding screen collects state and district selection
+3.  **Data Retrieval**: Frontend calls `/api/scrape-prices` endpoint to fetch APMC data
+4.  **Data Processing**: API route fetches, categorizes, and adds Hindi translations to commodity data
+5.  **Visualization**: Frontend renders price cards with Recharts visualizations
+6.  **Presentation**: Results displayed in responsive, mobile-optimized interface with filtering and search
 
 ## Competitive Analysis (Nov 2025)
 
@@ -119,15 +122,28 @@ Based on research of top mandi price apps on Google Play:
 3. Interactive Plotly charts for better visualization
 4. Bilingual interface throughout
 
+## Recent Changes (November 2025)
+
+### Migration from Streamlit to Next.js
+- **Removed**: Streamlit, pandas, plotly Python dependencies
+- **Architecture**: Pure Next.js application with TypeScript
+- **Created Library Files**:
+  - `/lib/store.ts`: Zustand state management store
+  - `/lib/priceHistory.ts`: Price history management with filesystem operations
+  - `/lib/hindiNames.ts`: Commodity name translation utility (English to Hindi)
+- **Production Ready**: Build succeeds, deployment configured for Vercel autoscale
+- **Environment Variables**: API key moved to `APMC_API_KEY` environment variable (with fallback)
+
 ## External Dependencies
 
 ### Core Framework Dependencies
--   **Streamlit**: Web application framework.
--   **Pandas**: Data manipulation and analysis.
--   **Plotly**: Interactive visualization library (charts and graphs).
+-   **Next.js 16**: React framework with App Router and server-side rendering
+-   **React 19**: UI library for building components
+-   **TypeScript 5**: Type-safe development
+-   **Tailwind CSS 4**: Utility-first CSS framework
+-   **Zustand 5**: Lightweight state management
+-   **Recharts 3**: Chart visualization library
+-   **Axios**: HTTP client for API requests
 
 ### Data Sources
--   **data.gov.in APMC API**: The primary source for real agricultural market prices (Resource ID: 9ef84268-d588-465a-a308-a864a43d0070). The API key is stored in Replit Secrets.
-
-### Python Standard Libraries
--   **datetime**: For date/time manipulation.
+-   **data.gov.in APMC API**: The primary source for real agricultural market prices (Resource ID: 9ef84268-d588-465a-a308-a864a43d0070). The API key is configured via `APMC_API_KEY` environment variable.
