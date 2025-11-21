@@ -80,4 +80,6 @@ externalPort = 3001
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["streamlit", "run", "app.py", "--server.port", "5000"]
+run = ["bash", "-c", "cd nextjs-app && npm start"]
+build = ["bash", "-c", "cd nextjs-app && npm install && npm run build"]
+publicDir = "nextjs-app/out"
