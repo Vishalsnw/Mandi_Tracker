@@ -1,9 +1,9 @@
 [
   {
     "date": "2025-11-21",
-    "min_price": 1070,
-    "max_price": 1631,
-    "modal_price": 1380
+    "min_price": 1000,
+    "max_price": 1500,
+    "modal_price": 1400
   },
   {
     "date": "2025-11-20",

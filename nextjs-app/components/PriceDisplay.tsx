@@ -29,6 +29,16 @@ function PriceCard({ commodity, commodityHi, minPrice, maxPrice, modalPrice, mar
   const volatility = modalPrice > 0 ? ((maxPrice - minPrice) / modalPrice * 100).toFixed(1) : '0.0';
   const priceRange = maxPrice - minPrice;
 
+  // Simple trend indicator based on price position in range
+  const getPriceTrend = () => {
+    const position = ((modalPrice - minPrice) / (maxPrice - minPrice)) * 100;
+    if (position > 70) return { icon: '📈', color: 'text-red-500', label: language === 'hi' ? 'उच्च' : 'High' };
+    if (position < 30) return { icon: '📉', color: 'text-green-500', label: language === 'hi' ? 'कम' : 'Low' };
+    return { icon: '➡️', color: 'text-yellow-500', label: language === 'hi' ? 'सामान्य' : 'Normal' };
+  };
+
+  const trend = getPriceTrend();
+
   return (
     <div 
       className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer hover:scale-105"
@@ -41,6 +51,10 @@ function PriceCard({ commodity, commodityHi, minPrice, maxPrice, modalPrice, mar
             <h3 className="text-xl font-bold text-gray-800">{language === 'hi' ? commodityHi : commodity}</h3>
             <p className="text-sm text-gray-500">{market}</p>
           </div>
+        </div>
+        <div className="text-right">
+          <div className={`text-2xl ${trend.color}`}>{trend.icon}</div>
+          <span className={`text-xs font-semibold ${trend.color}`}>{trend.label}</span>
         </div>
       </div>
 
@@ -98,8 +112,31 @@ export default function PriceDisplay() {
   const [selectedCommodity, setSelectedCommodity] = useState<any>(null);
   const [isFallbackData, setIsFallbackData] = useState(false);
   const [requestedDistrict, setRequestedDistrict] = useState('');
+  const [isListening, setIsListening] = useState(false);
   
   const t = translations[language];
+
+  const startVoiceSearch = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Voice search not supported in this browser');
+      return;
+    }
+
+    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = language === 'hi' ? 'hi-IN' : 'en-IN';
+    recognition.continuous = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setSearchQuery(transcript);
+    };
+
+    recognition.start();
+  };
 
   useEffect(() => {
     if (selectedState && selectedDistrict) {
@@ -166,14 +203,23 @@ export default function PriceDisplay() {
       </div>
 
       <div className="flex-1 max-w-6xl mx-auto w-full p-4">
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <input
             type="text"
             placeholder="🔍 Search commodity / वस्तु खोजें"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg focus:border-emerald-500 focus:outline-none"
+            className="w-full px-4 py-3 pr-14 border-2 border-gray-300 rounded-xl text-lg focus:border-emerald-500 focus:outline-none"
           />
+          <button
+            onClick={startVoiceSearch}
+            className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg transition-all ${
+              isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-emerald-500 text-white hover:bg-emerald-600'
+            }`}
+            title={language === 'hi' ? 'आवाज से खोजें' : 'Voice search'}
+          >
+            {isListening ? '🔴' : '🎤'}
+          </button>
         </div>
 
         <div className="flex gap-2 mb-6 overflow-x-auto pb-2">

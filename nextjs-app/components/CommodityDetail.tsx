@@ -34,6 +34,9 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [priceHistory, setPriceHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [inputCost, setInputCost] = useState('');
+  const [quantity, setQuantity] = useState('');
 
   useEffect(() => {
     fetchRecommendation();
@@ -111,6 +114,24 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
     max: record.max_price
   }));
 
+  const handleShare = async () => {
+    const shareText = `${commodity.commodity_en} Price in ${commodity.district}, ${commodity.state}\n\nModal Price: ₹${commodity.modal_price}\nMin: ₹${commodity.min_price}\nMax: ₹${commodity.max_price}\n\nCheck MandiMitra for real-time prices!`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${commodity.commodity_en} Price`,
+          text: shareText,
+        });
+      } catch (err) {
+        console.log('Share cancelled');
+      }
+    } else {
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
       <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -123,12 +144,21 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
               </h2>
               <p className="text-emerald-100 mt-1">{commodity.market}</p>
             </div>
-            <button
-              onClick={onClose}
-              className="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-all"
-            >
-              ✕
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleShare}
+                className="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-all"
+                title={language === 'hi' ? 'शेयर करें' : 'Share'}
+              >
+                📤
+              </button>
+              <button
+                onClick={onClose}
+                className="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-all"
+              >
+                ✕
+              </button>
+            </div>
           </div>
         </div>
 
@@ -249,6 +279,78 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
               </p>
             </div>
           )}
+
+          {/* Profit Calculator */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-blue-800">
+                💰 {language === 'hi' ? 'लाभ कैलकुलेटर' : 'Profit Calculator'}
+              </h3>
+              <button
+                onClick={() => setShowCalculator(!showCalculator)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all text-sm"
+              >
+                {showCalculator ? (language === 'hi' ? 'छिपाएं' : 'Hide') : (language === 'hi' ? 'खोलें' : 'Open')}
+              </button>
+            </div>
+            
+            {showCalculator && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    {language === 'hi' ? 'कुल लागत (₹)' : 'Total Input Cost (₹)'}
+                  </label>
+                  <input
+                    type="number"
+                    value={inputCost}
+                    onChange={(e) => setInputCost(e.target.value)}
+                    placeholder={language === 'hi' ? 'बीज, खाद, मजदूरी आदि' : 'Seeds, fertilizer, labor, etc'}
+                    className="w-full p-3 border-2 border-blue-300 rounded-xl focus:border-blue-500 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    {language === 'hi' ? 'मात्रा (क्विंटल)' : 'Quantity (Quintals)'}
+                  </label>
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    placeholder={language === 'hi' ? 'उत्पादन मात्रा' : 'Production quantity'}
+                    className="w-full p-3 border-2 border-blue-300 rounded-xl focus:border-blue-500 focus:outline-none"
+                  />
+                </div>
+                {inputCost && quantity && (
+                  <div className="bg-white rounded-xl p-4 border-2 border-blue-300">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-600">{language === 'hi' ? 'कुल आय' : 'Total Revenue'}</p>
+                        <p className="text-2xl font-bold text-green-600">₹{(parseFloat(quantity) * commodity.modal_price).toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">{language === 'hi' ? 'शुद्ध लाभ' : 'Net Profit'}</p>
+                        <p className={`text-2xl font-bold ${(parseFloat(quantity) * commodity.modal_price - parseFloat(inputCost)) > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          ₹{((parseFloat(quantity) * commodity.modal_price) - parseFloat(inputCost)).toLocaleString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">{language === 'hi' ? 'लाभ मार्जिन' : 'Profit Margin'}</p>
+                        <p className="text-xl font-bold text-blue-600">
+                          {(((parseFloat(quantity) * commodity.modal_price - parseFloat(inputCost)) / parseFloat(inputCost)) * 100).toFixed(1)}%
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">{language === 'hi' ? 'प्रति क्विंटल लाभ' : 'Per Quintal Profit'}</p>
+                        <p className="text-xl font-bold text-indigo-600">
+                          ₹{((parseFloat(quantity) * commodity.modal_price - parseFloat(inputCost)) / parseFloat(quantity)).toFixed(0)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* Additional Info */}
           <div className="bg-gray-50 rounded-2xl p-4 border-2 border-gray-200">
