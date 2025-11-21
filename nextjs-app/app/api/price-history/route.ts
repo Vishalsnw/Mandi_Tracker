@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const history = getPriceHistory(state, district, commodity, days);
+    const history = getPriceHistory(commodity, state, district, days);
 
     return NextResponse.json({
       success: true,
