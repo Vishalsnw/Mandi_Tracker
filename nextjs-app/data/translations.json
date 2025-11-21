@@ -1,9 +1,9 @@
 {
   "en": {
-    "app_title": "Mandi Bhav",
-    "tagline": "मंडी भाव - Live Market Prices",
-    "welcome": "Welcome to Mandi Bhav",
-    "welcome_hi": "मंडी भाव में आपका स्वागत है",
+    "app_title": "MandiMitra",
+    "tagline": "मंडी मित्र - Live Market Prices",
+    "welcome": "Welcome to MandiMitra",
+    "welcome_hi": "मंडी मित्र में आपका स्वागत है",
     "get_started": "Get real-time market prices for crops across India",
     "select_location": "Select Location",
     "choose_state": "Choose your state",
@@ -34,10 +34,10 @@
     "error": "Error loading data"
   },
   "hi": {
-    "app_title": "मंडी भाव",
-    "tagline": "मंडी भाव - Live Market Prices",
-    "welcome": "मंडी भाव में आपका स्वागत है",
-    "welcome_hi": "Welcome to Mandi Bhav",
+    "app_title": "मंडी मित्र",
+    "tagline": "मंडी मित्र - Live Market Prices",
+    "welcome": "मंडी मित्र में आपका स्वागत है",
+    "welcome_hi": "Welcome to MandiMitra",
     "get_started": "भारत भर में फसलों के लिए वास्तविक समय बाजार मूल्य प्राप्त करें",
     "select_location": "स्थान चुनें",
     "choose_state": "अपना राज्य चुनें",

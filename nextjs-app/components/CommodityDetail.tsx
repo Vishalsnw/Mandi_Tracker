@@ -105,7 +105,7 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
   const volatility = commodity.modal_price > 0 ? ((commodity.max_price - commodity.min_price) / commodity.modal_price * 100).toFixed(1) : '0.0';
 
   const chartData = priceHistory.map(record => ({
-    date: new Date(record.timestamp).toLocaleDateString('en-GB'),
+    date: new Date(record.date).toLocaleDateString('en-GB'),
     modal: record.modal_price,
     min: record.min_price,
     max: record.max_price

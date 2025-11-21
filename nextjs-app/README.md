@@ -1,4 +1,4 @@
-# Mandi Bhav - मंडी भाव
+# MandiMitra - मंडी मित्र
 
 A Next.js application that provides real-time market prices for agricultural commodities across India from APMC mandis.
 

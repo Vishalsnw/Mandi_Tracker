@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mandi Bhav - मंडी भाव | Live Market Prices",
+  title: "MandiMitra - मंडी मित्र | Live Market Prices",
   description: "Get real-time market prices for crops across India from APMC mandis",
 };
 
