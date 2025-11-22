@@ -135,6 +135,18 @@ export default function CommodityDetail({ commodity, language, onClose }: Commod
   const handleShare = async () => {
     const shareText = `${commodity.commodity_en} Price in ${commodity.district}, ${commodity.state}\n\nModal Price: ₹${commodity.modal_price}\nMin: ₹${commodity.min_price}\nMax: ₹${commodity.max_price}\n\nCheck MandiMitra for real-time prices!`;
     
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${commodity.commodity_en} Price`,
+          text: shareText,
+        });
+        return;
+      } catch (err) {
+        console.log('Share cancelled or failed, falling back to WhatsApp');
+      }
+    }
+    
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
     window.open(whatsappUrl, '_blank');
   };
