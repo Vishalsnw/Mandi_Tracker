@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2025-11-22T10:57:24.689Z",
+    "commodity": "Apple",
+    "commodity_hi": "सेब",
+    "state": "Haryana",
+    "district": "Ambala",
+    "market": "Ambala Cantt.",
+    "min_price": 4500,
+    "max_price": 7000,
+    "modal_price": 5500
+  },
+  {
+    "timestamp": "2025-11-22T10:57:24.678Z",
+    "commodity": "Apple",
+    "commodity_hi": "सेब",
+    "state": "Haryana",
+    "district": "Ambala",
+    "market": "Ambala Cantt.",
+    "min_price": 4500,
+    "max_price": 7000,
+    "modal_price": 5500
+  }
+]
