@@ -12,3 +12,11 @@
 [x] 12. Add WhatsApp icon to share button - Replaced emoji with SVG WhatsApp icon
 [x] 13. Create user commodity history tracking - Added userHistory.ts library and API route to track commodities checked by users
 [x] 14. Verify price history chart displays historical data - Chart fetches and displays 30 days of historical price data
+[x] 15. Install PostgreSQL client library (pg) - Added database support for production deployments
+[x] 16. Create database schema and connection pooling - Configured optimized connection pooling for serverless environments
+[x] 17. Migrate priceHistory.ts to hybrid storage - Supports both file system (dev) and database (production)
+[x] 18. Migrate userHistory.ts to hybrid storage - Supports both file system (dev) and database (production)
+[x] 19. Update all API routes for async database operations - Fixed price-history, user-history, and scrape-prices routes
+[x] 20. Create database initialization endpoint - Added /api/init-db route for table creation
+[x] 21. Create comprehensive database setup documentation - Added DATABASE_SETUP.md with Vercel deployment instructions
+[x] 22. Fix charts not loading on Vercel - Migrated from file-based to database storage for production compatibility
