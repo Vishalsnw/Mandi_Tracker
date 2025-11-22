@@ -149,7 +149,7 @@ export async function GET(request: NextRequest) {
     if (state && district && processedData.length > 0) {
       try {
         for (const record of processedData) {
-          savePriceRecord(
+          await savePriceRecord(
             state,
             district,
             record.commodity_en,
@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     
-    savePriceRecord(
+    await savePriceRecord(
       data.state,
       data.district,
       data.commodity,

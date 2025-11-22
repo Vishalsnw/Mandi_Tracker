@@ -8,13 +8,13 @@ export async function GET(request: NextRequest) {
 
   try {
     if (type === 'stats') {
-      const stats = getCommodityStats();
+      const stats = await getCommodityStats();
       return NextResponse.json({
         success: true,
         stats
       });
     } else {
-      const history = getUserHistory(limit);
+      const history = await getUserHistory(limit);
       return NextResponse.json({
         success: true,
         history,
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     
-    saveUserCommodityCheck({
+    await saveUserCommodityCheck({
       commodity: data.commodity,
       commodity_hi: data.commodity_hi,
       state: data.state,

@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const history = getPriceHistory(commodity, state, district, days);
+    const history = await getPriceHistory(commodity, state, district, days);
 
     return NextResponse.json({
       success: true,
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     
-    savePriceRecord(
+    await savePriceRecord(
       data.state,
       data.district,
       data.commodity,
