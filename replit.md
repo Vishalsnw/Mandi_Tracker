@@ -69,6 +69,26 @@ The current JSON-based storage works in development (Replit) but is read-only on
   3. Update `/lib/priceHistory.ts` to use database client (e.g., `@vercel/postgres` or `pg`)
   4. Set up daily cron job or scheduled function to collect prices
 
+### User Commodity History Tracking (NEW)
+**Strategy**: Tracks commodities that users check, storing interaction history in a JSON file.
+**Implementation**: `/lib/userHistory.ts` module manages user history storage and retrieval.
+**API Endpoint**: `/api/user-history` provides history access and statistics.
+**Features**:
+- **Automatic tracking**: Every commodity detail view is saved to history
+- **Usage statistics**: API provides commodity check frequency and popular items
+- **Last 500 checks**: History is automatically trimmed to keep file size manageable
+- **Data persistence**: History stored in `/data/user-commodity-history.json`
+
+**⚠️ Production Deployment Notes**:
+The current JSON-based storage works in development (Replit) but is ephemeral on serverless platforms:
+- **Current Behavior**: User history gracefully fails to save on Vercel but doesn't crash the app
+- **Limitation**: History is lost between deployments on stateless hosts
+- **Future Enhancement**: For persistent user history, migrate to:
+  1. PostgreSQL database (e.g., Vercel Postgres, Supabase)
+  2. Create schema: `user_history` table with: id, timestamp, commodity, state, district, market, modal_price, min_price, max_price
+  3. Update `/lib/userHistory.ts` to use database client
+  4. Optional: Add periodic export back to JSON file for repository snapshot
+
 ### Data Structure and State Management
 **Configuration**: `/data/states.json` and `/data/translations.json` centralize reference data.
 **State Management**: Zustand store in `/lib/store.ts` manages:
@@ -102,6 +122,8 @@ Based on research of top mandi price apps on Google Play:
 ✅ Category filtering (Vegetables/Fruits/Grains/Pulses)
 ✅ Historical price trends with line charts (NEW)
 ✅ AI-powered buy/wait/sell recommendations (NEW)
+✅ User commodity history tracking (NEW)
+✅ WhatsApp sharing with Web Share API fallback (NEW)
 ✅ Favorites system
 ✅ Mobile-first responsive design
 
@@ -111,7 +133,6 @@ Based on research of top mandi price apps on Google Play:
 - **Multi-market Comparison**: Compare prices across nearby mandis
 - **Trade News**: Expert analysis and agricultural news
 - **Direct Trading/B2B**: Connect buyers and sellers
-- **Export/Share**: Share prices via WhatsApp
 - **AI Price Predictions**: Forecast future prices using ML
 - **Offline Mode**: Cache data for offline access
 - **Inventory Management**: For traders
