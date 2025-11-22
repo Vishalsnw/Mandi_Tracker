@@ -136,7 +136,7 @@ async function getPriceHistoryFromDatabase(
       [state, district, commodity, days]
     );
     
-    return result.rows.map(row => ({
+    return result.rows.map((row: any) => ({
       date: row.date,
       min_price: parseFloat(row.min_price),
       max_price: parseFloat(row.max_price),

@@ -22,3 +22,8 @@
 [x] 22. Fix charts not loading on Vercel - Migrated from file-based to database storage for production compatibility
 [x] 23. Create simple deployment guide - Added DEPLOYMENT.md with instructions for deploying without database using git-committed JSON files
 [x] 24. Fix recommend API async/await errors - Updated /api/recommend to properly await getPriceHistory() calls
+[x] 25. Create missing lib/db.ts file - Created database connection pooling module to fix Vercel "Module not found: @/lib/db" error
+[x] 26. Fix TypeScript errors in database queries - Added proper type annotations for database query result rows
+[x] 27. Install Node.js dependencies in nextjs-app - Ran npm install to ensure all packages are available
+[x] 28. Remove unnecessary Flask backend workflow - This is a pure Next.js app, removed legacy Flask workflow
+[x] 29. Restart MandiMitra App workflow - Next.js dev server running successfully on port 5000

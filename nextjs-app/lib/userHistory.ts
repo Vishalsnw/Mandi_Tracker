@@ -96,7 +96,7 @@ async function getUserHistoryFromDatabase(limit: number = 50): Promise<UserHisto
       [limit]
     );
     
-    return result.rows.map(row => ({
+    return result.rows.map((row: any) => ({
       timestamp: row.timestamp,
       commodity: row.commodity,
       commodity_hi: row.commodity_hi,
@@ -150,7 +150,7 @@ export async function getCommodityStats(): Promise<{ commodity: string; count: n
          ORDER BY count DESC`
       );
       
-      return result.rows.map(row => ({
+      return result.rows.map((row: any) => ({
         commodity: row.commodity,
         count: parseInt(row.count)
       }));
