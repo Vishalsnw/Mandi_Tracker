@@ -1,5 +1,27 @@
 [
   {
+    "timestamp": "2025-11-22T14:01:52.614Z",
+    "commodity": "Bottle gourd",
+    "commodity_hi": "लौकी",
+    "state": "Haryana",
+    "district": "Ambala",
+    "market": "Ambala Cantt.",
+    "min_price": 2000,
+    "max_price": 2800,
+    "modal_price": 2500
+  },
+  {
+    "timestamp": "2025-11-22T14:01:52.094Z",
+    "commodity": "Bottle gourd",
+    "commodity_hi": "लौकी",
+    "state": "Haryana",
+    "district": "Ambala",
+    "market": "Ambala Cantt.",
+    "min_price": 2000,
+    "max_price": 2800,
+    "modal_price": 2500
+  },
+  {
     "timestamp": "2025-11-22T10:57:24.689Z",
     "commodity": "Apple",
     "commodity_hi": "सेब",

@@ -10,7 +10,7 @@ interface RecommendationRequest {
   max_price: number;
 }
 
-function calculateRecommendation(
+async function calculateRecommendation(
   commodity: string,
   state: string,
   district: string,
@@ -18,7 +18,7 @@ function calculateRecommendation(
   minPrice: number,
   maxPrice: number
 ) {
-  const history = getPriceHistory(state, district, commodity, 30);
+  const history = await getPriceHistory(commodity, state, district, 30);
   
   if (history.length < 3) {
     const volatility = ((maxPrice - minPrice) / currentPrice * 100);
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
   try {
     const data: RecommendationRequest = await request.json();
     
-    const recommendation = calculateRecommendation(
+    const recommendation = await calculateRecommendation(
       data.commodity,
       data.state,
       data.district,

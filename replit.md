@@ -43,12 +43,13 @@ Preferred communication style: Simple, everyday language.
 - The app now displays an informative message when limited data is available, suggesting users try larger districts
 - This is a characteristic of the real government data source, not an application limitation
 
-### Historical Price Tracking (NEW)
-**Strategy**: Stores historical price data locally using JSON files (Node.js filesystem).
-**Implementation**: `/lib/priceHistory.ts` module manages price history storage, retrieval, and trend analysis.
+### Historical Price Tracking (UPDATED November 2025)
+**Strategy**: Hybrid storage system - PostgreSQL database (production) with JSON file fallback (development/backup).
+**Implementation**: `/lib/priceHistory.ts` module manages price history with intelligent storage detection.
 **API Endpoint**: `/api/price-history` provides historical data and AI analysis.
 **Features**:
 - **30-day price history** automatically collected on each price fetch
+- **173 pre-populated JSON files** with historical data committed to git
 - **AI-powered trend analysis** calculating:
   - Price position (percentile in 30-day range)
   - Volatility percentage (market stability indicator)
@@ -59,35 +60,36 @@ Preferred communication style: Simple, everyday language.
   - Market volatility
 - **Automatic data collection**: Every API call saves prices to history
 
-**⚠️ Production Deployment Notes**: 
-The current JSON-based storage works in development (Replit) but is read-only on serverless platforms like Vercel:
-- **Current Behavior**: Price history gracefully fails to save on Vercel but doesn't crash the app
-- **Core Features Work**: Real-time price fetching, UI, and visualizations all work on Vercel
-- **Future Enhancement**: For persistent history on serverless, migrate to:
-  1. PostgreSQL database (e.g., Vercel Postgres, Supabase)
-  2. Create schema: `price_history` table with: id, state, district, commodity, date, min_price, max_price, modal_price, created_at
-  3. Update `/lib/priceHistory.ts` to use database client (e.g., `@vercel/postgres` or `pg`)
-  4. Set up daily cron job or scheduled function to collect prices
+**✅ Production Deployment (Vercel)**: 
+The app now supports **two deployment modes**:
 
-### User Commodity History Tracking (NEW)
-**Strategy**: Tracks commodities that users check, storing interaction history in a JSON file.
-**Implementation**: `/lib/userHistory.ts` module manages user history storage and retrieval.
+**Mode 1: Simple Deployment (No Database)**
+- Charts display historical data from 173 git-committed JSON files
+- Real-time prices fetch perfectly from APMC API
+- New data doesn't persist (Vercel filesystem is read-only)
+- ✅ Perfect for most use cases - no database setup needed!
+
+**Mode 2: Full Persistence (With Database)**
+- Add PostgreSQL database (Vercel Postgres, Neon, Supabase, etc.)
+- Set `DATABASE_URL` or `POSTGRES_URL` environment variable
+- Visit `/api/init-db` to create tables
+- ✅ New prices persist between deployments
+- Falls back to JSON files if database unavailable
+
+**Storage Priority**: Database (if configured) → JSON files (always available)
+
+### User Commodity History Tracking (UPDATED November 2025)
+**Strategy**: Hybrid storage - PostgreSQL database with JSON file fallback.
+**Implementation**: `/lib/userHistory.ts` module with intelligent storage detection.
 **API Endpoint**: `/api/user-history` provides history access and statistics.
 **Features**:
 - **Automatic tracking**: Every commodity detail view is saved to history
-- **Usage statistics**: API provides commodity check frequency and popular items
-- **Last 500 checks**: History is automatically trimmed to keep file size manageable
-- **Data persistence**: History stored in `/data/user-commodity-history.json`
+- **Usage statistics**: Commodity check frequency and popular items
+- **Last 500 checks**: History automatically trimmed in file mode
 
-**⚠️ Production Deployment Notes**:
-The current JSON-based storage works in development (Replit) but is ephemeral on serverless platforms:
-- **Current Behavior**: User history gracefully fails to save on Vercel but doesn't crash the app
-- **Limitation**: History is lost between deployments on stateless hosts
-- **Future Enhancement**: For persistent user history, migrate to:
-  1. PostgreSQL database (e.g., Vercel Postgres, Supabase)
-  2. Create schema: `user_history` table with: id, timestamp, commodity, state, district, market, modal_price, min_price, max_price
-  3. Update `/lib/userHistory.ts` to use database client
-  4. Optional: Add periodic export back to JSON file for repository snapshot
+**Production Behavior**:
+- **With database**: Full persistence of user interaction history
+- **Without database**: Tracking disabled (no persistence on Vercel's read-only filesystem)
 
 ### Data Structure and State Management
 **Configuration**: `/data/states.json` and `/data/translations.json` centralize reference data.

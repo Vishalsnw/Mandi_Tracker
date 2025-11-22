@@ -20,3 +20,5 @@
 [x] 20. Create database initialization endpoint - Added /api/init-db route for table creation
 [x] 21. Create comprehensive database setup documentation - Added DATABASE_SETUP.md with Vercel deployment instructions
 [x] 22. Fix charts not loading on Vercel - Migrated from file-based to database storage for production compatibility
+[x] 23. Create simple deployment guide - Added DEPLOYMENT.md with instructions for deploying without database using git-committed JSON files
+[x] 24. Fix recommend API async/await errors - Updated /api/recommend to properly await getPriceHistory() calls
