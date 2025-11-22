@@ -9,3 +9,6 @@
 [x] 9. Fix price history charts - Corrected HISTORY_DIR path and chart data field mapping
 [x] 10. Install npm dependencies - All Next.js packages installed and app running on port 5000
 [x] 11. Change app name to MandiMitra - Updated all branding from "Mandi Bhav" to "MandiMitra"
+[x] 12. Add WhatsApp icon to share button - Replaced emoji with SVG WhatsApp icon
+[x] 13. Create user commodity history tracking - Added userHistory.ts library and API route to track commodities checked by users
+[x] 14. Verify price history chart displays historical data - Chart fetches and displays 30 days of historical price data
