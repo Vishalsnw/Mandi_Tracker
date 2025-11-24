@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.mandi.tracker",
+    "sha256_cert_fingerprints": [
+      "D0:E9:B6:6B:57:01:A7:EE:3B:2B:43:AE:CF:7A:AE:8F:10:4F:6A:D0:1E:FE:9B:B0:A8:CC:97:2D:F5:89:75:40"
+    ]
+  }
+}]
