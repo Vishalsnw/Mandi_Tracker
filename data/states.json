@@ -1,0 +1,7 @@
+{
+  "Maharashtra": ["Pune", "Nashik", "Nagpur", "Mumbai", "Satara", "Kolhapur", "Solapur"],
+  "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Meerut", "Prayagraj"],
+  "Madhya Pradesh": ["Indore", "Bhopal", "Ujjain", "Gwalior", "Jabalpur"],
+  "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+  "Gujarat": ["Ahmedabad", "Surat", "Rajkot", "Vadodara"]
+}

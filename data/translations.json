@@ -1,0 +1,34 @@
+{
+  "hi": {
+    "app_title": "मंडी मित्र",
+    "tagline": "सटीक और ताज़ा मंडी भाव",
+    "welcome": "नमस्ते! आपका स्वागत है",
+    "welcome_hi": "नमस्ते! आपका स्वागत है",
+    "get_started": "शुरू करें",
+    "select_location": "अपना राज्य और जिला चुनें",
+    "choose_state": "राज्य चुनें",
+    "select_state": "-- राज्य चुनें --",
+    "select_district": "-- जिला चुनें --",
+    "change_location": "स्थान बदलें",
+    "search_placeholder": "फसल / सब्जी खोजें...",
+    "no_data": "कोई मंडी भाव उपलब्ध नहीं है",
+    "modal_price": "औसत भाव",
+    "error": "त्रुटि हुई"
+  },
+  "en": {
+    "app_title": "Mandi Mitra",
+    "tagline": "Accurate & Fresh Mandi Prices",
+    "welcome": "Welcome to Mandi Mitra",
+    "welcome_hi": "Welcome to Mandi Mitra",
+    "get_started": "Get Started",
+    "select_location": "Select your State & District",
+    "choose_state": "Choose State",
+    "select_state": "-- Select State --",
+    "select_district": "-- Select District --",
+    "change_location": "Change Location",
+    "search_placeholder": "Search commodity...",
+    "no_data": "No prices available",
+    "modal_price": "Modal Price",
+    "error": "An error occurred"
+  }
+}
