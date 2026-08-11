@@ -1,59 +1,35 @@
-name: Extract ZIPs on push
+name: Extract & Replace Project Code
 
 on:
-  push: {}
+  workflow_dispatch:
+    inputs:
+      zip_url:
+        description: 'URL or path of the uploaded zip file'
+        required: true
+        default: 'project.zip'
 
 jobs:
-  extract-zips:
-    # अगर last commit message में [skip-extract] है तो workflow नहीं चलेगा — इससे infinite re-trigger रोका जाता है
-    if: ${{ !contains(github.event.head_commit.message || '', '[skip-extract]') }}
+  update-repo:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          # जरूरी है ताकि git push करे सके
-          persist-credentials: true
-          fetch-depth: 0
 
-      - name: Ensure unzip is available
-        run: sudo apt-get update && sudo apt-get install -y unzip
-
-      - name: Find and extract all .zip files
+      - name: Clean existing code (keep .git and .github)
         run: |
-          set -euo pipefail
-          shopt -s globstar nullglob
-          echo "Searching for .zip files..."
-          found_any=false
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '${{ github.event.inputs.zip_url }}' -exec rm -rf {} +
 
-          for zipfile in **/*.zip; do
-            echo "---- Found: $zipfile"
-            # extract into a folder named after the zip (without extension)
-            outdir="${zipfile%.*}"
-            mkdir -p "$outdir"
-            echo "Extracting $zipfile -> $outdir/"
-            unzip -o "$zipfile" -d "$outdir"
-            found_any=true
-          done
-
-          if [ "$found_any" = false ]; then
-            echo "No .zip files found in repo."
-          else
-            echo "Extraction complete. Changes may be staged/committed next."
-          fi
-
-      - name: Commit and push extracted files (if any)
+      - name: Extract new ZIP code
         run: |
-          # only commit if there are changes
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A
-            # commit message contains [skip-extract] so the workflow won't re-run on this commit
-            git commit -m "Auto-extracted ZIP files [skip-extract]" || echo "Nothing to commit"
-            git push origin HEAD
-            echo "Changes pushed."
-          else
-            echo "No changes detected — nothing to commit."
-          fi
+          unzip -o ${{ github.event.inputs.zip_url }} -d .
+
+      - name: Commit and Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Auto update project from ZIP export" || echo "No changes to commit"
+          git push origin main
